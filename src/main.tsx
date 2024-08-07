@@ -6,6 +6,7 @@ import { RootRoute } from "./routes/root";
 import { HomeRoute } from "./routes/home";
 import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
+import { RecipeRoute } from "./routes/recipe";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterRoute />,
+      },
+      {
+        path: "/recipe",
+        element: <RecipeRoute />,
       },
     ],
   },
