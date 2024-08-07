@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
+import { Form } from "react-router-dom";
 
 export function RegisterRoute() {
   useEffect(() => {
@@ -7,18 +9,48 @@ export function RegisterRoute() {
   }, []);
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <h1 className="text-5xl font-bold">Daftar akun baru </h1>
-      <div>
-        <Button asChild className="w-44 h-16 bg-orange-500 mt-10">
-          <a href="/" className="">
-            <p className="text-2xl font-bold">Daftar</p>
-          </a>
-        </Button>
-        <Button asChild className="w-44 h-16 bg-green-500 ml-10">
-          <a href="/login" className="">
-            <p className="text-xl font-bold">Kembali ke login</p>
-          </a>
-        </Button>
+      <div className="ml-10">
+        <h1 className="text-5xl font-bold">Daftar akun baru </h1>
+        <div className="mt-10">
+          <Form method="post">
+            <div>
+              <label htmlFor="username">Username</label>
+              <Input id="username" type="text" placeholder="Username" />
+            </div>
+            <div className="mt-4">
+              <label htmlFor="password">Kata sandi</label>
+              <Input id="password" type="password" placeholder="Kata sandi" />
+            </div>
+            <div className="mt-4">
+              <label htmlFor="password">Ulangi Kata sandi</label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="Ketik ulang kata sandi"
+              />
+            </div>
+            <div className="mt-4">
+              <label htmlFor="email">Email</label>
+              <Input id="email" type="email" placeholder="Email" />
+            </div>
+            <div className="mt-4">
+              <label htmlFor="email">Ulangi Email</label>
+              <Input id="email" type="email" placeholder="Ketik ulang email" />
+            </div>
+            <div>
+              <Button asChild className="w-44 h-16 bg-orange-500 mt-10">
+                <a href="/" className="">
+                  <p className="text-2xl font-bold">Daftar</p>
+                </a>
+              </Button>
+              <Button asChild className="w-44 h-16 bg-green-500 ml-10">
+                <a href="/login" className="">
+                  <p className="text-xl font-bold">Kembali ke login</p>
+                </a>
+              </Button>
+            </div>
+          </Form>
+        </div>
       </div>
     </div>
   );
