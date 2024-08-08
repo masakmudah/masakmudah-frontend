@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
-import { Form } from "react-router-dom";
 
 export function RegisterRoute() {
   useEffect(() => {
@@ -12,7 +11,7 @@ export function RegisterRoute() {
       <div className="ml-10">
         <h1 className="text-5xl font-bold">Daftar akun baru </h1>
         <div className="mt-10">
-          <Form method="post">
+          <form method="post">
             <div>
               <label htmlFor="username">Username</label>
               <Input id="username" type="text" placeholder="Username" />
@@ -49,7 +48,7 @@ export function RegisterRoute() {
                 </a>
               </Button>
             </div>
-          </Form>
+          </form>
         </div>
       </div>
     </div>
