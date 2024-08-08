@@ -10,6 +10,7 @@ import { RecipeRoute } from "./routes/recipe";
 import { DashboardRoute } from "./routes/dashboard";
 import { NewRecipeRoute } from "./routes/new-recipe";
 import { RecipesRoute } from "./routes/recipes";
+import { EditProfileRoute } from "./routes/edit-profile";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashboardRoute />,
+      },
+      {
+        path: "/editprofile",
+        element: <EditProfileRoute />,
       },
       {
         path: "/recipes",
