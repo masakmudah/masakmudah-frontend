@@ -1,9 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Footer } from "@/components/shared/footer";
+import { Header } from "@/components/shared/header";
+import { Outlet, useLocation } from "react-router-dom";
 
 export function RootRoute() {
+  const location = useLocation();
+  const notRoutes = ["/login", "/register"];
   return (
-    <div className="flex flex-col h-screen">
-      <Outlet />
-    </div>
+    <>
+      {!notRoutes.includes(location.pathname) && <Header />}
+      <main className="flex flex-col min-h-screen">
+        <Outlet />
+      </main>
+      {!notRoutes.includes(location.pathname) && <Footer />}
+    </>
   );
 }

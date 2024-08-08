@@ -9,6 +9,7 @@ import { RegisterRoute } from "./routes/register";
 import { RecipeRoute } from "./routes/recipe";
 import { DashboardRoute } from "./routes/dashboard";
 import { NewRecipeRoute } from "./routes/new-recipe";
+import { RecipesRoute } from "./routes/recipes";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashboardRoute />,
+      },
+      {
+        path: "/recipes",
+        element: <RecipesRoute />,
       },
       {
         path: "/recipe",
