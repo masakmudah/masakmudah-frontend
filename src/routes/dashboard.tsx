@@ -35,7 +35,9 @@ export function DashboardRoute() {
           </div>
 
           <div className="ml-4 mt-2">
-            <Button>Edit Profile</Button>
+            <Button asChild className="mt-4">
+              <a href="/editprofile">Edit Profile</a>
+            </Button>
           </div>
         </section>
 

@@ -13,8 +13,8 @@ export function RegisterRoute() {
         <div className="mt-10">
           <form method="post">
             <div>
-              <label htmlFor="username">Username</label>
-              <Input id="username" type="text" placeholder="Username" />
+              <label htmlFor="username">Nama Pengguna</label>
+              <Input id="username" type="text" placeholder="Nama Pengguna" />
             </div>
             <div className="mt-4">
               <label htmlFor="password">Kata sandi</label>

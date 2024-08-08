@@ -10,7 +10,6 @@ export function Header() {
       </h1>
       <nav className="flex justify-center text-center ml-auto ">
         <ul className="flex gap-6 items-center">
-          <li></li>
           <li>
             <a href="/recipes">Resep</a>
           </li>
@@ -34,6 +33,9 @@ export function Header() {
       </div>
 
       <div className="flex ml-auto gap-3 justify-center items-center">
+        <div>
+          <a href="/dashboard">My Profile</a>
+        </div>
         <Button asChild className="w-32 h-9 bg-orange-500">
           <a href="/login" className="">
             <p className="text-2xl font-bold">Masuk</p>

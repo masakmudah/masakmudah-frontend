@@ -2,7 +2,7 @@ import { FaInstagram, FaTiktok } from "react-icons/fa6";
 
 export function Footer() {
   return (
-    <footer className="container mx-auto flex p-5 bg-secondary ">
+    <footer className="flex p-5 bg-secondary ">
       <div className="w-4/4">
         <h1 className="font-bold">Masakmudah</h1>
         <p>
