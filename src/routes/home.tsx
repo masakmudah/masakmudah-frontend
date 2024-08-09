@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 export function HomeRoute() {
+  useEffect(() => {
+    document.title = "Masakmudah";
+  }, []);
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <h1 className="text-5xl font-bold">
@@ -11,7 +15,6 @@ export function HomeRoute() {
         className="w-40 h-16 hover:bg-orange-500 bg-gray-800 mt-16"
       >
         <a href="/" className="">
-          {" "}
           <p className="text-4xl font-bold">Cari</p>
           <img
             src="/images/logo-masakmudah.png"

@@ -14,7 +14,7 @@ export function Header() {
             <a href="/recipes">Resep</a>
           </li>
           <li>
-            <a href="/">Tips&Tricks</a>
+            <a href="">Tips&Tricks</a>
           </li>
         </ul>
       </nav>
@@ -34,7 +34,7 @@ export function Header() {
 
       <div className="flex ml-auto gap-3 justify-center items-center">
         <div>
-          <a href="/dashboard">My Profile</a>
+          <a href="/:accounts.username">My Profile</a>
         </div>
         <Button asChild className="w-32 h-9 bg-orange-500">
           <a href="/login" className="">

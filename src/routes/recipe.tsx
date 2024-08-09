@@ -11,7 +11,7 @@ import { useEffect } from "react";
 
 export function RecipeRoute() {
   useEffect(() => {
-    document.title = "${user.name} - Masakmudah";
+    document.title = "Recipe.slug - Masakmudah";
   }, []);
   return (
     <div className="flex flex-col justify-center items-center h-screen">

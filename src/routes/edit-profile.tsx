@@ -7,8 +7,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useEffect } from "react";
 
 export function EditProfileRoute() {
+  useEffect(() => {
+    document.title = "Edit Profile - Masakmudah";
+  }, []);
   return (
     <main className="flex justify-center">
       <div className="mt-10">
@@ -66,12 +70,12 @@ export function EditProfileRoute() {
 
             <div>
               <Button asChild className="w-44 h-16 bg-orange-500 mt-10">
-                <a href="/dashboard" className="">
+                <a href="/:accounts.username" className="">
                   <p className="text-2xl font-bold">Simpan</p>
                 </a>
               </Button>
               <Button asChild className="w-44 h-16 bg-green-500 ml-10">
-                <a href="/dashboard" className="">
+                <a href="/:accounts.username" className="">
                   <p className="text-xl font-bold">Cancel</p>
                 </a>
               </Button>

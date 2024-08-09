@@ -22,19 +22,11 @@ const router = createBrowserRouter([
         element: <HomeRoute />,
       },
       {
-        path: "/login",
-        element: <LoginRoute />,
-      },
-      {
-        path: "/register",
-        element: <RegisterRoute />,
-      },
-      {
-        path: "/dashboard",
+        path: "/:accounts.username",
         element: <DashboardRoute />,
       },
       {
-        path: "/editprofile",
+        path: "/accounts/edit",
         element: <EditProfileRoute />,
       },
       {
@@ -42,14 +34,22 @@ const router = createBrowserRouter([
         element: <RecipesRoute />,
       },
       {
-        path: "/recipe",
+        path: "/recipes/:slug",
         element: <RecipeRoute />,
       },
       {
-        path: "/recipe/new",
+        path: "/recipes/new",
         element: <NewRecipeRoute />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <LoginRoute />,
+  },
+  {
+    path: "/register",
+    element: <RegisterRoute />,
   },
 ]);
 

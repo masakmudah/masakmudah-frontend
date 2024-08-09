@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export function RegisterRoute() {
   useEffect(() => {
-    document.title = "Daftar Masakmudah";
+    document.title = "Daftar - Masakmudah";
   }, []);
   return (
     <div className="flex flex-col justify-center items-center h-screen">

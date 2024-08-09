@@ -1,20 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, ImageUp } from "lucide-react";
+import { useEffect } from "react";
 
 export function NewRecipeRoute() {
+  useEffect(() => {
+    document.title = "Buat Resep - Masakmudah";
+  }, []);
   return (
     <main className="flex justify-center items-center h-screen">
       <div className="w-full max-w-4xl px-4">
         <div className="flex justify-between items-center mb-4">
           <Button asChild>
-            <a href="/dashboard" className="flex items-center">
+            <a href="/:accounts.username" className="flex items-center">
               <ArrowLeft />
               <p className="ml-2">Kembali</p>
             </a>
           </Button>
           <Button asChild>
-            <a href="/recipe">
+            <a href="/:accounts.username">
               <p>Simpan</p>
             </a>
           </Button>

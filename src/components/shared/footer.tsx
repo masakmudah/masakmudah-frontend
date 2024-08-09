@@ -26,10 +26,10 @@ export function Footer() {
       </div>
       <div className="w-1/4">
         <h1 className="font-bold">Bantuan</h1>
-        <a href="/contact" className="flex">
+        <a href="/contacts" className="flex">
           Hubungi kami
         </a>
-        <a href="/report" className="flex">
+        <a href="/reports" className="flex">
           Lapor resep berbahaya
         </a>
         <a href="/faq" className="flex">

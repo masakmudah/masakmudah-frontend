@@ -1,8 +1,12 @@
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useEffect } from "react";
 
 export function DashboardRoute() {
+  useEffect(() => {
+    document.title = "Username - Masakmudah";
+  }, []);
   return (
     <main className="flex justify-center">
       <div className="mt-20 ">
@@ -36,7 +40,7 @@ export function DashboardRoute() {
 
           <div className="ml-4 mt-2">
             <Button asChild className="mt-4">
-              <a href="/editprofile">Edit Profile</a>
+              <a href="/accounts/edit">Edit Profile</a>
             </Button>
           </div>
         </section>
@@ -54,7 +58,7 @@ export function DashboardRoute() {
         <section className="text-center">
           <p>Belum punya resep</p>
           <Button asChild className="mt-4">
-            <a href="/recipe/new">Tambah resep baru</a>
+            <a href="/recipes/new">Tambah resep baru</a>
           </Button>
         </section>
       </div>
