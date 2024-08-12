@@ -1,56 +1,39 @@
-import { FaInstagram, FaTiktok } from "react-icons/fa6";
+import Container from "../ui/container";
 
-export function Footer() {
+export const Footer = () => {
   return (
-    <footer className="flex p-5 bg-secondary ">
-      <div className="w-4/4">
-        <h1 className="font-bold">Masakmudah</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus,
-          voluptatum maiores molestias iusto blanditiis pariatur cumque tempore
-          ducimus, dolores ullam labore velit fugiat aliquid sit quisquam
-          voluptatibus corporis eligendi. Fugiat.
-        </p>
-      </div>
-      <div className="w-1/4">
-        <h1 className="font-bold">Sitemap</h1>
-        <a href="/" className="flex">
-          Beranda
-        </a>
-        <a href="/recipes" className="flex">
-          Semua Resep
-        </a>
-        <a href="/about" className="flex">
-          Tentang Kami
-        </a>
-      </div>
-      <div className="w-1/4">
-        <h1 className="font-bold">Bantuan</h1>
-        <a href="/contact" className="flex">
-          Hubungi kami
-        </a>
-        <a href="/report" className="flex">
-          Lapor resep berbahaya
-        </a>
-        <a href="/faq" className="flex">
-          FAQ
-        </a>
-      </div>
-      <div className="w-1/4">
-        <h1 className="font-bold">Sosial Media</h1>
-        <div>
-          <a href="" className="flex">
-            <FaInstagram className=" mr-1" />
+    <footer className=" bg-[#1C2625] text-white font-raleway">
+      <Container className="flex justify-between">
+        <div className="space-y-2 max-w-xl">
+          <h1 className="text-2xl font-clashDisplaySemibold">Masakmudah</h1>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi quis
+            quia ullam veniam aperiam error odio velit accusamus necessitatibus
+            quod!
+          </p>
+        </div>
+        <div className="flex gap-x-16">
+          <div className="space-y-2">
+            <h3 className="font-bold mb-4 font-clashDisplayMedium">Sitemap</h3>
+            <p>Home</p>
+            <p>Semua resep</p>
+            <p>Tentang</p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-bold mb-4 font-clashDisplayMedium">Bantuan</h3>
+            <p>Kontak</p>
+            <p>Lapor resep berbahaya</p>
+            <p>Tentang</p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-bold mb-4 font-clashDisplayMedium">
+              Sosial media
+            </h3>
             <p>Instagram</p>
-          </a>
+            <p>TikTok</p>
+          </div>
         </div>
-        <div>
-          <a href="" className="flex">
-            <FaTiktok className=" mr-1" />
-            Tiktok
-          </a>
-        </div>
-      </div>
+      </Container>
     </footer>
   );
-}
+};

@@ -1,51 +1,38 @@
-import { Search } from "lucide-react";
+import { navigationMenu } from "@/constant/navigation-menu";
+import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-
 export function Header() {
   return (
-    <header className="sticky p-2 top-0 flex items-center gap-4 border-b bg-background px-4 md:px-6">
-      <h1>
-        <a href="/">Masakmudah</a>
-      </h1>
-      <nav className="flex justify-center text-center ml-auto ">
-        <ul className="flex gap-6 items-center">
-          <li>
-            <a href="/recipes">Resep</a>
-          </li>
-          <li>
-            <a href="/">Tips&Tricks</a>
-          </li>
-        </ul>
-      </nav>
-
-      <div className="flex items-center ml-auto">
-        <form className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search products..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-            />
+    <header className="h-20 w-full flex items-center justify-center bg-[#E6FDB0] text-[#202633]">
+      <div className=" max-w-screen-xl w-full flex items-center justify-between px-8">
+        <div id="left-side" className="flex items-center gap-x-20">
+          <div className="flex items-center gap-x-2">
+            <h1 className="text-xl font-clashDisplaySemibold">Masakmudah</h1>
           </div>
-        </form>
-      </div>
-
-      <div className="flex ml-auto gap-3 justify-center items-center">
-        <div>
-          <a href="/dashboard">My Profile</a>
+          <nav>
+            <ul className="flex items-center gap-x-4">
+              {navigationMenu.map((menu) => (
+                <li key={menu.href}>
+                  <Link to={menu.href} className="font-clashDisplayMedium">
+                    {menu.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-        <Button asChild className="w-32 h-9 bg-orange-500">
-          <a href="/login" className="">
-            <p className="text-2xl font-bold">Masuk</p>
-          </a>
-        </Button>
-        <Button asChild className="w-32 h-9 bg-green-500">
-          <a href="/register" className="">
-            <p className="text-xl font-bold">Daftar</p>
-          </a>
-        </Button>
+        <div id="right-side" className="flex items-center gap-x-10">
+          <Input
+            placeholder="Cari resep"
+            className="pl-6 bg-white rounded-3xl focus-visible:ring-0 focus-visible:ring-offset-0 border-2 w-96"
+          />
+          <Link
+            to="/login"
+            className="px-8 py-2 bg-[#FF5D47] rounded-3xl font-raleway text-white"
+          >
+            Login
+          </Link>
+        </div>
       </div>
     </header>
   );
