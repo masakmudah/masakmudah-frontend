@@ -2,6 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "ClashDisplay-Regular";
+  src: local("ClashDisplay-Regular"),
+    url("./assets/fonts/ClashDisplay/ClashDisplay-Regular.otf")
+      format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ClashDisplay-Medium";
+  src: local("ClashDisplay-Medium"),
+    url("./assets/fonts/ClashDisplay/ClashDisplay-Medium.otf")
+      format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ClashDisplay-Semibold";
+  src: local("ClashDisplay-Semibold"),
+    url("./assets/fonts/ClashDisplay/ClashDisplay-Semibold.otf")
+      format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ClashDisplay-Bold";
+  src: local("ClashDisplay-Bold"),
+    url("./assets/fonts/ClashDisplay/ClashDisplay-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
