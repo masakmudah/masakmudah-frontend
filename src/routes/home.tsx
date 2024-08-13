@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export function HomeRoute() {
   return (
-    <div className="font-clashDisplayRegular ">
+    <div className="font-clashDisplayRegular bg-">
       <section id="hero-section" className="bg-[#E6FDB0]">
         <Container className="grid grid-cols-2">
           <div className="space-y-16 ">
