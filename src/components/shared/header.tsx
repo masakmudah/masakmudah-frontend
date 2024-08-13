@@ -1,14 +1,19 @@
 import { navigationMenu } from "@/constant/navigation-menu";
 import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
-export function Header() {
+
+interface HeaderProps {
+  className?: string;
+}
+
+export function Header({ className }: HeaderProps) {
   return (
-    <header className="h-20 w-full flex items-center justify-center bg-[#E6FDB0] text-[#202633]">
+    <header className="h-20 w-full flex items-center justify-center text-[#202633]">
       <div className=" max-w-screen-xl w-full flex items-center justify-between px-8">
         <div id="left-side" className="flex items-center gap-x-20">
-          <div className="flex items-center gap-x-2">
+          <Link to="/" className="flex items-center gap-x-2">
             <h1 className="text-xl font-clashDisplaySemibold">Masakmudah</h1>
-          </div>
+          </Link>
           <nav>
             <ul className="flex items-center gap-x-4">
               {navigationMenu.map((menu) => (
