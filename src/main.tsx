@@ -9,10 +9,14 @@ import { RegisterRoute } from "./routes/register";
 import { RecipeRoute } from "./routes/recipe";
 import { DashboardRoute } from "./routes/dashboard";
 import { NewRecipeRoute } from "./routes/new-recipe";
-import { RecipesRoute } from "./routes/recipes";
+import { RecipesRoute, loader as recipesLoader } from "./routes/recipes";
 import { EditProfileRoute } from "./routes/edit-profile";
 import ErrorPage from "./routes/error-page";
-import { RecipesDetails } from "./routes/recipes-details";
+import {
+  RecipesDetails,
+  loader as recipeDetailsLoader,
+} from "./routes/recipes-details";
+import RecipeNotFound from "./routes/recipe-not-found";
 
 const router = createBrowserRouter([
   {
@@ -44,11 +48,16 @@ const router = createBrowserRouter([
       {
         path: "/recipes",
         element: <RecipesRoute />,
+        loader: recipesLoader,
       },
       {
         path: "/recipes/:recipesId",
         element: <RecipesDetails />,
+        loader: ({ params }) =>
+          recipeDetailsLoader(params.recipesId || "unknownid"),
+        errorElement: <RecipeNotFound />,
       },
+
       {
         path: "/recipe",
         element: <RecipeRoute />,
