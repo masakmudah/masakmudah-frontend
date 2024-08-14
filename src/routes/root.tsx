@@ -5,6 +5,7 @@ import { Outlet, useLocation } from "react-router-dom";
 export function RootRoute() {
   const location = useLocation();
   const notRoutes = ["/login", "/register"];
+
   return (
     <>
       {!notRoutes.includes(location.pathname) && <Header />}
