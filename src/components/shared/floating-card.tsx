@@ -12,10 +12,10 @@ const FloatingCard: React.FC<FloatingCardProps> = ({ className }) => {
         className
       )}
     >
-      <img src="/images/chicken-roasted.png" className="w-32" />
-      <div>
-        <h1 className="text-xl font-clashDisplayMedium">Soto ayam</h1>
-        <p className="text-sm font-raleway text-center">Cita rasa solo</p>
+      <img src="/images/rendang.png" className="w-32" />
+      <div className="flex justify-center flex-col items-center">
+        <h1 className="text-xl font-clashDisplayMedium">Rendang</h1>
+        <p className="text-sm font-raleway text-center">Cita rasa padang</p>
       </div>
       <p className="text-[#FF5D47] font-clashDisplayMedium">15 Menit</p>
     </div>
