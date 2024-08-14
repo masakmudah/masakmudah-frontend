@@ -1,10 +1,22 @@
+import { getCategories } from "@/api/category";
 import FloatingCard from "@/components/shared/floating-card";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { ArrowUp } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function loader() {
+  const categories = await getCategories();
+
+  return { categories };
+}
 
 export function HomeRoute() {
+  const categories = useLoaderData();
+
+  console.log(categories);
+
   return (
     <div className="font-clashDisplayRegular bg-">
       <section id="hero-section" className="bg-[#E6FDB0]">

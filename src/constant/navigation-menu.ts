@@ -1,7 +1,7 @@
 export const navigationMenu = [
   {
     label: "Resep",
-    href: "/recipe",
+    href: "/recipes",
   },
   {
     label: "Cerita Masakan",
