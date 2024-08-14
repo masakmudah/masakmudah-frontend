@@ -1,7 +1,7 @@
 import { useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
-  const error = useRouteError();
+  const error = useRouteError() as { statusText?: string; message?: string };
 
   return (
     <div className="min-h-screen flex items-center justify-center flex-col gap-y-8">
