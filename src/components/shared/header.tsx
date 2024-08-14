@@ -2,11 +2,7 @@ import { navigationMenu } from "@/constant/navigation-menu";
 import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
 
-interface HeaderProps {
-  className?: string;
-}
-
-export function Header({ className }: HeaderProps) {
+export function Header() {
   return (
     <header className="h-20 w-full flex items-center justify-center text-[#202633]">
       <div className=" max-w-screen-xl w-full flex items-center justify-between px-8">
