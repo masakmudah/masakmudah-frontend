@@ -1,12 +1,26 @@
+import { getRecipes } from "@/api/recipe";
 import FloatingCard from "@/components/shared/floating-card";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
+import { Recipe } from "@/types/recipe";
 import { ArrowUp } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function loader() {
+  const data = await getRecipes();
+  const recipes = data.data;
+
+  return { recipes };
+}
 
 export function HomeRoute() {
+  const { recipes } = useLoaderData() as { recipes: Recipe[] };
+
+  console.log("From Home Page", recipes);
+
   return (
-    <div className="font-clashDisplayRegular ">
+    <div className="font-clashDisplayRegular bg-">
       <section id="hero-section" className="bg-[#E6FDB0]">
         <Container className="grid grid-cols-2">
           <div className="space-y-16 ">
@@ -23,7 +37,7 @@ export function HomeRoute() {
             <div className="flex gap-x-4 font-raleway">
               <Link
                 className="px-8 py-3 bg-[#FF5D47] text-white rounded-3xl flex gap-x-2 items-center group"
-                to="/"
+                to="/recipes"
               >
                 Cari resep
                 <ArrowUp className="rotate-45 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
@@ -38,11 +52,13 @@ export function HomeRoute() {
             </div>
 
             <p className="font-raleway">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut sed
-              cupiditate asperiores consequatur non possimus delectus atque
-              natus, quia distinctio aliquid libero, numquam nisi maiores quidem
-              sapiente eius dignissimos tempora. Fuga voluptate quia impedit,
-              culpa dolorum corrupti nam natus nulla.
+              Selamat datang di situs kami! Di sini, Anda bisa menemukan
+              berbagai resep makanan yang tidak hanya lezat, tetapi juga mudah
+              untuk dibuat. Apakah Anda sedang mencari inspirasi untuk masakan
+              sehari-hari atau ingin mencoba hidangan istimewa untuk acara
+              tertentu? Kami punya semuanya! Bergabunglah dengan komunitas kami
+              dan eksplorasi berbagai resep yang akan memanjakan lidah Anda.
+              Mari kita masak bersama dan ciptakan momen-momen spesial di dapur!
             </p>
           </div>
           <div className="relative">
@@ -74,97 +90,40 @@ export function HomeRoute() {
               <h1 className="text-white">Seafood</h1>
             </Button>
           </div>
-          <div className="flex gap-x-4 font-raleway">
-            <div className="bg-[#F7FEE7] w-80 rounded-3xl flex gap-y-8 flex-col items-center py-8">
-              <div className="flex flex-col items-center">
-                <img
-                  src="/images/chicken-roasted.png"
-                  className="w-64"
-                  alt=""
-                />
-                <div className="flex flex-col items-center px-8 gap-y-4">
-                  <h2 className="text-2xl font-clashDisplaySemibold">
-                    Mie ayam
-                  </h2>
-                  <p className="text-center">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Placeat, suscipit.
-                  </p>
-                </div>
-              </div>
-              <h1 className="text-2xl text-[#FF5D47] font-clashDisplayMedium">
-                15 Menit
-              </h1>
-            </div>
-            <div className="bg-[#F7FEE7] w-80 rounded-3xl flex gap-y-8 flex-col items-center py-8">
-              <div className="flex flex-col items-center">
-                <img
-                  src="/images/chicken-roasted.png"
-                  className="w-64"
-                  alt=""
-                />
-                <div className="flex flex-col items-center px-8 gap-y-4">
-                  <h2 className="text-2xl font-clashDisplaySemibold">
-                    Mie ayam
-                  </h2>
-                  <p className="text-center">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Placeat, suscipit.
-                  </p>
-                </div>
-              </div>
-              <h1 className="text-2xl text-[#FF5D47] font-clashDisplayMedium">
-                15 Menit
-              </h1>
-            </div>
-            <div className="bg-[#F7FEE7] w-80 rounded-3xl flex gap-y-8 flex-col items-center py-8">
-              <div className="flex flex-col items-center">
-                <img
-                  src="/images/chicken-roasted.png"
-                  className="w-64"
-                  alt=""
-                />
-                <div className="flex flex-col items-center px-8 gap-y-4">
-                  <h2 className="text-2xl font-clashDisplaySemibold">
-                    Mie ayam
-                  </h2>
-                  <p className="text-center">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Placeat, suscipit.
-                  </p>
-                </div>
-              </div>
-              <h1 className="text-2xl text-[#FF5D47] font-clashDisplayMedium">
-                15 Menit
-              </h1>
-            </div>
-            <div className="bg-[#F7FEE7] w-80 rounded-3xl flex gap-y-8 flex-col items-center py-8">
-              <div className="flex flex-col items-center">
-                <img
-                  src="/images/chicken-roasted.png"
-                  className="w-64"
-                  alt=""
-                />
-                <div className="flex flex-col items-center px-8 gap-y-4">
-                  <h2 className="text-2xl font-clashDisplaySemibold">
-                    Mie ayam
-                  </h2>
-                  <p className="text-center">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Placeat, suscipit.
-                  </p>
-                </div>
-              </div>
-              <h1 className="text-2xl text-[#FF5D47] font-clashDisplayMedium">
-                15 Menit
-              </h1>
-            </div>
-          </div>
+          <ul className="grid grid-cols-4 gap-x-4 font-raleway">
+            {recipes.slice(0, 4).map((recipe) => (
+              <li key={recipe.id}>
+                <Link
+                  to={`/recipes/${recipe.slug}`}
+                  className="bg-[#F7FEE7] rounded-3xl flex flex-col gap-y-8 items-center py-8 h-full hover:scale-[.994] transition-transform duration-300 active:scale-[.98]"
+                >
+                  <div className="flex flex-col items-center gap-y-8 flex-grow">
+                    <img
+                      src={recipe.imageURL}
+                      className="w-56 h-56 object-cover rounded-xl"
+                      alt=""
+                    />
+                    <div className="flex flex-col items-center px-8 gap-y-4 ">
+                      <h2 className="text-2xl font-clashDisplaySemibold">
+                        {recipe.recipe}
+                      </h2>
+                      <p className="text-center">{recipe.description}</p>
+                    </div>
+                  </div>
+                  <h1 className="text-2xl text-[#FF5D47] font-clashDisplayMedium">
+                    {recipe.duration}
+                  </h1>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
       <section className="bg-[#F7FEE7]">
-        <Container className="space-y-6">
-          <h1 className="text-3xl font-bold">Apa yang banyak disukai</h1>
+        <Container className="space-y-16">
+          <h1 className="text-4xl font-clashDisplaySemibold text-center">
+            Apa yang banyak disukai
+          </h1>
           <div className="grid grid-cols-3 gap-x-5">
             <div className="bg-[#FF5D47] flex flex-col items-center gap-y-6 rounded-[2.5rem] px-8 pt-8 pb-20 text-white">
               <img
@@ -172,10 +131,10 @@ export function HomeRoute() {
                 alt="card-image"
                 className="object-cover"
               />
-              <h1 className="text-2xl">Mi goreng</h1>
+              <h1 className="text-2xl">Ayam Bakar Paprika</h1>
               <p className="text-center font-raleway">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Architecto, facilis?
+                Ayam bakar yang juicy dengan bumbu paprika yang pedas dan
+                aromatik.
               </p>
               <Link
                 to="/"
@@ -188,11 +147,10 @@ export function HomeRoute() {
               <div className="absolute h-full w-full bg-black/70 z-10" />
               <h1 className="text-3xl z-20">5000+ resep</h1>
               <p className="z-20 text-center font-raleway">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque
-                aliquam repellendus qui aut autem inventore cupiditate
-                distinctio expedita placeat dolorem, accusantium dolores
-                necessitatibus sapiente accusamus. Animi corrupti laborum
-                debitis optio!
+                Temukan berbagai resep lezat yang mudah diikuti, mulai dari
+                masakan sehari-hari hingga hidangan istimewa untuk acara
+                spesial. Dapatkan inspirasi untuk memasak dan nikmati pengalaman
+                kuliner yang tak terlupakan!
               </p>
             </div>
             <div className="bg-[#1C2625] rounded-[2.5rem] flex flex-col justify-center items-center space-y-8 py-8 px-6">

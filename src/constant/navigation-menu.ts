@@ -1,7 +1,7 @@
 export const navigationMenu = [
   {
     label: "Resep",
-    href: "/recipe",
+    href: "/recipes",
   },
   {
     label: "Cerita Masakan",
@@ -10,5 +10,20 @@ export const navigationMenu = [
   {
     label: "Juara Masakan",
     href: "/juara-masakan",
+  },
+];
+
+export const socialMediaIcons = [
+  {
+    icon: "/images/social-media/facebook.svg",
+    href: "https://www.facebook.com/",
+  },
+  {
+    icon: "/images/social-media/instagram.svg",
+    href: "https://www.instagram.com/",
+  },
+  {
+    icon: "/images/social-media/twitter.svg",
+    href: "https://www.twitter.com/",
   },
 ];
