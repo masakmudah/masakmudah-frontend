@@ -38,13 +38,7 @@ export function LoginRoute() {
                 </a>
               </Button>
             </div>
-            <div className="mt-2">
-              <a href="/login">
-                <p className="text-center text-blue-600 font-bold">
-                  Lupa kata sandi?
-                </p>
-              </a>
-            </div>
+
             <Separator className="my-4" />
             <div className="flex justify-center">
               <Button asChild className="w-44 h-10 bg-green-500">
