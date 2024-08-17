@@ -5,7 +5,7 @@ import { Link, useLoaderData } from "react-router-dom";
 export async function loader() {
   const data = await getRecipes();
   const recipes = data.data;
-
+  console.log(recipes);
   return { recipes };
 }
 
