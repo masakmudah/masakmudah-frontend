@@ -1,6 +1,6 @@
 import { Footer } from "@/components/shared/footer";
 import { Header } from "@/components/shared/header";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 
 export function RootRoute() {
   const location = useLocation();
@@ -10,6 +10,7 @@ export function RootRoute() {
     <>
       {!notRoutes.includes(location.pathname) && <Header />}
       <main className="flex flex-col min-h-screen bg-[#FDFFF7]">
+        <ScrollRestoration />
         <Outlet />
       </main>
       {!notRoutes.includes(location.pathname) && <Footer />}
