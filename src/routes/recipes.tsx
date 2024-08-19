@@ -5,7 +5,6 @@ import { Link, useLoaderData } from "react-router-dom";
 export async function loader() {
   const data = await getRecipes();
   const recipes = data.data;
-
   return { recipes };
 }
 
@@ -36,7 +35,7 @@ export function RecipesRoute() {
               <div className="flex flex-col justify-between  font-raleway text-white">
                 <div className="space-y-3">
                   <h1 className="text-2xl font-clashDisplayMedium">
-                    {recipe.recipe}
+                    {recipe.name}
                   </h1>
                   <p>{recipe.description}</p>
                 </div>
@@ -49,7 +48,9 @@ export function RecipesRoute() {
                       className="w-12 h-12 rounded-full"
                     />
                     <div className="space-y-1">
-                      <h4 className="font-clashDisplayMedium">Novia Filas</h4>
+                      <h4 className="font-clashDisplayMedium">
+                        {recipe.user.fullname}
+                      </h4>
                       <p className="text-slate-400 font-raleway">
                         Memasak adalah koentji
                       </p>

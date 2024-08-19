@@ -17,8 +17,6 @@ export async function loader() {
 export function HomeRoute() {
   const { recipes } = useLoaderData() as { recipes: Recipe[] };
 
-  console.log("From Home Page", recipes);
-
   return (
     <div className="font-clashDisplayRegular bg-">
       <section id="hero-section" className="bg-[#E6FDB0]">

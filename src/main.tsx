@@ -8,7 +8,6 @@ import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
 import { RecipeRoute } from "./routes/recipe";
 import { DashboardRoute } from "./routes/dashboard";
-import { NewRecipeRoute } from "./routes/new-recipe";
 import { RecipesRoute, loader as recipesLoader } from "./routes/recipes";
 import { EditProfileRoute } from "./routes/edit-profile";
 import ErrorPage from "./routes/error-page";
@@ -61,10 +60,6 @@ const router = createBrowserRouter([
       {
         path: "/recipe",
         element: <RecipeRoute />,
-      },
-      {
-        path: "/recipe/new",
-        element: <NewRecipeRoute />,
       },
     ],
   },

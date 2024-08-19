@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Container from "../ui/container";
 
 export const Footer = () => {
@@ -7,15 +8,14 @@ export const Footer = () => {
         <div className="space-y-2 max-w-xl">
           <h1 className="text-2xl font-clashDisplaySemibold">Masakmudah</h1>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi quis
-            quia ullam veniam aperiam error odio velit accusamus necessitatibus
-            quod!
+            Temukan berbagai resep dan buat masakan dengan mudah hanya di
+            Masakmudah
           </p>
         </div>
         <div className="flex gap-x-16">
           <div className="space-y-2">
             <h3 className="font-bold mb-4 font-clashDisplayMedium">Sitemap</h3>
-            <p>Home</p>
+            <Link to="/">Home</Link>
             <p>Semua resep</p>
             <p>Tentang</p>
           </div>
