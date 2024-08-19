@@ -16,14 +16,18 @@ export const navigationMenu = [
 export const socialMediaIcons = [
   {
     icon: "/images/social-media/facebook.svg",
-    href: "https://www.facebook.com/",
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      window.location.href
+    )}`,
   },
+  // {
+  //   icon: "/images/social-media/instagram.svg",
+  //   href: "https://www.instagram.com/",
+  // },
   {
-    icon: "/images/social-media/instagram.svg",
-    href: "https://www.instagram.com/",
-  },
-  {
-    icon: "/images/social-media/twitter.svg",
-    href: "https://www.twitter.com/",
+    icon: "/images/social-media/x.svg",
+    href: `https://x.com/intent/tweet?url=${encodeURIComponent(
+      window.location.href
+    )}`,
   },
 ];
