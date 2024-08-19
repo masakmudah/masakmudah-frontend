@@ -31,9 +31,9 @@ export function RecipesDetails() {
                   key={ingredient.id}
                   className="flex justify-between items-center"
                 >
-                  <span>{ingredient.ingredient}</span>
+                  <span>{ingredient.name}</span>
                   <span>
-                    {ingredient.count} {ingredient.measure}
+                    {ingredient.quantity} {ingredient.measurement}
                   </span>
                 </li>
               ))}
@@ -43,7 +43,7 @@ export function RecipesDetails() {
         <aside className="space-y-8 font-clashDisplayRegular w-full">
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-clashDisplaySemibold">
-              {recipe.recipe}
+              {recipe.name}
             </h1>
             <p>{recipe.duration}</p>
           </div>
@@ -75,7 +75,9 @@ export function RecipesDetails() {
                   className="w-12 h-12 rounded-full"
                 />
                 <div className="space-y-1">
-                  <h4 className="font-clashDisplayMedium">Novia Filas</h4>
+                  <h4 className="font-clashDisplayMedium">
+                    {recipe.user.fullname}
+                  </h4>
                   <p className="text-slate-400 font-raleway">
                     Memasak adalah koentji
                   </p>
@@ -88,7 +90,7 @@ export function RecipesDetails() {
           <ul className="space-y-2 font-raleway">
             {recipe.instructions.map((instruction) => (
               <li key={instruction.id}>
-                {instruction.sequence}. {instruction.instruction}
+                {instruction.sequence}. {instruction.text}
               </li>
             ))}
           </ul>
