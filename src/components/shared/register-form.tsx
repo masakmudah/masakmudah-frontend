@@ -134,7 +134,10 @@ const RegisterForm = () => {
             )}
           />
         </div>
-        <Button className="w-full rounded-3xl font-clashDisplayMedium bg-gradient-to-b from-white to-[#1C2625] from-[-150%]">
+        <Button
+          disabled={form.formState.isSubmitting}
+          className="w-full rounded-3xl font-clashDisplayMedium bg-gradient-to-b from-white to-[#1C2625] from-[-150%]"
+        >
           Daftar
         </Button>
       </form>
