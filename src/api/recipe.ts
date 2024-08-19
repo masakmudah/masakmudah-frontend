@@ -16,7 +16,7 @@ export const getRecipe = async (slug: string) => {
   }
 };
 
-export const getRecipes = async (search: string | null) => {
+export const getRecipes = async (search?: string | null) => {
   try {
     const url = new URL(`${import.meta.env.VITE_API_URL}/recipes`);
     if (search) {
