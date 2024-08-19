@@ -10,7 +10,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { registerSchema } from "@/lib/zod-schema";
+import { registerSchema } from "@/libs/zod-schema";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 

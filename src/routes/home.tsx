@@ -103,7 +103,7 @@ export function HomeRoute() {
                     />
                     <div className="flex flex-col items-center px-8 gap-y-4 ">
                       <h2 className="text-2xl font-clashDisplaySemibold">
-                        {recipe.recipe}
+                        {recipe.name}
                       </h2>
                       <p className="text-center">{recipe.description}</p>
                     </div>
