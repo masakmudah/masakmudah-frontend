@@ -21,9 +21,9 @@ export function RegisterRoute() {
               <Input id="password" type="password" placeholder="Kata sandi" />
             </div>
             <div className="mt-4">
-              <label htmlFor="password">Ulangi Kata sandi</label>
+              <label htmlFor="re-password">Ulangi Kata sandi</label>
               <Input
-                id="password"
+                id="re-password"
                 type="password"
                 placeholder="Ketik ulang kata sandi"
               />
@@ -33,8 +33,12 @@ export function RegisterRoute() {
               <Input id="email" type="email" placeholder="Email" />
             </div>
             <div className="mt-4">
-              <label htmlFor="email">Ulangi Email</label>
-              <Input id="email" type="email" placeholder="Ketik ulang email" />
+              <label htmlFor="re-email">Ulangi Email</label>
+              <Input
+                id="re-email"
+                type="email"
+                placeholder="Ketik ulang email"
+              />
             </div>
             <div>
               <Button asChild className="w-44 h-16 bg-orange-500 mt-10">

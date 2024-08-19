@@ -16,6 +16,7 @@ import {
   loader as recipeDetailsLoader,
 } from "./routes/recipes-details";
 import RecipeNotFound from "./routes/recipe-not-found";
+import { CreateRecipeRoute } from "./routes/create-recipe";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,8 @@ const router = createBrowserRouter([
         element: <RecipesRoute />,
         loader: recipesLoader,
       },
+
+      // I think this is a duplication. Maybe we can fix it?
       {
         path: "/recipes/:recipesId",
         element: <RecipesDetails />,
@@ -56,10 +59,15 @@ const router = createBrowserRouter([
           recipeDetailsLoader(params.recipesId || "unknownid"),
         errorElement: <RecipeNotFound />,
       },
-
       {
         path: "/recipe",
         element: <RecipeRoute />,
+      },
+      //
+
+      {
+        path: "/resep/tulis",
+        element: <CreateRecipeRoute />,
       },
     ],
   },

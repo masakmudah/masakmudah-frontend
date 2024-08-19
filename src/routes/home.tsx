@@ -42,7 +42,7 @@ export function HomeRoute() {
               </Link>
               <Link
                 className="px-8 py-3 bg-[#192322] text-white rounded-3xl flex gap-x-2 items-center group"
-                to="/"
+                to="/recipes/create"
               >
                 Buat resep
                 <ArrowUp className="rotate-45 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />

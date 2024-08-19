@@ -9,8 +9,10 @@ export function RootRoute() {
   return (
     <>
       {!notRoutes.includes(location.pathname) && <Header />}
-      <main className="flex flex-col min-h-screen bg-[#FDFFF7]">
-        <Outlet />
+      <main className="flex min-h-screen flex-col bg-[#E6FDB0] p-4 sm:p-6 md:p-8 lg:p-10">
+        <div className="container mx-auto flex-1">
+          <Outlet />
+        </div>
       </main>
       {!notRoutes.includes(location.pathname) && <Footer />}
     </>
