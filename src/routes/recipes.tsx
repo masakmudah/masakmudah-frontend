@@ -2,8 +2,13 @@ import { getRecipes } from "@/api/recipe";
 import Container from "@/components/ui/container";
 import { Recipe } from "@/types/recipe";
 import { Link, useLoaderData } from "react-router-dom";
-export async function loader() {
-  const data = await getRecipes();
+import { LoaderFunctionArgs } from "react-router-dom";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  const queryParam = url.searchParams.get("search");
+
+  const data = await getRecipes(queryParam);
   const recipes = data.data;
   return { recipes };
 }
