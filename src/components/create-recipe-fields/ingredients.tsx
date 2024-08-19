@@ -7,8 +7,8 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { GripVertical, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { GripVertical, Plus, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { CreateRecipeSchema } from "@/schemas/create-recipe";
 import { SequenceInput } from "@/components/create-recipe-fields/sequenceInput";
 
@@ -47,15 +47,16 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
     setHoverIndex(null);
   };
 
-  if (ingredientFields.length === 0) {
-    appendIngredient({ sequence: 0, name: "", quantity: 0, measurement: "" });
-  }
+  useEffect(() => {
+    if (!ingredientFields.length)
+      appendIngredient({ sequence: 0, name: "", quantity: 0, measurement: "" });
+  }, [ingredientFields, appendIngredient]);
 
   return (
     <FormItem>
       <div className="flex justify-between items-center">
         <h2 className="text-2xl sm:text-3xl font-semibold text-white">
-          Ingredients
+          Bahan-bahan
         </h2>
         <Button
           type="button"
@@ -69,15 +70,15 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
           }
           className="py-2 bg-green-600 text-white hover:bg-green-700"
         >
-          Add Ingredient
+          <Plus />
         </Button>
       </div>
 
       <div className="flex ml-20 gap-28 text-white">
         <p>NO</p>
-        <p>Name</p>
-        <p>Quantiy</p>
-        <p>Measurement Unit</p>
+        <p>Nama Bahan</p>
+        <p>Jumlah</p>
+        <p>Satuan</p>
       </div>
       {ingredientFields.map((ingredient, index) => (
         <div
@@ -106,7 +107,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
                         id={`ingredients.${index}.sequence`}
                         type="text"
                         readOnly
-                        value={index + 1} // Set value based on index
+                        value={index + 1}
                         onChange={(e) => field.onChange(Number(e.target.value))}
                         className="w-12 text-center border rounded"
                       />
@@ -124,9 +125,9 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
                   <FormControl>
                     <Input
                       id={`ingredients.${index}.name`}
-                      placeholder="Ingredient Name"
+                      placeholder="Nama Bahan"
                       type="text"
-                      className="w-full border rounded-md p-2"
+                      className="w-full border rounded-md p-2 capitalize"
                       {...field}
                     />
                   </FormControl>
@@ -142,7 +143,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
                   <FormControl>
                     <Input
                       id={`ingredients.${index}.quantity`}
-                      placeholder="Quantity"
+                      placeholder="Jumlah"
                       type="number"
                       className="w-full border rounded-md p-2"
                       {...field}
@@ -161,7 +162,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
                   <FormControl>
                     <Input
                       id={`ingredients.${index}.measurement`}
-                      placeholder="Measurement"
+                      placeholder="Satuan"
                       type="text"
                       className="w-full border rounded-md p-2"
                       {...field}

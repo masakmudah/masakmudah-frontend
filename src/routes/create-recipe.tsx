@@ -21,17 +21,28 @@ export function CreateRecipeRoute() {
       nameRecipe: "",
       description: "",
       duration: "",
-      categories: [],
+      categories: [{ name: "" }],
       ingredients: [{ sequence: 0, name: "", quantity: 0, measurement: "" }],
       instructions: [{ sequence: 0, text: "" }],
     },
   });
 
-  const { handleSubmit, control, setValue } = form;
+  const { handleSubmit, control, setValue, reset } = form;
 
   // Function to handle form submission
   const onSubmit = (data: CreateRecipeSchema) => {
     console.log(data);
+    // reset({
+    //   slug: "",
+    //   imageURL: "",
+    //   nameRecipe: "",
+    //   description: "",
+    //   duration: "",
+    //   categories: [{ name: "" }],
+    //   ingredients: [{ sequence: 0, name: "", quantity: 0, measurement: "" }],
+    //   instructions: [{ sequence: 0, text: "" }],
+    // });
+
     // try {
     //   const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes/create`);, {
     //     method: "POST",

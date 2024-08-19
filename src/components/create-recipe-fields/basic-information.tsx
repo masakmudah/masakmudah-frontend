@@ -45,7 +45,7 @@ export const BasicInfoField = ({ control, setValue }: BasicInfoFieldProps) => {
   return (
     <>
       <h2 className="text-2xl sm:text-3xl font-semibold text-white">
-        Basic Information
+        Informasi Dasar
       </h2>
       <div className="space-y-6 ">
         <FormField
@@ -109,14 +109,14 @@ export const BasicInfoField = ({ control, setValue }: BasicInfoFieldProps) => {
                 htmlFor="nameRecipe"
                 className="text-white text-lg font-clashDisplayMedium"
               >
-                Nama Recipe
+                Nama Resep
               </FormLabel>
               <FormControl>
                 <Input
                   id="nameRecipe"
-                  placeholder="Nama Recipe"
+                  placeholder="Nama Resep"
                   type="text"
-                  className="w-full border rounded-md p-2"
+                  className="w-full border rounded-md p-2 capitalize"
                   {...field}
                   onChange={trimSpace(field)}
                 />
@@ -135,7 +135,7 @@ export const BasicInfoField = ({ control, setValue }: BasicInfoFieldProps) => {
                 htmlFor="description"
                 className="text-white text-lg font-clashDisplayMedium"
               >
-                Description
+                Deskripsi
               </FormLabel>
               <FormControl>
                 <Textarea
@@ -159,12 +159,12 @@ export const BasicInfoField = ({ control, setValue }: BasicInfoFieldProps) => {
                 htmlFor="duration"
                 className="text-white text-lg font-clashDisplayMedium"
               >
-                Duration
+                Durasi
               </FormLabel>
               <FormControl>
                 <Input
                   id="duration"
-                  placeholder="Duration"
+                  placeholder="Durasi"
                   type="text"
                   className="w-full border rounded-md p-2"
                   {...field}

@@ -19,7 +19,6 @@ export const createRecipeSchema = z.object({
   nameRecipe: z
     .string()
     .trim()
-    .toUpperCase()
     .min(4, { message: "Minimal 4 karakter." })
     .max(100, { message: "Maximal 100 karakter." })
     .regex(/^[a-zA-Z0-9 ]+$/, {
@@ -109,11 +108,11 @@ export const createRecipeSchema = z.object({
           .string()
           .trim()
           .min(10, { message: "Minimal 10 karakter." })
-          .max(1500, { message: "Maximal 1500 karakter." })
-          .regex(/^[a-zA-Z0-9-,.\s]+$/, {
-            message:
-              "Hanya boleh huruf (a-z) angka (0-9) beberapa spesial karakter (-,.)",
-          }),
+          .max(1500, { message: "Maximal 1500 karakter." }),
+        // .regex(/^[a-zA-Z0-9-,.\s]+$/, {
+        //   message:
+        //     "Hanya boleh huruf (a-z) angka (0-9) beberapa spesial karakter (-,.)",
+        // }),
       })
     )
     .nonempty({ message: "Instruksi wajib diisi." }),

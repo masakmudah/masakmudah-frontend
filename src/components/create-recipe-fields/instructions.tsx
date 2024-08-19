@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFieldArray, Control } from "react-hook-form";
 import {
   FormControl,
@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { GripVertical, Trash2 } from "lucide-react";
+import { GripVertical, Plus, Trash2 } from "lucide-react";
 import { CreateRecipeSchema } from "@/schemas/create-recipe";
 import { SequenceInput } from "./sequenceInput";
 
@@ -47,22 +47,22 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
     setHoverIndex(null);
   };
 
-  if (instructionFields.length === 0) {
-    appendInstruction({ sequence: 0, text: "" });
-  }
+  useEffect(() => {
+    if (!instructionFields.length) appendInstruction({ sequence: 0, text: "" });
+  }, [instructionFields, appendInstruction]);
 
   return (
     <FormItem>
       <div className="flex justify-between items-center">
         <h2 className="text-3xl sm:text-4xl font-semibold text-white">
-          Instructions
+          Instruksi
         </h2>
         <Button
           type="button"
           onClick={() => appendInstruction({ sequence: 0, text: "" })}
           className="py-2 bg-green-600 text-white hover:bg-green-700"
         >
-          Add Instruction
+          <Plus />
         </Button>
       </div>
       {instructionFields.map((instruction, index) => (
@@ -112,8 +112,8 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
                   <FormControl>
                     <Textarea
                       id={`instructions.${index}.text`}
-                      placeholder="Instruction.Text"
-                      className="w-full resize-none border rounded-md p-2 capitalize"
+                      placeholder="Langkah memasak."
+                      className="w-full resize-none border rounded-md p-2"
                       {...field}
                     />
                   </FormControl>
