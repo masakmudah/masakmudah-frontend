@@ -11,7 +11,7 @@ export function Header() {
             <h1 className="text-xl font-clashDisplaySemibold">Masakmudah</h1>
           </Link>
           <nav>
-            <ul className="flex items-center gap-x-4">
+            <ul className="flex items-center gap-x-10">
               {navigationMenu.map((menu) => (
                 <li key={menu.href}>
                   <Link to={menu.href} className="font-clashDisplayMedium">
@@ -22,10 +22,10 @@ export function Header() {
             </ul>
           </nav>
         </div>
-        <div id="right-side" className="flex items-center gap-x-10">
+        <div id="right-side" className="flex items-center gap-x-4">
           <Input
             placeholder="Cari resep"
-            className="pl-6 bg-white rounded-3xl focus-visible:ring-0 focus-visible:ring-offset-0 border-2 w-96"
+            className="pl-6 bg-white rounded-3xl focus-visible:ring-0 focus-visible:ring-offset-0 border-2 w-96 placeholder:text-slate-400"
           />
           <Link
             to="/login"
