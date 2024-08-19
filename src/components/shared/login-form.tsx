@@ -20,7 +20,7 @@ const LoginForm = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -35,7 +35,7 @@ const LoginForm = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: values.email,
+            username: values.username,
             password: values.password,
           }),
         }
@@ -57,7 +57,7 @@ const LoginForm = () => {
         <div className="space-y-2">
           <FormField
             control={form.control}
-            name="email"
+            name="username"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="font-clashDisplayMedium">
@@ -65,7 +65,7 @@ const LoginForm = () => {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="john.doe@example.com"
+                    placeholder="john.doe"
                     className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
                     {...field}
                   />

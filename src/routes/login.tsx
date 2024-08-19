@@ -12,7 +12,7 @@ export function LoginRoute() {
           </div>
           <div className="flex justify-center flex-col items-center">
             <h1 className="font-clashDisplayMedium text-xl">
-              Masuk dengan email
+              Masuk dengan username
             </h1>
             <p className="text-center text-[#8E8E93] font-raleway text-sm">
               Simpan resep dan bagikan resep dengan mudah
