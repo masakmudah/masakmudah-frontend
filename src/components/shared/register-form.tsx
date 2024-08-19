@@ -12,8 +12,11 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { registerSchema } from "@/lib/zod-schema";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -46,8 +49,7 @@ const RegisterForm = () => {
         throw new Error("Pendaftaran gagal");
       }
 
-      const data = await response.json();
-      console.log(data);
+      navigate("/");
     } catch (error) {
       console.error("Error saat mendaftar:", error);
     }
