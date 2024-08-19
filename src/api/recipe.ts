@@ -16,9 +16,14 @@ export const getRecipe = async (slug: string) => {
   }
 };
 
-export const getRecipes = async () => {
+export const getRecipes = async (search?: string | null) => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`);
+    const url = new URL(`${import.meta.env.VITE_API_URL}/recipes`);
+    if (search) {
+      url.searchParams.append("search", search);
+    }
+
+    const response = await fetch(url.toString());
     const data = await response.json();
 
     return data;

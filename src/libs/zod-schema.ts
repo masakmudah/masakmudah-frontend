@@ -13,3 +13,7 @@ export const loginSchema = registerSchema.pick({
   username: true,
   password: true,
 });
+
+export const searchSchema = z.object({
+  search: z.string(),
+});
