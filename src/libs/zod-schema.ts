@@ -10,6 +10,6 @@ export const registerSchema = z.object({
 });
 
 export const loginSchema = registerSchema.pick({
-  email: true,
+  username: true,
   password: true,
 });

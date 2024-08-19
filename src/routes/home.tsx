@@ -5,6 +5,10 @@ import Container from "@/components/ui/container";
 import { Recipe } from "@/types/recipe";
 import { ArrowUp } from "lucide-react";
 import { Link, useLoaderData } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+// import "swiper/css/pagination";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
@@ -72,25 +76,33 @@ export function HomeRoute() {
             Resep populer
           </h1>
           <div className="flex justify-center items-center gap-x-10 font-clashDisplayMedium">
-            <Button className="px-5 py-3 rounded-3xl bg-[#C1F17A]">
+            <Button className="px-5 py-3 rounded-3xl bg-[#C1F17A] hover:bg-transparent">
               <h1 className="text-[#1C2625]">Semua masakan</h1>
             </Button>
-            <Button className="px-5 py-3 rounded-3xl bg-transparent">
+            <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
               <h1 className="text-white">Ayam</h1>
             </Button>
-            <Button className="px-5 py-3 rounded-3xl bg-transparent">
+            <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
               <h1 className="text-white">Sayuran</h1>
             </Button>
-            <Button className="px-5 py-3 rounded-3xl bg-transparent">
+            <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
               <h1 className="text-white">Sapi</h1>
             </Button>
-            <Button className="px-5 py-3 rounded-3xl bg-transparent">
+            <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
               <h1 className="text-white">Seafood</h1>
             </Button>
           </div>
-          <ul className="grid grid-cols-4 gap-x-4 font-raleway">
-            {recipes.slice(0, 4).map((recipe) => (
-              <li key={recipe.id}>
+          <Swiper
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={24}
+            slidesPerView={4}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+            className="grid grid-cols-4"
+          >
+            {recipes.map((recipe) => (
+              <SwiperSlide key={recipe.id}>
                 <Link
                   to={`/recipes/${recipe.slug}`}
                   className="bg-[#F7FEE7] rounded-3xl flex flex-col gap-y-8 items-center py-8 h-full hover:scale-[.994] transition-transform duration-300 active:scale-[.98]"
@@ -99,7 +111,7 @@ export function HomeRoute() {
                     <img
                       src={recipe.imageURL}
                       className="w-56 h-56 object-cover rounded-xl"
-                      alt=""
+                      alt={recipe.name}
                     />
                     <div className="flex flex-col items-center px-8 gap-y-4 ">
                       <h2 className="text-2xl font-clashDisplaySemibold">
@@ -112,9 +124,9 @@ export function HomeRoute() {
                     {recipe.duration}
                   </h1>
                 </Link>
-              </li>
+              </SwiperSlide>
             ))}
-          </ul>
+          </Swiper>
         </Container>
       </section>
       <section className="bg-[#F7FEE7]">
