@@ -1,4 +1,4 @@
-import { loginSchema } from "@/lib/zod-schema";
+import { loginSchema } from "@/libs/zod-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
