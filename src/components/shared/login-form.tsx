@@ -12,8 +12,11 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -42,8 +45,7 @@ const LoginForm = () => {
         throw new Error("Gagal login");
       }
 
-      const data = await response.json();
-      console.log(data);
+      navigate("/");
     } catch (error) {
       console.error("Error saat melakukan login:", error);
     }
