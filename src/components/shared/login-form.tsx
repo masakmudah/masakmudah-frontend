@@ -13,6 +13,7 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -44,6 +45,10 @@ const LoginForm = () => {
       if (!response.ok) {
         throw new Error("Gagal login");
       }
+
+      // Set token in Cookie from Client Side
+      const { token } = await response.json();
+      Cookies.set("authToken", token);
 
       navigate("/");
     } catch (error) {
