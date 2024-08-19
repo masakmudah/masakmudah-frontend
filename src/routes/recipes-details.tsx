@@ -57,8 +57,10 @@ export function RecipesDetails() {
                     to={item.href}
                     className="rounded-full w-12 h-12 bg-transparent border border-[#616A4A] flex items-center justify-center"
                     aria-label={`Share on ${item.href}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <img src={item.icon} alt="" />
+                    <img src={item.icon} alt={`Share on ${item.href}`} />
                   </Link>
                 ))}
               </nav>
