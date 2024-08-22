@@ -13,6 +13,8 @@ import { Button } from "../ui/button";
 import { registerSchema } from "@/libs/zod-schema";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import { PasswordToggle } from "./password-toggle";
+import { useState } from "react";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -69,6 +71,8 @@ const RegisterForm = () => {
                 </FormLabel>
                 <FormControl>
                   <Input
+                    type="text"
+                    autoComplete="username"
                     placeholder="john_doe"
                     className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
                     {...field}
@@ -86,6 +90,8 @@ const RegisterForm = () => {
                 <FormLabel className="font-clashDisplayMedium">Email</FormLabel>
                 <FormControl>
                   <Input
+                    type="email"
+                    autoComplete="email"
                     placeholder="john.doe@example.com"
                     className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
                     {...field}
@@ -98,21 +104,39 @@ const RegisterForm = () => {
           <FormField
             control={form.control}
             name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-clashDisplayMedium">
-                  Password
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="password"
-                    className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              const [showPassword, setShowPassword] = useState(false);
+
+              const triggerToggle = () => {
+                setShowPassword((prevState) => !prevState);
+              };
+              return (
+                <FormItem>
+                  <FormLabel
+                    htmlFor="password"
+                    className="font-clashDisplayMedium"
+                  >
+                    Password
+                  </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="password"
+                        className="pr-10 rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
+                        {...field}
+                      />
+                      <PasswordToggle
+                        showPassword={showPassword}
+                        triggerToggle={triggerToggle}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
           />
           <FormField
             control={form.control}
@@ -124,6 +148,7 @@ const RegisterForm = () => {
                 </FormLabel>
                 <FormControl>
                   <Input
+                    type="text"
                     placeholder="John Doe"
                     className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
                     {...field}
