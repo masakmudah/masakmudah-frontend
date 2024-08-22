@@ -14,6 +14,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useState } from "react";
+import { PasswordToggle } from "./password-toggle";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -59,7 +61,7 @@ const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-full">
-        <div className="space-y-2">
+        <div className="space-y-5">
           <FormField
             control={form.control}
             name="username"
@@ -70,6 +72,7 @@ const LoginForm = () => {
                 </FormLabel>
                 <FormControl>
                   <Input
+                    autoComplete="off"
                     placeholder="john.doe"
                     className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
                     {...field}
@@ -82,21 +85,39 @@ const LoginForm = () => {
           <FormField
             control={form.control}
             name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-clashDisplayMedium">
-                  Password
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="password"
-                    className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              const [showPassword, setShowPassword] = useState(false);
+
+              const triggerToggle = () => {
+                setShowPassword((prevState) => !prevState);
+              };
+              return (
+                <FormItem>
+                  <FormLabel
+                    htmlFor="password"
+                    className="font-clashDisplayMedium"
+                  >
+                    Password
+                  </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="password"
+                        className="pr-10 rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
+                        {...field}
+                      />
+                      <PasswordToggle
+                        showPassword={showPassword}
+                        triggerToggle={triggerToggle}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
           />
         </div>
         <Button className="w-full rounded-3xl font-clashDisplayMedium bg-gradient-to-b from-white to-[#1C2625] from-[-150%]">
