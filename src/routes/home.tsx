@@ -121,7 +121,7 @@ export function HomeRoute() {
                     </div>
                   </div>
                   <h1 className="text-2xl text-[#FF5D47] font-clashDisplayMedium">
-                    {recipe.duration}
+                    {recipe.cookingTime}
                   </h1>
                 </Link>
               </SwiperSlide>
