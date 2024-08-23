@@ -26,14 +26,14 @@ export function RecipesDetails() {
           <section className="space-y-8">
             <h2 className="font-clashDisplaySemibold text-3xl">Bahan-bahan</h2>
             <ul className="space-y-2 font-raleway font-medium">
-              {recipe.ingredients.map((ingredient) => (
+              {recipe.ingredientItems.map((ingredienItem) => (
                 <li
-                  key={ingredient.id}
+                  key={ingredienItem.id}
                   className="flex justify-between items-center"
                 >
-                  <span>{ingredient.name}</span>
+                  <span>{ingredienItem.ingredient.name}</span>
                   <span>
-                    {ingredient.quantity} {ingredient.measurement}
+                    {ingredienItem.quantity} {ingredienItem.measurement}
                   </span>
                 </li>
               ))}
@@ -45,7 +45,7 @@ export function RecipesDetails() {
             <h1 className="text-3xl font-clashDisplaySemibold">
               {recipe.name}
             </h1>
-            <p>{recipe.duration}</p>
+            <p>{recipe.cookingTime}</p>
           </div>
           <div className="space-y-12">
             <section className="space-y-4">
@@ -88,9 +88,9 @@ export function RecipesDetails() {
           </div>
           <h1 className="font-clashDisplayMedium text-2xl">Instruksi</h1>
           <ul className="space-y-2 font-raleway">
-            {recipe.instructions.map((instruction) => (
-              <li key={instruction.id}>
-                {instruction.sequence}. {instruction.text}
+            {recipe.instructions.map((instruction, index) => (
+              <li key={`${instruction.id}-${index}`}>
+                {instruction.step}. {instruction.description}
               </li>
             ))}
           </ul>

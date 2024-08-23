@@ -1,4 +1,4 @@
-import { Ingredient } from "./ingredient";
+import { IngredientItem } from "./ingredient-items";
 import { Instruction } from "./instruction";
 import { User } from "./user";
 
@@ -6,12 +6,12 @@ export type Recipe = {
   id: string;
   name: string;
   description: string;
-  duration: string;
+  cookingTime: string;
   imageURL: string;
   slug: string;
   createdAt: string;
   updatedAt: string;
-  ingredients: Ingredient[];
+  ingredientItems: IngredientItem[];
   instructions: Instruction[];
   user: User;
 };

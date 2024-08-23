@@ -2,9 +2,7 @@ export type Ingredient = {
   id: string;
   recipeId: string;
   name: string;
-  quantity: string;
-  measurement: string;
-  sequence: number;
+  slug: string;
   createdAt: string;
   updatedAt: string;
 };

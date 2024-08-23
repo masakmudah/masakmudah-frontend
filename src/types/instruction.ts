@@ -1,8 +1,8 @@
 export type Instruction = {
   id: string;
   recipeId: string;
-  text: string;
-  sequence: string;
+  description: string;
+  step: string;
   createdAt: string;
   updatedAt: string;
 };
