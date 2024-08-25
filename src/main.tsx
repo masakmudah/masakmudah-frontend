@@ -6,7 +6,6 @@ import { RootRoute } from "./routes/root";
 import { HomeRoute, loader as homeLoader } from "./routes/home";
 import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
-import { RecipeRoute } from "./routes/recipe";
 import { DashboardRoute } from "./routes/dashboard";
 import { RecipesRoute, loader as recipesLoader } from "./routes/recipes";
 import { EditProfileRoute } from "./routes/edit-profile";
@@ -55,11 +54,6 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           recipeDetailsLoader(params.recipesId || "unknownid"),
         errorElement: <RecipeNotFound />,
-      },
-
-      {
-        path: "/recipe",
-        element: <RecipeRoute />,
       },
     ],
   },
