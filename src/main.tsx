@@ -15,6 +15,7 @@ import {
   loader as recipeDetailsLoader,
 } from "./routes/recipes-details";
 import RecipeNotFound from "./routes/recipe-not-found";
+import { AboutRoute } from "./routes/about";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           recipeDetailsLoader(params.recipesId || "unknownid"),
         errorElement: <RecipeNotFound />,
+      },
+      {
+        path: "/about",
+        element: <AboutRoute />,
       },
     ],
   },
