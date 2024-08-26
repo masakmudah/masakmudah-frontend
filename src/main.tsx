@@ -16,6 +16,7 @@ import {
 } from "./routes/recipes-details";
 import RecipeNotFound from "./routes/recipe-not-found";
 import { AboutRoute } from "./routes/about";
+import { NewRecipeRoute } from "./routes/new-recipe";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutRoute />,
+      },
+      {
+        path: "/recipes/new",
+        element: <NewRecipeRoute />,
       },
     ],
   },
