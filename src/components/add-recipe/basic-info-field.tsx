@@ -76,32 +76,6 @@ export const BasicInfoField = ({ control, setValue }: BasicInfoFieldProps) => {
 
         <FormField
           control={control}
-          name="slug"
-          render={({ field }) => (
-            <FormItem className="hidden">
-              <FormLabel
-                htmlFor="slug"
-                className="text-white text-lg font-clashDisplayMedium"
-              >
-                Slug
-              </FormLabel>
-              <FormControl>
-                <Input
-                  id="slug"
-                  placeholder="Recipe Slug"
-                  type="text"
-                  className="w-full border rounded-md p-2"
-                  {...field}
-                  readOnly
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={control}
           name="nameRecipe"
           render={({ field }) => (
             <FormItem>

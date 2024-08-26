@@ -1,6 +1,5 @@
 import { z } from "zod";
 export const createRecipeSchema = z.object({
-  slug: z.string(),
   // Done
   imageURL: z
     .string()

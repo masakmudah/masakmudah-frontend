@@ -13,7 +13,6 @@ export function NewRecipeRoute() {
   const form = useForm<CreateRecipeSchema>({
     resolver: zodResolver(createRecipeSchema),
     defaultValues: {
-      slug: "",
       imageURL: "",
       nameRecipe: "",
       description: "",
