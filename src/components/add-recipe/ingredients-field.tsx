@@ -68,18 +68,12 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
               measurement: "",
             })
           }
-          className="py-2 bg-green-600 text-white hover:bg-green-700"
+          className="py-2 bg-green-600 text-white hover:bg-green-700 w-8 h-8 p-[7px] rounded-xl font-raleway"
         >
           <Plus />
         </Button>
       </div>
 
-      <div className="flex ml-20 gap-28 text-white">
-        <p>NO</p>
-        <p>Nama Bahan</p>
-        <p>Jumlah</p>
-        <p>Satuan</p>
-      </div>
       {ingredientFields.map((ingredient, index) => (
         <div
           key={ingredient.id}
@@ -109,7 +103,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
                         readOnly
                         value={index + 1}
                         onChange={(e) => field.onChange(Number(e.target.value))}
-                        className="w-12 text-center border rounded"
+                        className="w-10 h-10 p-0 text-center font-clashDisplaySemibold text-base"
                       />
                     </FormControl>
                   </div>
@@ -175,7 +169,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
             <Button
               type="button"
               onClick={() => removeIngredient(index)}
-              className="bg-red-600 text-white hover:bg-red-700"
+              className="bg-red-600 text-white hover:bg-red-700 w-8 h-8 p-[8px] rounded-xl font-raleway"
             >
               <Trash2 />
             </Button>

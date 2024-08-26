@@ -39,7 +39,7 @@ export const CategoriesField = ({ control }: CategoriesFieldProps) => {
           <Button
             type="button"
             onClick={() => appendCategory({ name: "" })}
-            className="py-2 bg-green-600 text-white hover:bg-green-700"
+            className="py-2 bg-green-600 text-white hover:bg-green-700 w-8 h-8 p-[7px] rounded-xl font-raleway"
           >
             <Plus />
           </Button>
@@ -71,7 +71,7 @@ export const CategoriesField = ({ control }: CategoriesFieldProps) => {
               <Button
                 type="button"
                 onClick={() => removeCategory(index)}
-                className="w-8 h-8 p-1 bg-red-600 text-white hover:bg-red-700"
+                className="bg-red-600 text-white hover:bg-red-700 w-8 h-8 p-[8px] rounded-xl font-raleway"
               >
                 <Trash2 className="object-contain" />
               </Button>
