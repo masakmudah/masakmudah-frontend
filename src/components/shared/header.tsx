@@ -14,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { Avatar, AvatarImage } from "../ui/avatar";
+// import { Avatar, AvatarImage } from "../ui/avatar";
 
 export function Header() {
   const navigate = useNavigate();
@@ -109,7 +109,7 @@ export function Header() {
               />
             </form>
           </Form>
-          <Link
+          {/* <Link
             to="/dashboard"
             className="flex justify-center items-center gap-2"
           >
@@ -120,7 +120,7 @@ export function Header() {
               />
             </Avatar>
             <p>Username</p>
-          </Link>
+          </Link> */}
           <Link
             to="/login"
             className="px-4 md:px-8 py-2 md:py-2 bg-[#FF5D47] rounded-3xl font-raleway text-white text-sm md:text-base"
