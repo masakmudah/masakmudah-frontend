@@ -14,9 +14,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { useAuth } from "@/context/auth-provider";
+import ProfileImage from "./profile-image";
 
 export function Header() {
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   const form = useForm<z.infer<typeof searchSchema>>({
     resolver: zodResolver(searchSchema),
@@ -108,12 +111,17 @@ export function Header() {
               />
             </form>
           </Form>
-          <Link
-            to="/login"
-            className="px-4 md:px-8 py-2 md:py-2 bg-[#FF5D47] rounded-3xl font-raleway text-white text-sm md:text-base"
-          >
-            Login
-          </Link>
+
+          {token ? (
+            <ProfileImage />
+          ) : (
+            <Link
+              to="/login"
+              className="px-4 md:px-8 py-2 md:py-2 bg-[#FF5D47] rounded-3xl font-raleway text-white text-sm md:text-base"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </Container>
     </header>
