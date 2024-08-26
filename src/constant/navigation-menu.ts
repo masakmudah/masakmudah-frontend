@@ -3,14 +3,14 @@ export const navigationMenu = [
     label: "Resep",
     href: "/recipes",
   },
-  {
-    label: "Cerita Masakan",
-    href: "/cerita-masakan",
-  },
-  {
-    label: "Juara Masakan",
-    href: "/juara-masakan",
-  },
+  // {
+  //   label: "Cerita Masakan",
+  //   href: "/cerita-masakan",
+  // },
+  // {
+  //   label: "Juara Masakan",
+  //   href: "/juara-masakan",
+  // },
 ];
 
 export const socialMediaIcons = [
