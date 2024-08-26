@@ -80,16 +80,16 @@ export function HomeRoute() {
               <h1 className="text-[#1C2625]">Semua masakan</h1>
             </Button>
             <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
-              <h1 className="text-white">Ayam</h1>
+              <Link to="/recipes?search=ayam">Ayam</Link>
             </Button>
             <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
-              <h1 className="text-white">Sayuran</h1>
+              <Link to="/recipes?search=sayuran">Sayuran</Link>
             </Button>
             <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
-              <h1 className="text-white">Sapi</h1>
+              <Link to="/recipes?search=sapi">Sapi</Link>
             </Button>
             <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
-              <h1 className="text-white">Seafood</h1>
+              <Link to="/recipes?search=seafood">Seafood</Link>
             </Button>
           </div>
           <Swiper
