@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { Control, useWatch, UseFormSetValue } from "react-hook-form";
+import { Control, UseFormSetValue } from "react-hook-form";
 import {
   FormControl,
   FormItem,
@@ -16,19 +15,7 @@ interface BasicInfoFieldProps {
   setValue: UseFormSetValue<CreateRecipeSchema>;
 }
 
-export const BasicInfoField = ({ control, setValue }: BasicInfoFieldProps) => {
-  const value = useWatch({ control, name: "nameRecipe" });
-
-  useEffect(() => {
-    if (value) {
-      const slug = value
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w\-]/g, "");
-      setValue("slug", slug);
-    }
-  }, [value, setValue]);
-
+export const BasicInfoField = ({ control }: BasicInfoFieldProps) => {
   const trimSpace =
     (field: any) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -76,44 +63,18 @@ export const BasicInfoField = ({ control, setValue }: BasicInfoFieldProps) => {
 
         <FormField
           control={control}
-          name="slug"
-          render={({ field }) => (
-            <FormItem className="hidden">
-              <FormLabel
-                htmlFor="slug"
-                className="text-white text-lg font-clashDisplayMedium"
-              >
-                Slug
-              </FormLabel>
-              <FormControl>
-                <Input
-                  id="slug"
-                  placeholder="Recipe Slug"
-                  type="text"
-                  className="w-full border rounded-md p-2"
-                  {...field}
-                  readOnly
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={control}
-          name="nameRecipe"
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel
-                htmlFor="nameRecipe"
+                htmlFor="name"
                 className="text-white text-lg font-clashDisplayMedium"
               >
                 Nama Resep
               </FormLabel>
               <FormControl>
                 <Input
-                  id="nameRecipe"
+                  id="name"
                   placeholder="Nama Resep"
                   type="text"
                   className="w-full border rounded-md p-2 capitalize"
@@ -152,18 +113,18 @@ export const BasicInfoField = ({ control, setValue }: BasicInfoFieldProps) => {
 
         <FormField
           control={control}
-          name="duration"
+          name="cookingTime"
           render={({ field }) => (
             <FormItem>
               <FormLabel
-                htmlFor="duration"
+                htmlFor="cookingTime"
                 className="text-white text-lg font-clashDisplayMedium"
               >
                 Durasi
               </FormLabel>
               <FormControl>
                 <Input
-                  id="duration"
+                  id="cookingTime"
                   placeholder="Durasi"
                   type="text"
                   className="w-full border rounded-md p-2"

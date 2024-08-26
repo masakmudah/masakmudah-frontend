@@ -60,7 +60,7 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
         <Button
           type="button"
           onClick={() => appendInstruction({ sequence: 0, text: "" })}
-          className="py-2 bg-green-600 text-white hover:bg-green-700"
+          className="py-2 bg-green-600 text-white hover:bg-green-700 w-8 h-8 p-[7px] rounded-xl font-raleway"
         >
           <Plus />
         </Button>
@@ -94,9 +94,9 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
                         id={`instructions.${index}.sequence`}
                         type="text"
                         readOnly
-                        value={index + 1} // Set value based on index
+                        value={index + 1}
                         onChange={(e) => field.onChange(Number(e.target.value))}
-                        className="w-12 text-center"
+                        className="w-10 h-10 p-0 text-center font-clashDisplaySemibold text-base"
                       />
                     </FormControl>
                     <FormMessage />
@@ -113,7 +113,8 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
                     <Textarea
                       id={`instructions.${index}.text`}
                       placeholder="Langkah memasak."
-                      className="w-full resize-none border rounded-md p-2"
+                      className="w-full resize-none border rounded-md px-4 text-base font-clashDisplayMedium"
+                      rows={2}
                       {...field}
                     />
                   </FormControl>
@@ -125,7 +126,7 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
             <Button
               type="button"
               onClick={() => removeInstruction(index)}
-              className="bg-red-600 text-white hover:bg-red-700"
+              className="bg-red-600 text-white hover:bg-red-700 w-8 h-8 p-[8px] rounded-xl font-raleway"
             >
               <Trash2 />
             </Button>

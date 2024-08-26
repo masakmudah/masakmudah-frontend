@@ -1,6 +1,5 @@
 import { z } from "zod";
 export const createRecipeSchema = z.object({
-  slug: z.string(),
   // Done
   imageURL: z
     .string()
@@ -13,7 +12,7 @@ export const createRecipeSchema = z.object({
       message: "Gunakan format URL. Contoh: https://www.masakmudah.com",
     }),
   // Done
-  nameRecipe: z
+  name: z
     .string()
     .trim()
     .min(4, { message: "Minimal 4 karakter." })
@@ -32,7 +31,7 @@ export const createRecipeSchema = z.object({
         "Hanya boleh huruf (a-z) atau angka (0-9) atau beberapa spesial karakter (koma, titik, strip, enter).",
     }),
   // Done
-  duration: z
+  cookingTime: z
     .string()
     .trim()
     .regex(/^\d{1,4}\s*menit$/i, {
