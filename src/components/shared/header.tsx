@@ -34,14 +34,14 @@ export function Header() {
       const response = await fetch(
         `${
           import.meta.env.VITE_API_URL
-        }/recipes?search=${values.search.toLowerCase()}`
+        }/recipes?q=${values.search.toLowerCase()}`
       );
 
       if (!response.ok) {
         throw new Error("Failed to get recipe");
       }
 
-      navigate(`/recipes?search=${values.search.toLowerCase()}`);
+      navigate(`/recipes?q=${values.search.toLowerCase()}`);
       form.reset();
     } catch (error) {
       console.error(error);

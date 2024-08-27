@@ -20,7 +20,7 @@ export const getRecipes = async (search?: string | null) => {
   try {
     const url = new URL(`${import.meta.env.VITE_API_URL}/recipes`);
     if (search) {
-      url.searchParams.append("search", search);
+      url.searchParams.append("q", search);
     }
 
     const response = await fetch(url.toString());

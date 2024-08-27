@@ -6,7 +6,7 @@ import { LoaderFunctionArgs } from "react-router-dom";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-  const queryParam = url.searchParams.get("search");
+  const queryParam = url.searchParams.get("q");
 
   const data = await getRecipes(queryParam);
   const recipes = data.data;

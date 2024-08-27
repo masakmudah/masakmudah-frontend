@@ -1,9 +1,16 @@
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
+import { useAuth } from "@/context/auth-provider";
+import { Link, Navigate } from "react-router-dom";
 
 export function DashboardRoute() {
+  const { token } = useAuth();
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <div className="">
       <div className="flex flex-col w-full max-w-5xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10  rounded-lg gap-5 text-black">
