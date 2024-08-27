@@ -14,8 +14,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+
 import { useAuth } from "@/context/auth-provider";
 import ProfileImage from "./profile-image";
+
 
 export function Header() {
   const navigate = useNavigate();
@@ -122,6 +124,7 @@ export function Header() {
               Login
             </Link>
           )}
+
         </div>
       </Container>
     </header>

@@ -6,7 +6,6 @@ import { RootRoute } from "./routes/root";
 import { HomeRoute, loader as homeLoader } from "./routes/home";
 import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
-import { RecipeRoute } from "./routes/recipe";
 import { DashboardRoute } from "./routes/dashboard";
 import { RecipesRoute, loader as recipesLoader } from "./routes/recipes";
 import { EditProfileRoute } from "./routes/edit-profile";
@@ -17,6 +16,9 @@ import {
 } from "./routes/recipes-details";
 import RecipeNotFound from "./routes/recipe-not-found";
 import AuthProvider from "./context/auth-provider";
+import { AboutRoute } from "./routes/about";
+import { NewRecipeRoute } from "./routes/new-recipe";
+
 
 const router = createBrowserRouter([
   {
@@ -57,10 +59,13 @@ const router = createBrowserRouter([
           recipeDetailsLoader(params.recipesId || "unknownid"),
         errorElement: <RecipeNotFound />,
       },
-
       {
-        path: "/recipe",
-        element: <RecipeRoute />,
+        path: "/about",
+        element: <AboutRoute />,
+      },
+      {
+        path: "/recipes/new",
+        element: <NewRecipeRoute />,
       },
     ],
   },
