@@ -1,5 +1,6 @@
 import { Footer } from "@/components/shared/footer";
 import { Header } from "@/components/shared/header";
+import { Toaster } from "@/components/ui/toaster";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 
@@ -18,6 +19,7 @@ export function RootRoute() {
 
       <main className="flex flex-col min-h-screen bg-[#FDFFF7]">
         <ScrollRestoration />
+        <Toaster />
         <Outlet />
       </main>
 

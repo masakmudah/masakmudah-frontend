@@ -13,11 +13,20 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { useState } from "react";
 import { PasswordToggle } from "./password-toggle";
+import { useAuth } from "@/context/auth-provider";
+import { useToast } from "../ui/use-toast";
+import { login } from "@/api/auth";
 
 const LoginForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const { setToken } = useAuth();
+  const { toast } = useToast();
+
+  const triggerToggle = () => {
+    setShowPassword((prevState) => !prevState);
+  };
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -30,31 +39,20 @@ const LoginForm = () => {
 
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: values.username,
-            password: values.password,
-          }),
-        }
-      );
+      const { token } = await login(values);
 
-      if (!response.ok) {
-        throw new Error("Gagal login");
-      }
+      console.log("Ini adalah token dari login-form", token);
 
-      // Set token in Cookie from Client Side
-      const { token } = await response.json();
-      Cookies.set("authToken", token);
-
+      setToken(token);
       navigate("/");
     } catch (error) {
       console.error("Error saat melakukan login:", error);
+      toast({
+        className:
+          "bg-red-500 text-white rounded-3xl font-clashDisplayRegular border-0",
+        title: "Gagal saat melakukan login",
+        description: (error as Error).message,
+      });
     }
   };
 
@@ -86,11 +84,6 @@ const LoginForm = () => {
             control={form.control}
             name="password"
             render={({ field }) => {
-              const [showPassword, setShowPassword] = useState(false);
-
-              const triggerToggle = () => {
-                setShowPassword((prevState) => !prevState);
-              };
               return (
                 <FormItem>
                   <FormLabel
