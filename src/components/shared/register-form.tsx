@@ -15,9 +15,16 @@ import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { PasswordToggle } from "./password-toggle";
 import { useState } from "react";
+import { register } from "@/api/auth";
+import { toast } from "../ui/use-toast";
 
 const RegisterForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const triggerToggle = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -31,28 +38,16 @@ const RegisterForm = () => {
 
   const onSubmit = async (values: z.infer<typeof registerSchema>) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: values.username,
-            email: values.email,
-            password: values.password,
-            fullname: values.fullName,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Pendaftaran gagal");
-      }
+      await register(values);
 
       navigate("/");
     } catch (error) {
+      toast({
+        className:
+          "bg-red-500 text-white rounded-3xl font-clashDisplayRegular border-0",
+        title: "Gagal saat pendaftaran",
+        description: (error as Error).message,
+      });
       console.error("Error saat mendaftar:", error);
     }
   };
@@ -105,11 +100,6 @@ const RegisterForm = () => {
             control={form.control}
             name="password"
             render={({ field }) => {
-              const [showPassword, setShowPassword] = useState(false);
-
-              const triggerToggle = () => {
-                setShowPassword((prevState) => !prevState);
-              };
               return (
                 <FormItem>
                   <FormLabel
