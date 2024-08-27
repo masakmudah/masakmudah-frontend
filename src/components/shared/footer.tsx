@@ -5,22 +5,22 @@ import { FaSquareFacebook, FaSquareXTwitter } from "react-icons/fa6";
 export const Footer = () => {
   return (
     <footer className="flex justify-center items-center bg-[#1C2625] text-[#fafbff] text-base font-clashDisplayReguler">
-      <Container className="flex flex-col md:flex-row p-10 gap-10">
-        <div className="space-y-2 justify-center items-center">
+      <Container className="flex flex-col md:flex-row p-10 gap-10 justify-between w-full">
+        <div className="space-y-2 justify-center items-center ">
           <Link to="/" className="hover:text-[#b54232]">
             <h1 className="text-3xl md:text-xl font-clashDisplaySemibold">
               Masakmudah
             </h1>
           </Link>
-          <p className="text-lg">
+          <p className="text-base font-raleway">
             Temukan berbagai resep dan buat masakan dengan mudah hanya di
             Masakmudah
           </p>
         </div>
-        <div className="flex flex-col md:flex-row gap-6">
-          <div className="space-y-2">
+        <div className="flex flex-col md:flex-row gap-6 font-raleway">
+          <div className="space-y-6">
             <h3 className="text-lg font-clashDisplaySemibold">Sitemap</h3>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-y-2 text-base">
               <Link to="/" className="hover:text-[#b54232]">
                 Beranda
               </Link>
@@ -32,9 +32,9 @@ export const Footer = () => {
               </Link>
             </div>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-6">
             <h3 className="text-lg font-clashDisplaySemibold">Bantuan</h3>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-y-2">
               <Link to="">
                 {/* TO DO: Fix this */}
                 Kontak
@@ -48,9 +48,9 @@ export const Footer = () => {
               </Link>
             </div>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-6">
             <h3 className="text-lg font-clashDisplaySemibold">Sosial Media</h3>
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col gap-y-2">
               {/* TO DO: Fix this */}
               <div className="flex gap-2">
                 <FaSquareFacebook

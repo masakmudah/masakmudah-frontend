@@ -18,7 +18,6 @@ import {
 import { useAuth } from "@/context/auth-provider";
 import ProfileImage from "./profile-image";
 
-
 export function Header() {
   const navigate = useNavigate();
   const { token } = useAuth();
@@ -51,7 +50,7 @@ export function Header() {
 
   return (
     <header className="bg-[#E6FDB0] shadow-sm w-full">
-      <Container className="flex items-center justify-between md:gap-20 p-4 md:p-6 space-x-2 w-full max-w-full md:w-fit">
+      <Container className="flex items-center justify-between md:gap-20 p-4 md:p-6 space-x-2 ">
         <div id="left-side" className="flex items-center gap-x-4 md:gap-x-20">
           <Link to="/" className="hidden md:flex items-center gap-x-2">
             <h1 className="text-lg md:text-xl font-clashDisplaySemibold">
@@ -105,7 +104,7 @@ export function Header() {
                   <FormItem>
                     <Input
                       placeholder="Cari resep"
-                      className="pl-6 bg-white rounded-3xl focus-visible:ring-0 focus-visible:ring-offset-0 border-2 w-full md:w-96 placeholder:text-slate-400"
+                      className="pl-6 bg-white rounded-3xl focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-black w-full md:w-96 placeholder:text-slate-400"
                       {...field}
                     />
                   </FormItem>
@@ -124,7 +123,6 @@ export function Header() {
               Login
             </Link>
           )}
-
         </div>
       </Container>
     </header>
