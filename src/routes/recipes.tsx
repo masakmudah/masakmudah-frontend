@@ -1,9 +1,10 @@
 import { getRecipes } from "@/api/recipe";
 import Container from "@/components/ui/container";
 import { Recipe } from "@/types/recipe";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useSearchParams } from "react-router-dom";
 import { LoaderFunctionArgs } from "react-router-dom";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const queryParam = url.searchParams.get("q");
@@ -17,10 +18,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export function RecipesRoute() {
   const { recipes } = useLoaderData() as { recipes: Recipe[] };
+  const [params] = useSearchParams();
+  const q = params.get("q");
 
   return (
     <Container className="w-full space-y-12">
-      <h1 className="text-3xl font-clashDisplaySemibold">All Recipes</h1>
+      <h1 className="text-3xl font-clashDisplaySemibold">
+        {q === null ? "All recipes" : `Search results for ${q}`}
+      </h1>
+
       <ul className="space-y-6">
         {recipes.map((recipe: Recipe) => (
           <li key={recipe.id}>
