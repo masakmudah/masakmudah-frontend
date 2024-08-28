@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CreateRecipeSchema } from "@/schemas/new-recipe";
-import ImageUploadButton from "../shared/image-upload-button";
+
 interface BasicInfoFieldProps {
   control: Control<CreateRecipeSchema>;
   setValue: UseFormSetValue<CreateRecipeSchema>;
@@ -35,8 +35,6 @@ export const BasicInfoField = ({ control }: BasicInfoFieldProps) => {
       <h2 className="text-2xl sm:text-3xl font-semibold text-white">
         Informasi Dasar
       </h2>
-
-      <ImageUploadButton />
 
       <div className="space-y-6 ">
         <FormField

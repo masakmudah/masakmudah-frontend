@@ -8,8 +8,13 @@ import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
 import { CategoriesField } from "@/components/add-recipe/categories-field";
 import { IngredientsField } from "@/components/add-recipe/ingredients-field";
 import { InstructionsField } from "@/components/add-recipe/instructions-field";
+import { useState } from "react";
+import ImageUploadButton from "@/components/shared/image-upload-button";
+import { uploadFile } from "@uploadcare/upload-client";
 
 export function NewRecipeRoute() {
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
   const form = useForm<CreateRecipeSchema>({
     resolver: zodResolver(createRecipeSchema),
     defaultValues: {
@@ -26,8 +31,26 @@ export function NewRecipeRoute() {
   const { handleSubmit, control, setValue } = form;
 
   // Function to handle form submission
-  const onSubmit = (data: CreateRecipeSchema) => {
-    console.log(data);
+  const onSubmit = async (data: CreateRecipeSchema) => {
+    try {
+      if (!uploadedFile) throw new Error("File harus ada");
+
+      const { cdnUrl } = await uploadFile(uploadedFile, {
+        publicKey: "6c06ff53d4ffc84d8a11",
+        store: "auto",
+        metadata: {
+          pet: "cat",
+        },
+      });
+
+      console.log(cdnUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFileChange = (selectedFile: File | null) => {
+    setUploadedFile(selectedFile);
   };
 
   return (
@@ -40,6 +63,8 @@ export function NewRecipeRoute() {
 
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+            <ImageUploadButton onFileChange={handleFileChange} />
+
             <BasicInfoField control={control} setValue={setValue} />
             <Separator />
             <CategoriesField control={control} />

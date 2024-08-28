@@ -1,13 +1,17 @@
+import { useDragAndDrop } from "@/hooks/useDragAndDrop";
 import { cn } from "@/libs/utils";
 import { TrashIcon, UploadIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "../ui/use-toast";
 
-const ImageUploadButton = () => {
+interface ImageUploadButtonProps {
+  onFileChange: (selectedFile: File | null) => void;
+}
+
+const ImageUploadButton = ({ onFileChange }: ImageUploadButtonProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const dragCounter = useRef(0);
 
   useEffect(() => {
     // Clean up the object URL when the component unmounts or when a new file is selected
@@ -22,42 +26,6 @@ const ImageUploadButton = () => {
     if (!file) {
       fileInputRef.current?.click();
     }
-    // Jika file sudah ada, tidak melakukan apa-apa
-  };
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dragCounter.current++;
-    if (dragCounter.current === 1) {
-      setIsDragging(true);
-      console.log("Drag enter, isDragging:", true);
-    }
-  };
-
-  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dragCounter.current--;
-    if (dragCounter.current === 0) {
-      setIsDragging(false);
-      console.log("Drag leave, isDragging:", false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-    dragCounter.current = 0;
-
-    const droppedFile = e.dataTransfer.files[0];
-    handleFile(droppedFile);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,12 +37,16 @@ const ImageUploadButton = () => {
   };
 
   const handleFile = (selectedFile: File) => {
-    setFile(selectedFile);
-
     if (selectedFile.type.startsWith("image/")) {
       const objectUrl = URL.createObjectURL(selectedFile);
       setPreview(objectUrl);
+      setFile(selectedFile);
+      onFileChange(selectedFile);
     } else {
+      toast({
+        className: "bg-red-500 text-white border-none font-raleway",
+        title: "File must image",
+      });
       setPreview(null);
     }
   };
@@ -84,11 +56,20 @@ const ImageUploadButton = () => {
 
     setFile(null);
     setPreview(null);
+    onFileChange(null);
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
   };
+
+  const {
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
+    isDragging,
+  } = useDragAndDrop(handleFile);
 
   return (
     <div
