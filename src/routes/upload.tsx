@@ -2,6 +2,9 @@ import { useState } from "react";
 import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
 
+const publicKey = await import.meta.env.VITE_UPLOADCARE_PUBLIC_KEY;
+console.log(publicKey);
+
 export function UploadRoute() {
   const [fileUrl, setfileUrl] = useState<String | null>(null);
 
@@ -13,7 +16,7 @@ export function UploadRoute() {
       <FileUploaderRegular
         sourceList="local, url, camera, dropbox"
         classNameUploader="uc-light"
-        pubkey="6c06ff53d4ffc84d8a11"
+        pubkey={publicKey}
         onFileUploadSuccess={(response) => {
           setfileUrl(response.fileInfo.cdnUrl);
         }}
