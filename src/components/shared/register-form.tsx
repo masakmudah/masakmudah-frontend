@@ -17,9 +17,11 @@ import { PasswordToggle } from "./password-toggle";
 import { useState } from "react";
 import { register } from "@/api/auth";
 import { toast } from "../ui/use-toast";
+import { useAuth } from "@/context/auth-provider";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { setToken } = useAuth();
   const navigate = useNavigate();
 
   const triggerToggle = () => {
@@ -38,8 +40,9 @@ const RegisterForm = () => {
 
   const onSubmit = async (values: z.infer<typeof registerSchema>) => {
     try {
-      await register(values);
+      const { token } = await register(values);
 
+      setToken(token);
       navigate("/");
     } catch (error) {
       toast({

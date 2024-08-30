@@ -50,4 +50,10 @@ export const register = async (values: z.infer<typeof registerSchema>) => {
   }
 
   if (!response.ok) throw new Error("Failed to login");
+
+  const {
+    data: { token },
+  } = await response.json();
+
+  return { token };
 };
