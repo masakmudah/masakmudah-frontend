@@ -44,6 +44,7 @@ const LoginForm = () => {
       console.log("Ini adalah token dari login-form", token);
 
       setToken(token);
+      localStorage.setItem("username", values.username);
       navigate("/");
     } catch (error) {
       console.error("Error saat melakukan login:", error);

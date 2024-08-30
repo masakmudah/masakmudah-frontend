@@ -7,13 +7,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/auth-provider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProfileImage = () => {
+  const navigate = useNavigate();
   const { setToken } = useAuth();
+  const username = localStorage.getItem("username");
 
   const handleLogout = () => {
     setToken(null);
+    localStorage.removeItem("username");
+    navigate("/login");
   };
 
   return (
@@ -30,7 +34,7 @@ const ProfileImage = () => {
         align="end"
       >
         <DropdownMenuLabel className="font-clashDisplaySemibold">
-          Akun saya
+          {username}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="focus:bg-transparent">
