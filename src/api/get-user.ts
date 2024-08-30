@@ -1,11 +1,4 @@
-import { User } from "@/types/user";
-
-export type UserProps = {
-  message: string;
-  data: User;
-};
-
-export const getUser = async (username: string): Promise<UserProps> => {
+export const getUser = async (username: string) => {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/users/${username}`
@@ -14,10 +7,24 @@ export const getUser = async (username: string): Promise<UserProps> => {
     if (!response.ok) {
       throw new Response("User tidak ditemukan", { status: 404 });
     }
-
-    const data: UserProps = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     throw new Response("Data tidak dapat di akses", { status: 500 });
   }
 };
+
+export async function getUserRecipes(username: string) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/recipes/username/${username}`
+    );
+
+    if (!response.ok) {
+      throw new Response("Resep tidak ditemukan", { status: 404 });
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Data tidak dapat di akses:", { status: 500 });
+    throw error;
+  }
+}
