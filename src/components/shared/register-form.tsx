@@ -61,6 +61,26 @@ const RegisterForm = () => {
         <div className="space-y-2">
           <FormField
             control={form.control}
+            name="fullName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-clashDisplayMedium">
+                  Full Name
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="John Doe"
+                    className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="username"
             render={({ field }) => (
               <FormItem>
@@ -130,26 +150,6 @@ const RegisterForm = () => {
                 </FormItem>
               );
             }}
-          />
-          <FormField
-            control={form.control}
-            name="fullName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-clashDisplayMedium">
-                  Full Name
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="John Doe"
-                    className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
           />
         </div>
         <Button
