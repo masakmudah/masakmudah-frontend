@@ -6,7 +6,7 @@ import { RootRoute } from "./routes/root";
 import { HomeRoute, loader as homeLoader } from "./routes/home";
 import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
-import { DashboardRoute } from "./routes/dashboard";
+import { DashboardRoute, loader as dashboardLoader } from "./routes/dashboard";
 import { RecipesRoute, loader as recipesLoader } from "./routes/recipes";
 import { EditProfileRoute } from "./routes/edit-profile";
 import ErrorPage from "./routes/error-page";
@@ -46,6 +46,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashboardRoute />,
+        loader: dashboardLoader,
       },
       {
         path: "/editprofile",
