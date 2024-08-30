@@ -56,8 +56,8 @@ export function RecipesRoute() {
                     <h3 className="font-clashDisplayMedium">Author</h3>
                     <div className="flex gap-x-4 items-center">
                       <img
-                        src="/path/to/author-image.jpg"
-                        alt="Novia Filas"
+                        src="https://api.dicebear.com/9.x/thumbs/svg?seed=Felix"
+                        alt={`avatar-${recipe.user.fullname}`}
                         className="w-12 h-12 rounded-full"
                       />
                       <div className="space-y-1">
