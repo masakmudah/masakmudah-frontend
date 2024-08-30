@@ -21,7 +21,6 @@ import ProfileImage from "./profile-image";
 export function Header() {
   const navigate = useNavigate();
   const { token } = useAuth();
-  const username = localStorage.getItem("username");
 
   const form = useForm<z.infer<typeof searchSchema>>({
     resolver: zodResolver(searchSchema),
@@ -115,12 +114,7 @@ export function Header() {
           </Form>
 
           {token ? (
-            <>
-              <p className="text-sm md:text-base font-clashDisplayMedium">
-                Hello, {username}
-              </p>
-              <ProfileImage />
-            </>
+            <ProfileImage />
           ) : (
             <Link
               to="/login"
