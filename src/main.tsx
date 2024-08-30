@@ -18,7 +18,7 @@ import RecipeNotFound from "./routes/recipe-not-found";
 import AuthProvider from "./context/auth-provider";
 import { AboutRoute } from "./routes/about";
 import { NewRecipeRoute } from "./routes/new-recipe";
-
+import { UploadRoute } from "./routes/upload";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginRoute />,
+      },
+      {
+        path: "/upload",
+        element: <UploadRoute />,
       },
       {
         path: "/register",
