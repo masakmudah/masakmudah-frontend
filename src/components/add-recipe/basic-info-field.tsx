@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Control, UseFormSetValue } from "react-hook-form";
 import {
   FormControl,
@@ -34,6 +35,7 @@ export const BasicInfoField = ({ control }: BasicInfoFieldProps) => {
       <h2 className="text-2xl sm:text-3xl font-semibold text-white">
         Informasi Dasar
       </h2>
+
       <div className="space-y-6 ">
         <FormField
           control={control}
