@@ -1,6 +1,6 @@
 import { getRecipes } from "@/api/recipe";
 import FloatingCard from "@/components/shared/floating-card";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { Recipe } from "@/types/recipe";
 import { ArrowUp } from "lucide-react";
@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 // import "swiper/css/pagination";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { CategoryBar } from "@/components/shared/category-bar";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
@@ -75,22 +76,9 @@ export function HomeRoute() {
           <h1 className="text-[#E6FDB0] text-5xl text-center font-clashDisplaySemibold">
             Resep populer
           </h1>
+
           <div className="flex justify-center items-center gap-x-10 font-clashDisplayMedium">
-            <Button className="px-5 py-3 rounded-3xl bg-[#C1F17A] hover:bg-transparent">
-              <h1 className="text-[#1C2625]">Semua masakan</h1>
-            </Button>
-            <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
-              <Link to="/recipes?search=ayam">Ayam</Link>
-            </Button>
-            <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
-              <Link to="/recipes?search=sayuran">Sayuran</Link>
-            </Button>
-            <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
-              <Link to="/recipes?search=sapi">Sapi</Link>
-            </Button>
-            <Button className="px-5 py-3 rounded-3xl bg-transparent hover:bg-transparent">
-              <Link to="/recipes?search=seafood">Seafood</Link>
-            </Button>
+            <CategoryBar tabs={["Semua masakan", "Ayam", "Sayuran"]} />
           </div>
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}

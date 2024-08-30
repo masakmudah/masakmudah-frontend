@@ -9,8 +9,9 @@ export type User = {
   id: string;
   username: string;
   fullname: string;
-  createdAt: string;
   email: string;
+  imageURL?: string;
   password: Password;
+  createdAt: string;
   updatedAt: string;
 };
