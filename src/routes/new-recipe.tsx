@@ -43,6 +43,7 @@ export function NewRecipeRoute() {
         },
       });
 
+      console.log(data);
       console.log(cdnUrl);
     } catch (error) {
       console.log(error);
