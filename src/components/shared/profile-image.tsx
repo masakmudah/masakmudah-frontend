@@ -40,9 +40,9 @@ const ProfileImage = () => {
         <DropdownMenuItem className="focus:bg-transparent">
           <Link to="/dashboard">Resep saya</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="focus:bg-transparent">
+        {/* <DropdownMenuItem className="focus:bg-transparent">
           Ubah profil
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem className="focus:bg-transparent">
           <button onClick={() => handleLogout()}>Logout</button>
