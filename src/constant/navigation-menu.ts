@@ -3,6 +3,10 @@ export const navigationMenu = [
     label: "Resep",
     href: "/recipes",
   },
+  {
+    label: "About",
+    href: "/about",
+  },
   // {
   //   label: "Cerita Masakan",
   //   href: "/cerita-masakan",
