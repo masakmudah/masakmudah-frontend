@@ -7,8 +7,16 @@ export function RegisterRoute() {
     <div className="h-screen bg-[#1C2625] w-full">
       <Container className="flex justify-center items-center h-full">
         <div className="bg-gradient-to-b from-[#e2ff8a] from-[-180%] to-[#FEFEFE] rounded-[2rem] px-16 py-24 flex justify-center flex-col items-center gap-y-4">
-          <div className="bg-white shadow-md w-12 h-12 flex items-center justify-center rounded-2xl px-2 py-2">
-            <img src="/images/login-icon.svg" alt="login-icon" />
+          <div className="gap-x-1 flex  items-center justify-center rounded-2xl px-3 py-3">
+            <img
+              src="/images/masakmudah-logo-2.png"
+              alt="login-icon"
+              className="w-12 h-12"
+            />
+            <div className="-space-y-2">
+              <p className="font-clashDisplayMedium text-md">masak</p>
+              <p className="font-clashDisplayMedium text-md">mudah</p>
+            </div>{" "}
           </div>
           <div className="flex justify-center flex-col items-center">
             <h1 className="font-clashDisplayMedium text-xl">
