@@ -10,6 +10,8 @@ import "swiper/css";
 // import "swiper/css/pagination";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { CategoryBar } from "@/components/shared/category-bar";
+import { useEffect, useState } from "react";
+import { getCategoryBySlug } from "@/api/category";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
@@ -21,6 +23,30 @@ export async function loader() {
 
 export function HomeRoute() {
   const { recipes } = useLoaderData() as { recipes: Recipe[] };
+  const [categoryRecipes, setCategoryRecipes] = useState(recipes);
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
+  const [categoryName, setCategoryName] = useState<string>("all");
+
+  useEffect(() => {
+    if (isFirstRender || categoryName === "all") {
+      setIsFirstRender(false);
+      return;
+    }
+
+    const fetchRecipesByCategory = async () => {
+      const data = await getCategoryBySlug(categoryName);
+      setCategoryRecipes(data[0].recipes);
+    };
+
+    fetchRecipesByCategory();
+  }, [categoryName, isFirstRender]);
+
+  // TODO: Saat kembali ke semua masakan belum ada category all
+  const onTabChange = (tabName: string) => {
+    console.log(tabName);
+    setCategoryName(tabName);
+  };
 
   return (
     <div className="font-clashDisplayRegular bg-">
@@ -78,7 +104,10 @@ export function HomeRoute() {
           </h1>
 
           <div className="flex justify-center items-center gap-x-10 font-clashDisplayMedium">
-            <CategoryBar tabs={["Semua masakan", "Ayam", "Sayuran"]} />
+            <CategoryBar
+              tabs={["Semua masakan", "Ayam", "Sayuran"]}
+              onTabChange={onTabChange}
+            />
           </div>
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -87,15 +116,14 @@ export function HomeRoute() {
             navigation
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
-            className="grid grid-cols-4"
           >
-            {recipes.map((recipe) => (
+            {categoryRecipes.map((recipe) => (
               <SwiperSlide key={recipe.id}>
                 <Link
                   to={`/recipes/${recipe.slug}`}
-                  className="bg-[#F7FEE7] rounded-3xl flex flex-col gap-y-8 items-center py-8 h-full hover:scale-[.994] transition-transform duration-300 active:scale-[.98]"
+                  className="bg-[#F7FEE7] rounded-3xl flex min-h-[31.25rem] flex-col justify-between gap-y-8 items-center py-8 hover:scale-[.994] transition-transform duration-300 active:scale-[.98]"
                 >
-                  <div className="flex flex-col items-center gap-y-8 flex-grow">
+                  <div className="flex flex-col items-center gap-y-8 ">
                     <img
                       src={recipe.imageURL}
                       className="w-56 h-56 object-cover rounded-xl"
