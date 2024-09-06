@@ -36,8 +36,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         if (!response.ok) throw new Error("Failed response");
 
-        const data: User = await response.json();
-        setUser(data);
+        const { user } = await response.json();
+        setUser(user);
       } catch (error) {
         console.error("Failed to set user data", error);
         setUser(null);
