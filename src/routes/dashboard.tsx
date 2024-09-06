@@ -39,9 +39,9 @@ export function DashboardRoute() {
   }
 
   return (
-    <div className="">
-      <div className="flex flex-col w-full max-w-5xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10  rounded-lg gap-5 text-black">
-        <section className="flex justify-start gap-10">
+    <div className="bg-[#495151] font-clashDisplayRegular">
+      <div className="flex flex-col w-full max-w-5xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5">
+        <section className="flex justify-start gap-10 text-white">
           <Avatar className="w-32 h-32">
             <img
               src={user.imageURL || "/images/profile-user-alpha.png"}
@@ -65,51 +65,44 @@ export function DashboardRoute() {
 
         <section className="text-center">
           {recipes.length === 0 ? (
-            <p>Belum punya resep</p>
+            <p className="text-white">Belum punya resep</p>
           ) : (
             <div className="flex flex-col gap-3">
-              <h2 className="text-3xl">Resep Saya</h2>
-              <ul className="space-y-6">
+              <h2 className="text-3xl text-white">Resep Saya</h2>
+              <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
                 {recipes.map((recipe: Recipe) => (
                   <li key={recipe.id}>
                     <Link
                       to={`/recipes/${recipe.slug}`}
-                      className="bg-[#1C2625] rounded-3xl px-8 py-10 flex gap-x-12"
+                      className="bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98]"
                     >
-                      <div className="">
-                        <div className="rounded-2xl overflow-hidden w-48 h-48">
-                          <img
-                            src={recipe.imageURL}
-                            alt="food"
-                            className="object-cover w-48 h-48"
-                          />
-                        </div>
-                      </div>
-                      <div className="flex flex-col justify-between  font-raleway text-white">
-                        <div className="space-y-3">
-                          <h1 className="text-2xl font-clashDisplayMedium">
+                      <div className="flex flex-col gap-4">
+                        <img
+                          src={recipe.imageURL}
+                          className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
+                          alt={recipe.name}
+                        />
+                        <div className="flex flex-col items-center text-center text-lg px-4 ">
+                          <h2 className="font-clashDisplaySemibold">
                             {recipe.name}
-                          </h1>
-                          <p>{recipe.description}</p>
+                          </h2>
+                          <h3 className="font-clashDisplayRegular">
+                            {recipe.description}
+                          </h3>
+                          <h4 className="text-[#FF5D47] font-clashDisplayMedium mt-2">
+                            {recipe.cookingTime}
+                          </h4>
                         </div>
-                        <section className="space-y-2">
-                          <h3 className="font-clashDisplayMedium">Author</h3>
-                          <div className="flex gap-x-4 items-center">
-                            <img
-                              src={recipe.user.imageURL}
-                              alt={recipe.user.fullname + " profile's image"}
-                              className="w-12 h-12 rounded-full"
-                            />
-                            <div className="space-y-1">
-                              <h4 className="font-clashDisplayMedium">
-                                {recipe.user.fullname}
-                              </h4>
-                              <p className="text-slate-400 font-raleway">
-                                Memasak adalah koentji
-                              </p>
-                            </div>
-                          </div>
-                        </section>
+                        <div className="flex justify-center items-center text-center gap-3 pb-4">
+                          <img
+                            src={recipe.user.imageURL}
+                            alt={recipe.user.fullname + " profile's image"}
+                            className="w-6 h-6 rounded-full"
+                          />
+                          <h2 className="font-clashDisplayRegular">
+                            {recipe.user.fullname}
+                          </h2>
+                        </div>
                       </div>
                     </Link>
                   </li>
