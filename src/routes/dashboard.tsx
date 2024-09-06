@@ -96,8 +96,8 @@ export function DashboardRoute() {
                           <h3 className="font-clashDisplayMedium">Author</h3>
                           <div className="flex gap-x-4 items-center">
                             <img
-                              src="/path/to/author-image.jpg"
-                              alt="Novia Filas"
+                              src={recipe.user.imageURL}
+                              alt={recipe.user.fullname + " profile's image"}
                               className="w-12 h-12 rounded-full"
                             />
                             <div className="space-y-1">
