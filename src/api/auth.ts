@@ -22,9 +22,7 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
 
   if (!response.ok) throw new Error("Failed to login");
 
-  const {
-    data: { token },
-  } = await response.json();
+  const { token } = await response.json();
 
   return { token };
 };
