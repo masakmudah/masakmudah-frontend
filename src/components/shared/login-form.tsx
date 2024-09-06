@@ -41,8 +41,6 @@ const LoginForm = () => {
     try {
       const { token } = await login(values);
 
-      console.log("Ini adalah token dari login-form", token);
-
       setToken(token);
       localStorage.setItem("username", values.username);
       navigate("/");
