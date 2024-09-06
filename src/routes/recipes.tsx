@@ -38,8 +38,8 @@ export function RecipesRoute() {
               >
                 <div className="flex gap-x-4 items-center">
                   <img
-                    src="https://api.dicebear.com/9.x/thumbs/svg?seed=Felix"
-                    alt={`avatar-${recipe.user.fullname}`}
+                    src={recipe.user.imageURL}
+                    alt={recipe.user.fullname + " profile's image"}
                     className="w-12 h-12 rounded-full"
                   />
                   <div className="space-y-1">
