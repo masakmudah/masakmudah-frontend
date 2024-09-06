@@ -11,8 +11,11 @@ import { InstructionsField } from "@/components/add-recipe/instructions-field";
 import { useState } from "react";
 import ImageUploadButton from "@/components/shared/image-upload-button";
 import { uploadFile } from "@uploadcare/upload-client";
+import { useAuth } from "@/context/auth-provider";
+import { Navigate } from "react-router-dom";
 
 export function NewRecipeRoute() {
+  const { token } = useAuth();
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const form = useForm<CreateRecipeSchema>({
@@ -53,6 +56,10 @@ export function NewRecipeRoute() {
   const handleFileChange = (selectedFile: File | null) => {
     setUploadedFile(selectedFile);
   };
+
+  if (!token) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="bg-[#192322]">
