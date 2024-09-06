@@ -6,7 +6,7 @@ export function RegisterRoute() {
   return (
     <div className="h-screen bg-[#1C2625] w-full">
       <Container className="flex justify-center items-center h-full">
-        <div className="bg-gradient-to-b from-[#e2ff8a] from-[-180%] to-[#FEFEFE] rounded-[2rem] px-16 py-24 flex justify-center flex-col items-center gap-y-4">
+        <div className="bg-gradient-to-b from-[#e2ff8a] from-[-180%] to-[#FEFEFE] rounded-[2rem] px-16 pb-24 pt-16 flex justify-center flex-col items-center gap-y-4">
           <div className="gap-x-1 flex  items-center justify-center rounded-2xl px-3 py-3">
             <img
               src="/images/masakmudah-logo-2.png"
