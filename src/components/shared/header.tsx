@@ -58,9 +58,14 @@ export function Header() {
               alt=""
               className="w-12 h-12"
             />
-            <h1 className="text-lg md:text-lg font-clashDisplayMedium">
-              masakmudah
-            </h1>
+            <div className="-space-y-3">
+              <p className="text-lg md:text-lg font-clashDisplayMedium">
+                masak
+              </p>
+              <p className="text-lg md:text-lg font-clashDisplayMedium">
+                mudah
+              </p>
+            </div>
           </Link>
 
           <div className="md:hidden">

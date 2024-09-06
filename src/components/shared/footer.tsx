@@ -16,9 +16,14 @@ export const Footer = () => {
               alt=""
               className="w-16 h-16"
             />
-            <h1 className="text-3xl md:text-xl font-clashDisplaySemibold">
-              masakmudah
-            </h1>
+            <div className="-space-y-2">
+              <p className="text-3xl md:text-xl font-clashDisplaySemibold text-white/90">
+                masak
+              </p>
+              <p className="text-3xl md:text-xl font-clashDisplaySemibold text-white/90">
+                mudah
+              </p>
+            </div>
           </Link>
           <p className="text-base font-raleway">
             Temukan berbagai resep dan buat masakan dengan mudah hanya di
