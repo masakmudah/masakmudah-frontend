@@ -7,7 +7,7 @@ export const memberProfile = [
   },
   {
     name: "Cahyono Muslim Sidiq",
-    imageURL: "/images/member/sidiq.jpg",
+    imageURL: "/images/member/sidiq.png",
     github: "https://github.com/sidiqcahyono83",
     linkedIn: "https://www.linkedin.com/in/sidiq-cahyono-3950742b6",
   },
