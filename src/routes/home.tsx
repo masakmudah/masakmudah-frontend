@@ -12,6 +12,7 @@ import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { CategoryBar } from "@/components/shared/category-bar";
 import { useEffect, useState } from "react";
 import { getCategoryBySlug } from "@/api/category";
+import { useAuth } from "@/context/auth-provider";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
@@ -25,8 +26,8 @@ export function HomeRoute() {
   const { recipes } = useLoaderData() as { recipes: Recipe[] };
   const [categoryRecipes, setCategoryRecipes] = useState(recipes);
   const [isFirstRender, setIsFirstRender] = useState(true);
-
   const [categoryName, setCategoryName] = useState<string>("all");
+  const { token } = useAuth();
 
   useEffect(() => {
     if (isFirstRender || categoryName === "all") {
@@ -71,13 +72,17 @@ export function HomeRoute() {
                 Cari resep
                 <ArrowUp className="rotate-45 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
               </Link>
-              <Link
-                className="px-8 py-3 bg-[#192322] text-white rounded-3xl flex gap-x-2 items-center group"
-                to="/recipes/new"
-              >
-                Buat resep
-                <ArrowUp className="rotate-45 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-              </Link>
+              {token ? (
+                <Link
+                  className="px-8 py-3 bg-[#192322] text-white rounded-3xl flex gap-x-2 items-center group"
+                  to="/recipes/new"
+                >
+                  Buat resep
+                  <ArrowUp className="rotate-45 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+                </Link>
+              ) : (
+                ""
+              )}
             </div>
 
             <p className="font-raleway">

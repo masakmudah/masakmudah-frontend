@@ -2,8 +2,8 @@ import { memberProfile } from "@/constant/member-profile";
 
 export function AboutRoute() {
   return (
-    <div className="font-raleway flex flex-col items-center p-8 border-b border-black bg-[#F7FEE7] h-dvh">
-      <h1 className="text-4xl md:text-6xl font-bold md:font-extrabold mb-10 p-4">
+    <div className="font-raleway flex flex-col items-center gap-16 md:gap-36 mt-28 border-b border-black bg-[#F7FEE7] min-h-dvh">
+      <h1 className="text-3xl md:text-5xl font-bold md:font-extrabold p-4">
         Member Profile
       </h1>
 
@@ -11,7 +11,7 @@ export function AboutRoute() {
         {memberProfile.map((profile) => (
           <div
             key={profile.name}
-            className="flex flex-col items-center p-4 max-w-[300px] max-h-[400px] flex-shrink-0 bg-transparent"
+            className="flex flex-col items-center p-4 flex-shrink-0 bg-transparent"
           >
             <img
               src={profile.imageURL}
