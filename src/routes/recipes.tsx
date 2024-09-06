@@ -29,47 +29,40 @@ export function RecipesRoute() {
       </h1>
 
       {recipes && recipes.length > 0 ? (
-        <ul className="space-y-6">
+        <ul className="grid grid-cols md:grid-cols-4 gap-4 ">
           {recipes.map((recipe: Recipe) => (
             <li key={recipe.id}>
               <Link
                 to={`/recipes/${recipe.slug}`}
-                className="bg-[#1C2625] rounded-3xl px-8 py-10 flex gap-x-12"
+                className="bg-[#F7FEE7] shadow-lg shadow-black rounded-3xl flex flex-col gap-y-8 items-center py-8 h-full hover:scale-[.994] transition-transform duration-300 active:scale-[.98]"
               >
-                <div className="">
-                  <div className="rounded-2xl overflow-hidden w-48 h-48">
-                    <img
-                      src={recipe.imageURL}
-                      alt="food"
-                      className="object-cover w-48 h-48"
-                    />
+                <div className="flex gap-x-4 items-center">
+                  <img
+                    src="https://api.dicebear.com/9.x/thumbs/svg?seed=Felix"
+                    alt={`avatar-${recipe.user.fullname}`}
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <div className="space-y-1">
+                    <h4 className="font-clashDisplayMedium">
+                      {recipe.user.fullname}
+                    </h4>
+                    <p className="text-slate-400 font-raleway">
+                      Memasak adalah koentji
+                    </p>
                   </div>
                 </div>
-                <div className="flex flex-col justify-between  font-raleway text-white">
-                  <div className="space-y-3">
-                    <h1 className="text-2xl font-clashDisplayMedium">
+                <div className="flex flex-col items-center gap-y-8 flex-grow">
+                  <img
+                    src={recipe.imageURL}
+                    className="w-56 h-56 object-cover rounded-xl"
+                    alt={recipe.name}
+                  />
+                  <div className="flex flex-col items-center px-8 gap-y-4 ">
+                    <h2 className="text-3xl font-clashDisplaySemibold">
                       {recipe.name}
-                    </h1>
-                    <p>{recipe.description}</p>
+                    </h2>
+                    <p className="text-center">{recipe.description}</p>
                   </div>
-                  <section className="space-y-2">
-                    <h3 className="font-clashDisplayMedium">Author</h3>
-                    <div className="flex gap-x-4 items-center">
-                      <img
-                        src="https://api.dicebear.com/9.x/thumbs/svg?seed=Felix"
-                        alt={`avatar-${recipe.user.fullname}`}
-                        className="w-12 h-12 rounded-full"
-                      />
-                      <div className="space-y-1">
-                        <h4 className="font-clashDisplayMedium">
-                          {recipe.user.fullname}
-                        </h4>
-                        <p className="text-slate-400 font-raleway">
-                          Memasak adalah koentji
-                        </p>
-                      </div>
-                    </div>
-                  </section>
                 </div>
               </Link>
             </li>
