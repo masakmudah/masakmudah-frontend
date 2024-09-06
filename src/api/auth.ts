@@ -17,15 +17,12 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
 
   if (response.status === 400) {
     const errorData = await response.json();
-    console.log("Ini error data", errorData);
     throw new Error(errorData.message || response.statusText);
   }
 
   if (!response.ok) throw new Error("Failed to login");
 
-  const {
-    data: { token },
-  } = await response.json();
+  const { token } = await response.json();
 
   return { token };
 };
