@@ -50,11 +50,16 @@ export function Header() {
 
   return (
     <header className="bg-[#E6FDB0] shadow-sm w-full">
-      <Container className="flex items-center justify-between md:gap-20 p-4 md:p-6 space-x-2 ">
+      <Container className="flex items-center justify-between md:gap-20 p-4 md:p-6 space-x-2 h-20">
         <div id="left-side" className="flex items-center gap-x-4 md:gap-x-20">
-          <Link to="/" className="hidden md:flex items-center gap-x-2">
-            <h1 className="text-lg md:text-xl font-clashDisplaySemibold">
-              Masakmudah
+          <Link to="/" className="hidden md:flex items-center  gap-x-2">
+            <img
+              src="/images/masakmudah-logo-2.png"
+              alt=""
+              className="w-12 h-12"
+            />
+            <h1 className="text-lg md:text-lg font-clashDisplayMedium">
+              masakmudah
             </h1>
           </Link>
 

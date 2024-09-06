@@ -7,11 +7,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/auth-provider";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const ProfileImage = () => {
   const navigate = useNavigate();
   const { setToken, user } = useAuth();
+  const [openDropdown, setOpenDropdown] = useState(false);
   // const username = localStorage.getItem("username");
 
   const handleLogout = () => {
@@ -20,11 +22,12 @@ const ProfileImage = () => {
     navigate("/login");
   };
 
-  console.log("From navbar, user : ", user);
-
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
+    <DropdownMenu
+      open={openDropdown}
+      onOpenChange={() => setOpenDropdown(!openDropdown)}
+    >
+      <DropdownMenuTrigger onClick={() => setOpenDropdown(true)}>
         <img
           src="https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
           alt="avatar"
@@ -55,7 +58,9 @@ const ProfileImage = () => {
             alt="book-icon"
             className="scale-90"
           />
-          <Link to="/dashboard">Resep saya</Link>
+          <Link to="/dashboard" onClick={() => setOpenDropdown(false)}>
+            Resep saya
+          </Link>
         </DropdownMenuItem>
         {/* <DropdownMenuItem className="focus:bg-transparent">
           Ubah profil

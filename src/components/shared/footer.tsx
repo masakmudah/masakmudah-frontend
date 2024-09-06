@@ -7,9 +7,17 @@ export const Footer = () => {
     <footer className="flex justify-center items-center bg-[#1C2625] text-[#fafbff] text-base font-clashDisplayReguler">
       <Container className="flex flex-col md:flex-row p-10 gap-10 justify-between w-full">
         <div className="space-y-2 justify-center items-center ">
-          <Link to="/" className="hover:text-[#b54232]">
+          <Link
+            to="/"
+            className="hover:text-[#b54232] flex gap-x-2 items-center"
+          >
+            <img
+              src="/images/masakmudah-logo-2.png"
+              alt=""
+              className="w-16 h-16"
+            />
             <h1 className="text-3xl md:text-xl font-clashDisplaySemibold">
-              Masakmudah
+              masakmudah
             </h1>
           </Link>
           <p className="text-base font-raleway">
@@ -19,7 +27,9 @@ export const Footer = () => {
         </div>
         <div className="flex flex-col md:flex-row gap-6 font-raleway">
           <div className="space-y-6">
-            <h3 className="text-lg font-clashDisplaySemibold">Sitemap</h3>
+            <h3 className="text-lg font-clashDisplayMedium tracking-wide">
+              Sitemap
+            </h3>
             <div className="flex flex-col gap-y-2 text-base">
               <Link to="/" className="hover:text-[#b54232]">
                 Beranda
@@ -33,7 +43,9 @@ export const Footer = () => {
             </div>
           </div>
           <div className="space-y-6">
-            <h3 className="text-lg font-clashDisplaySemibold">Bantuan</h3>
+            <h3 className="text-lg font-clashDisplayMedium tracking-wide">
+              Bantuan
+            </h3>
             <div className="flex flex-col gap-y-2">
               <Link to="">
                 {/* TO DO: Fix this */}
@@ -49,7 +61,9 @@ export const Footer = () => {
             </div>
           </div>
           <div className="space-y-6">
-            <h3 className="text-lg font-clashDisplaySemibold">Sosial Media</h3>
+            <h3 className="text-lg font-clashDisplayMedium tracking-wide ">
+              Sosial Media
+            </h3>
             <div className="flex flex-col gap-y-2">
               {/* TO DO: Fix this */}
               <div className="flex gap-2">
