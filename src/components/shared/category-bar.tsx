@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const CategoryBar: React.FC<{ tabs: string[] }> = ({ tabs }) => {
+interface ICategoryBar {
+  tabs: string[];
+  onTabChange: (tabName: string) => void;
+}
+
+export const CategoryBar: React.FC<ICategoryBar> = ({ tabs, onTabChange }) => {
   const fired = useRef(false);
   const defaultSelectedTabIndex = 0;
   const [currentLink, setCurrentLink] = useState<{
@@ -51,6 +56,8 @@ export const CategoryBar: React.FC<{ tabs: string[] }> = ({ tabs }) => {
                 ?.getBoundingClientRect().width,
               index: i,
             }));
+
+            onTabChange(link);
           }}
           className={twMerge(
             "transition-colors duration-200 flex items-center justify-center rounded-full h-fit px-4 py-2 text-nowrap",
