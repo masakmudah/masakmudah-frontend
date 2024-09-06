@@ -19,7 +19,7 @@ const ProfileImage = () => {
   const handleLogout = () => {
     setToken(null);
     localStorage.removeItem("username");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
