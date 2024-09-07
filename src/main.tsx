@@ -19,6 +19,10 @@ import AuthProvider from "./context/auth-provider";
 import { AboutRoute } from "./routes/about";
 import { NewRecipeRoute } from "./routes/new-recipe";
 import { UploadRoute } from "./routes/upload";
+import {
+  UserRecipesRoute,
+  loader as userRecipesLoader,
+} from "./routes/user-recipes";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +75,14 @@ const router = createBrowserRouter([
       {
         path: "/recipes/new",
         element: <NewRecipeRoute />,
+      },
+      {
+        path: "/:username",
+        element: <UserRecipesRoute />,
+        loader: ({ params }) =>
+          userRecipesLoader(params.username || "unknownid"),
+        // loader: ({ params }) =>
+        //   userRecipesLoader(params.username || "unknownid"),
       },
     ],
   },
