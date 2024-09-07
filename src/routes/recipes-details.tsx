@@ -67,22 +67,24 @@ export function RecipesDetails() {
             </section>
             <p className="font-raleway">{recipe.description}</p>
             <section className="space-y-2">
-              <h3 className="font-clashDisplayMedium">Author</h3>
-              <div className="flex gap-x-4 items-center">
-                <img
-                  src={recipe.user.imageURL}
-                  alt={recipe.user.fullname + " profile's image"}
-                  className="w-12 h-12 rounded-full"
-                />
-                <div className="space-y-1">
-                  <h4 className="font-clashDisplayMedium">
-                    {recipe.user.fullname}
-                  </h4>
-                  <p className="text-slate-400 font-raleway">
-                    Memasak adalah koentji
-                  </p>
+              <Link to={`/${recipe.user.username}`}>
+                <h3 className="font-clashDisplayMedium">Author</h3>
+                <div className="flex gap-x-4 items-center">
+                  <img
+                    src={recipe.user.imageURL}
+                    alt={recipe.user.fullname + " profile's image"}
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <div className="space-y-1">
+                    <h4 className="font-clashDisplayMedium">
+                      {recipe.user.fullname}
+                    </h4>
+                    <p className="text-slate-400 font-raleway">
+                      Memasak adalah koentji
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </section>
             <hr className="h-0.5 bg-black my-4 w-full" />
           </div>
