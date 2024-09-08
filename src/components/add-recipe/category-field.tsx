@@ -30,10 +30,11 @@ export function TestRoute({ control, categories }: CategoriesFieldProps) {
           <FormItem className="flex-1">
             <FormControl>
               <Select
+                name="categoryId"
                 value={field.value} // Handle single selection or use the first item of the array
                 onValueChange={(value) => field.onChange(value)}
               >
-                <SelectTrigger className="">
+                <SelectTrigger>
                   <SelectValue placeholder="Pilih kategori" />
                 </SelectTrigger>
                 <SelectContent>

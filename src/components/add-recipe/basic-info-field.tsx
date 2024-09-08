@@ -74,9 +74,10 @@ export const BasicInfoField = ({ control }: BasicInfoFieldProps) => {
                   id="name"
                   placeholder="Nama Resep"
                   type="text"
-                  className="w-full border rounded-md p-2 capitalize"
+                  className="w-full border rounded-md p-2 capitalize autocomplete"
                   {...field}
                   onChange={trimSpace(field)}
+                  autoComplete="name"
                 />
               </FormControl>
               <FormMessage />
