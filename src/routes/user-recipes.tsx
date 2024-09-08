@@ -46,8 +46,8 @@ export function UserRecipesRoute() {
   const { user, recipes } = useLoaderData() as UserRecipesProps;
 
   return (
-    <div className="bg-[#495151] font-clashDisplayRegular">
-      <div className="flex flex-col w-full max-w-5xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5">
+    <div className="bg-[#495151] font-clashDisplayRegular min-h-dvh">
+      <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5">
         <section className="flex justify-start gap-10 text-white">
           <Avatar className="w-32 h-32">
             <img

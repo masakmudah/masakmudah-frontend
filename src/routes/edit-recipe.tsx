@@ -8,42 +8,50 @@ import { CreateRecipeSchema, createRecipeSchema } from "@/schemas/new-recipe";
 import { Category } from "@/types/category";
 import { useForm } from "react-hook-form";
 import {
-  // ActionFunctionArgs,
   Navigate,
+  redirect,
   useLoaderData,
   useNavigate,
 } from "react-router-dom";
 import { CategoryField } from "../components/add-recipe/category-field";
 import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
-// import { CategoriesField } from "@/components/add-recipe/categories-field";
-// import { IngredientsField } from "@/components/add-recipe/ingredients-field";
-// import { InstructionsField } from "@/components/add-recipe/instructions-field";
-// import ImageUploadButton from "@/components/shared/image-upload-button";
-// import { uploadFile } from "@uploadcare/upload-client";
 
-export async function loader() {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);
-  const data = await response.json();
-  const categories = data.data;
-  return { categories };
+export async function loader(slug: string) {
+  try {
+    const recipeResponse = await fetch(
+      `${import.meta.env.VITE_API_URL}/recipes/${slug}`
+    );
+    const recipes = await recipeResponse.json();
+    const recipe = recipes.data;
+
+    const categoriesResponse = await fetch(
+      `${import.meta.env.VITE_API_URL}/categories`
+    );
+    const category = await categoriesResponse.json();
+    const categories = category.data;
+
+    return { recipe, categories };
+  } catch (error) {
+    console.error("Data tidak dapat diakses:", error);
+    throw redirect("/dashboard");
+  }
 }
 
-export function NewRecipeRoute() {
+export function EditRecipeRoute() {
   const { token } = useAuth();
-  const { categories } = useLoaderData() as { categories: Category[] };
+  const { recipe, categories } = useLoaderData() as {
+    recipe: CreateRecipeSchema;
+    categories: Category[];
+  };
   const navigate = useNavigate();
-  // const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const form = useForm<CreateRecipeSchema>({
     resolver: zodResolver(createRecipeSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      cookingTime: "",
-      categoryId: "",
-      // imageURL: "",
-      // ingredients: [{ sequence: 0, name: "", quantity: 0, measurement: "" }],
-      // instructions: [{ sequence: 0, text: "" }],
+      name: recipe.name || "",
+      description: recipe.description || "",
+      cookingTime: recipe.cookingTime || "",
+      categoryId: recipe.categoryId || "",
     },
   });
 
@@ -93,37 +101,15 @@ export function NewRecipeRoute() {
     }
   };
 
-  //   try {
-  //     if (!uploadedFile) throw new Error("File harus ada");
-
-  //     const { cdnUrl } = await uploadFile(uploadedFile, {
-  //       publicKey: "6c06ff53d4ffc84d8a11",
-  //       store: "auto",
-  //       metadata: {
-  //         pet: "cat",
-  //       },
-  //     });
-
-  //     console.log(data);
-  //     console.log(cdnUrl);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const handleFileChange = (selectedFile: File | null) => {
-  //   setUploadedFile(selectedFile);
-  // };
-
   if (!token) {
     return <Navigate to="/" />;
   }
 
   return (
-    <div className="bg-[#192322] min-h-dvh">
+    <div className="bg-[#192322] h-dvh">
       <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 bg-[#192322] rounded-lg gap-5 text-black">
         <h1 className="text-3xl sm:text-4xl font-bold text-center text-white ">
-          Tulis Resep Baru
+          Edit Resep
         </h1>
         <Separator />
 
@@ -132,14 +118,6 @@ export function NewRecipeRoute() {
             <BasicInfoField control={control} />
             <Separator />
             <CategoryField categories={categories} control={control} />
-
-            {/* <ImageUploadButton onFileChange={handleFileChange} /> */}
-            {/* <CategoriesField control={control} /> */}
-            {/* <Separator /> */}
-            {/* <IngredientsField control={control} /> */}
-            {/* <Separator /> */}
-            {/* <InstructionsField control={control} /> */}
-            {/* <Separator /> */}
 
             <Button
               type="submit"
@@ -153,35 +131,3 @@ export function NewRecipeRoute() {
     </div>
   );
 }
-
-// export async function action({ request }: ActionFunctionArgs) {
-//   const formData = await request.formData();
-
-//   const userData = {
-//     name: formData.get("name")?.toString(),
-//     description: formData.get("description")?.toString(),
-//     cookingTime: formData.get("cookingTime")?.toString(),
-//     categoryId: formData.get("categoryId")?.toString(),
-//   };
-
-//   try {
-//     const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(userData),
-//     });
-
-//     if (response.ok) {
-//       return navigate("/dashboard");
-//     } else {
-//       const errorData = await response.json();
-//       console.error("Failed to create recipe:", errorData);
-//       return null;
-//     }
-//   } catch (error) {
-//     console.error("An error occurred:", error);
-//     return null;
-//   }
-// }

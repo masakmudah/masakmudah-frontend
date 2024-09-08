@@ -24,7 +24,7 @@ export function RecipesRoute() {
   const q = params.get("q");
 
   return (
-    <div className="bg-[#495151]">
+    <div className="bg-[#495151] min-h-dvh">
       <Container className="w-full space-y-5">
         <h1 className="text-3xl font-clashDisplaySemibold text-white">
           {q === null ? (
@@ -40,12 +40,9 @@ export function RecipesRoute() {
         {recipes && recipes.length > 0 ? (
           <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
             {recipes.map((recipe: Recipe) => (
-              <li key={recipe.id}>
-                <Link
-                  to={`/recipes/${recipe.slug}`}
-                  className="bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98]"
-                >
-                  <div className="flex flex-col gap-4">
+              <li key={recipe.id} className="relative">
+                <div className="gap-4 h-full bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98] ">
+                  <Link to={`/recipes/${recipe.slug}`}>
                     <img
                       src={recipe.imageURL}
                       className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
@@ -62,18 +59,21 @@ export function RecipesRoute() {
                         {recipe.cookingTime}
                       </h4>
                     </div>
-                    <div className="flex justify-center items-center text-center gap-3 pb-4">
-                      <img
-                        src={recipe.user.imageURL}
-                        alt={recipe.user.fullname + " profile's image"}
-                        className="w-6 h-6 rounded-full"
-                      />
-                      <h2 className="font-clashDisplayRegular">
-                        {recipe.user.fullname}
-                      </h2>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
+                  <Link
+                    to={`/${recipe.user.username}`}
+                    className="flex justify-center items-center text-center gap-2 pb-4  hover:font-bold"
+                  >
+                    <img
+                      src={recipe.user.imageURL}
+                      alt={recipe.user.fullname + " profile's image"}
+                      className="w-6 h-6 rounded-full"
+                    />
+                    <p className="font-clashDisplayRegular bg-gray-200 p-1">
+                      {recipe.user.fullname}
+                    </p>
+                  </Link>
+                </div>
               </li>
             ))}
           </ul>
