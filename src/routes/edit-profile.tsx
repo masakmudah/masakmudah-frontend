@@ -8,13 +8,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/auth-provider";
 import { editUserSchema, EditUserSchema } from "@/schemas/edit-profile";
 import { User } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
+import { Navigate, useLoaderData } from "react-router-dom";
 
 interface EditProfileProps {
   user: User;
@@ -37,7 +36,6 @@ export async function loader(username: string) {
 export function EditProfileRoute() {
   const { token } = useAuth();
   const { user } = useLoaderData() as EditProfileProps;
-  const navigate = useNavigate();
 
   const form = useForm<EditUserSchema>({
     resolver: zodResolver(editUserSchema),
@@ -52,47 +50,7 @@ export function EditProfileRoute() {
   const { handleSubmit, control } = form;
 
   const onSubmit = async (data: EditUserSchema) => {
-    try {
-      if (!token) throw new Error("No authentication token");
-
-      const userResponse = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/me`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!userResponse.ok) throw new Error("Gagal mendapatkan User Id");
-
-      const userData = await userResponse.json();
-      const userId = userData.user.id;
-
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ ...data, userId }),
-      });
-
-      if (response.ok) {
-        navigate("/dashboard");
-      } else {
-        const errorData = await response.json();
-        console.error("Lengkapi form:", errorData);
-      }
-    } catch (error) {
-      toast({
-        className:
-          "bg-red-500 text-white rounded-3xl font-clashDisplayRegular border-0",
-        title: "Gagal membuat resep baru",
-        description: (error as Error).message,
-      });
-      console.error("Error saat membuat resep baru:", error);
-    }
+    console.log(data);
   };
 
   const trimSpace =
@@ -133,6 +91,7 @@ export function EditProfileRoute() {
                   <Input type="file" className="opacity-0 cursor-pointer" />
                 </label>
               </div>
+
               <FormField
                 control={control}
                 name="username"
@@ -159,6 +118,7 @@ export function EditProfileRoute() {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={control}
                 name="fullname"
@@ -212,19 +172,17 @@ export function EditProfileRoute() {
 
               <div className="flex gap-2">
                 <Button
-                  asChild
+                  type="submit"
                   className="w-full py-3 bg-green-600 text-white hover:bg-green-700"
                 >
-                  <a href="/dashboard" className="">
-                    <p className="text-2xl font-bold">Simpan</p>
-                  </a>
+                  Simpan
                 </Button>
                 <Button
                   asChild
                   className="w-full py-3 bg-red-600 text-white hover:bg-red-700"
                 >
                   <a href="/dashboard" className="">
-                    <p className="text-xl font-bold">Cancel</p>
+                    <p className="text-2xl font-bold"> Cancel</p>
                   </a>
                 </Button>
               </div>
