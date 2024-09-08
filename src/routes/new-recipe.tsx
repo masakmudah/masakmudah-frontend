@@ -131,7 +131,7 @@ export function NewRecipeRoute() {
         <Separator />
 
         <ImageUploadButton onFileChange={handleFileChange} />
-        <button onClick={submitImage}>Submit</button>
+        {/* <button onClick={submitImage}>Submit</button> */}
 
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
