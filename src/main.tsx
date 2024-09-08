@@ -8,7 +8,10 @@ import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
 import { DashboardRoute, loader as dashboardLoader } from "./routes/dashboard";
 import { RecipesRoute, loader as recipesLoader } from "./routes/recipes";
-import { EditProfileRoute } from "./routes/edit-profile";
+import {
+  EditProfileRoute,
+  loader as editProfileLoader,
+} from "./routes/edit-profile";
 import ErrorPage from "./routes/error-page";
 import {
   RecipesDetails,
@@ -61,8 +64,10 @@ const router = createBrowserRouter([
         loader: dashboardLoader,
       },
       {
-        path: "/editprofile",
+        path: "/:username/edit-profile",
         element: <EditProfileRoute />,
+        loader: ({ params }) =>
+          editProfileLoader(params.username || "unknownid"),
       },
       {
         path: "/recipes",
