@@ -42,22 +42,28 @@ export function DashboardRoute() {
   return (
     <div className="bg-[#495151] font-clashDisplayRegular min-h-dvh">
       <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5">
-        <section className="flex justify-start gap-10 text-white">
-          <Avatar className="w-32 h-32">
-            <img
-              src={user.imageURL || "/images/profile-user-alpha.png"}
-              alt={user.fullname || "Profile User"}
-            />
-          </Avatar>
+        <section className="flex justify-between gap-10 text-white px-10">
+          <div className="flex gap-10">
+            <Avatar className="w-32 h-32">
+              <img
+                src={user.imageURL || "/images/profile-user-alpha.png"}
+                alt={user.fullname || "Profile User"}
+              />
+            </Avatar>
 
-          <div className="justify-center items-start flex flex-col">
-            <p className="hover:text-blue-800">@{user.username}</p>
-            <h1>{user.fullname || "Fullname"}</h1>
+            <div className="flex flex-col justify-center items-start text-3xl">
+              <p className="hover:text-blue-800">@{user.username}</p>
+              <p>{user.fullname || "Fullname"}</p>
+              <p>{user.email || "Fullname"}</p>
+            </div>
           </div>
 
-          <div>
-            <Button asChild className="mt-4">
+          <div className="flex gap-3 font-raleway">
+            <Button asChild className="">
               <Link to="/recipes/new">Tambah resep baru</Link>
+            </Button>
+            <Button asChild className="">
+              <Link to={`/${user?.username}/edit-profile`}>Edit Profile</Link>
             </Button>
           </div>
         </section>

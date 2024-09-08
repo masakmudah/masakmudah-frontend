@@ -1,84 +1,237 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/use-toast";
+import { useAuth } from "@/context/auth-provider";
+import { editUserSchema, EditUserSchema } from "@/schemas/edit-profile";
+import { User } from "@/types/user";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
+
+interface EditProfileProps {
+  user: User;
+}
+
+export async function loader(username: string) {
+  try {
+    const userResponse = await fetch(
+      `${import.meta.env.VITE_API_URL}/users/${username}`
+    );
+    const users = await userResponse.json();
+    const user = users.data;
+
+    return { user };
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export function EditProfileRoute() {
+  const { token } = useAuth();
+  const { user } = useLoaderData() as EditProfileProps;
+  const navigate = useNavigate();
+
+  const form = useForm<EditUserSchema>({
+    resolver: zodResolver(editUserSchema),
+    defaultValues: {
+      username: user.username || "",
+      fullname: user.fullname || "",
+      email: user.email || "",
+      imageURL: user.imageURL || "",
+    },
+  });
+
+  const { handleSubmit, control } = form;
+
+  const onSubmit = async (data: EditUserSchema) => {
+    try {
+      if (!token) throw new Error("No authentication token");
+
+      const userResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/me`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!userResponse.ok) throw new Error("Gagal mendapatkan User Id");
+
+      const userData = await userResponse.json();
+      const userId = userData.user.id;
+
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ ...data, userId }),
+      });
+
+      if (response.ok) {
+        navigate("/dashboard");
+      } else {
+        const errorData = await response.json();
+        console.error("Lengkapi form:", errorData);
+      }
+    } catch (error) {
+      toast({
+        className:
+          "bg-red-500 text-white rounded-3xl font-clashDisplayRegular border-0",
+        title: "Gagal membuat resep baru",
+        description: (error as Error).message,
+      });
+      console.error("Error saat membuat resep baru:", error);
+    }
+  };
+
+  const trimSpace =
+    (field: any) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const space = e.target.value;
+      if (space.startsWith(" ")) {
+        return;
+      }
+
+      const multipleSpace = space.replace(/\s{2,}/g, " ");
+
+      field.onChange(space, multipleSpace);
+    };
+
+  if (!token) {
+    return <Navigate to="/" />;
+  }
   return (
-    <main className="flex justify-center">
-      <div className="mt-10">
+    <div className="flex justify-center bg-[#495151] font-clashDisplayRegular min-h-dvh">
+      <div className="mt-10 max-w-7xl">
         <div>
           <h1 className="font-bold text-3xl text-center">Edit Profile</h1>
         </div>
         <div className="mt-4">
-          <form method="post">
-            <div>
-              <label className="flex flex-col justify-center border-gray-400 cursor-pointer">
-                <div className="flex flex-col items-center pt-7">
-                  <img
-                    src="/images/profile-user-alpha.png"
-                    alt="Profile User Alpha"
-                    className="w-20 h-20"
-                  />
-                  <p className="text-gray-400">Ganti Foto</p>
-                </div>
-                <Input type="file" className="opacity-0 cursor-pointer" />
-              </label>
-            </div>
-
-            <div>
-              <label htmlFor="name">Nama</label>
-              <Input id="name" type="text" placeholder="Nama" />
-            </div>
-            <div className="mt-4">
-              <label htmlFor="username">Nama Pengguna</label>
-              <Input id="username" type="text" placeholder="Nama Pengguna" />
-            </div>
-            <div className="mt-4">
-              <label htmlFor="bio">Bio</label>
-              <Input
-                id="bio"
-                type="bio"
-                placeholder="Informasi tentang dirimu, minat, atau pesan tertentu yang ingin anda sampaikan kepada pengikut anda"
+          <Form {...form}>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+              <div>
+                <label className="flex flex-col justify-center border-gray-400 cursor-pointer">
+                  <div className="flex flex-col items-center pt-7">
+                    <img
+                      src={user.imageURL}
+                      alt={user.username}
+                      className="w-20 h-20"
+                    />
+                    <p className="text-gray-400">Ganti Foto</p>
+                  </div>
+                  <Input type="file" className="opacity-0 cursor-pointer" />
+                </label>
+              </div>
+              <FormField
+                control={control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel
+                      htmlFor="username"
+                      className="text-white text-lg "
+                    >
+                      Username
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="username"
+                        placeholder="Username"
+                        type="text"
+                        className="w-full border rounded-md p-2 capitalize autocomplete"
+                        {...field}
+                        onChange={trimSpace(field)}
+                        autoComplete="username"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            <div className="mt-4">
-              <label htmlFor="gender">Jenis Kelamin</label>
-              <Select>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="- Pilihan -" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pria">pria</SelectItem>
-                  <SelectItem value="wanita">wanita</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="mt-4">
-              <label htmlFor="website">Website</label>
-              <Input id="website" type="website" placeholder="Link website" />
-            </div>
+              <FormField
+                control={control}
+                name="fullname"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel
+                      htmlFor="fullname"
+                      className="text-white text-lg "
+                    >
+                      Nama Lengkap
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="fullname"
+                        placeholder="Nama Lengkap"
+                        type="text"
+                        className="w-full border rounded-md p-2 capitalize autocomplete"
+                        {...field}
+                        onChange={trimSpace(field)}
+                        autoComplete="fullname"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div>
-              <Button asChild className="w-44 h-16 bg-orange-500 mt-10">
-                <a href="/dashboard" className="">
-                  <p className="text-2xl font-bold">Simpan</p>
-                </a>
-              </Button>
-              <Button asChild className="w-44 h-16 bg-green-500 ml-10">
-                <a href="/dashboard" className="">
-                  <p className="text-xl font-bold">Cancel</p>
-                </a>
-              </Button>
-            </div>
-          </form>
+              <FormField
+                control={control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="email" className="text-white text-lg ">
+                      Email
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        placeholder="Email"
+                        type="text"
+                        className="w-full border rounded-md p-2 autocomplete"
+                        {...field}
+                        onChange={trimSpace(field)}
+                        autoComplete="email"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex gap-2">
+                <Button
+                  asChild
+                  className="w-full py-3 bg-green-600 text-white hover:bg-green-700"
+                >
+                  <a href="/dashboard" className="">
+                    <p className="text-2xl font-bold">Simpan</p>
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  className="w-full py-3 bg-red-600 text-white hover:bg-red-700"
+                >
+                  <a href="/dashboard" className="">
+                    <p className="text-xl font-bold">Cancel</p>
+                  </a>
+                </Button>
+              </div>
+            </form>
+          </Form>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
