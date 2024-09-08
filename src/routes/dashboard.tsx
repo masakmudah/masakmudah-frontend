@@ -42,8 +42,6 @@ export function DashboardRoute() {
 
   return (
     <div className="bg-[#F7FEE7] font-clashDisplayRegular min-h-dvh">
-      {/* <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5 bg-red-500">
-       */}
       <Container className="space-y-12">
         <section className="flex justify-start gap-10 text-black font-raleway">
           <div className="flex gap-x-8">
@@ -63,9 +61,9 @@ export function DashboardRoute() {
                 </p>
               </div>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta,
-                soluta beatae? Ducimus neque aut ratione nostrum tempora odio
-                labore consequatur reprehenderit, ea quisquam.
+                Saya seorang yang suka memasak dan berbagi resep. Memasak adalah
+                cara saya mengekspresikan kreativitas dan cinta kepada keluarga
+                dan teman-teman.
               </p>
             </div>
           </div>
@@ -77,13 +75,10 @@ export function DashboardRoute() {
             >
               <Link to="/recipes/new">Tambah resep baru</Link>
             </Button>
-            <Button asChild className="">
-              <Link to={`/${user?.username}/edit-profile`}>Edit Profile</Link>
-            </Button>
           </div>
         </section>
 
-        <DashboardTabs />
+        <DashboardTabs recipes={recipes} />
 
         <section className="text-center">
           {recipes.length === 0 ? (
