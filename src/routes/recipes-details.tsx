@@ -89,13 +89,13 @@ export function RecipesDetails() {
             <hr className="h-0.5 bg-black my-4 w-full" />
           </div>
           <h1 className="font-clashDisplayMedium text-2xl">Instruksi</h1>
-          <ul className="space-y-2 font-raleway">
+          {/* <ul className="space-y-2 font-raleway">
             {recipe.instructions.map((instruction, index) => (
               <li key={`${instruction.id}-${index}`}>
                 {instruction.step}. {instruction.description}
               </li>
             ))}
-          </ul>
+          </ul> */}
         </aside>
       </Container>
     </div>

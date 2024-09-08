@@ -17,7 +17,11 @@ import {
 import RecipeNotFound from "./routes/recipe-not-found";
 import AuthProvider from "./context/auth-provider";
 import { AboutRoute } from "./routes/about";
-import { NewRecipeRoute } from "./routes/new-recipe";
+import {
+  NewRecipeRoute,
+  loader as newRecipeLoader,
+  // action as newRecipeAction,
+} from "./routes/new-recipe";
 import { UploadRoute } from "./routes/upload";
 import {
   UserRecipesRoute,
@@ -75,14 +79,14 @@ const router = createBrowserRouter([
       {
         path: "/recipes/new",
         element: <NewRecipeRoute />,
+        loader: newRecipeLoader,
+        // action: newRecipeAction,
       },
       {
         path: "/:username",
         element: <UserRecipesRoute />,
         loader: ({ params }) =>
           userRecipesLoader(params.username || "unknownid"),
-        // loader: ({ params }) =>
-        //   userRecipesLoader(params.username || "unknownid"),
       },
     ],
   },
