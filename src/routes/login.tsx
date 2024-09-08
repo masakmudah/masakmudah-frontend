@@ -1,8 +1,15 @@
 import LoginForm from "@/components/shared/login-form";
 import Container from "@/components/ui/container";
-import { Link } from "react-router-dom";
+import { useAuth } from "@/context/auth-provider";
+import { Link, Navigate } from "react-router-dom";
 
 export function LoginRoute() {
+  const { token } = useAuth();
+
+  if (token) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="h-screen bg-[#1C2625] w-full">
       <Container className="flex justify-center items-center h-full">
@@ -16,7 +23,7 @@ export function LoginRoute() {
             <div className="-space-y-2">
               <p className="font-clashDisplayMedium text-md">masak</p>
               <p className="font-clashDisplayMedium text-md">mudah</p>
-            </div>{" "}
+            </div>
           </div>
           <div className="flex justify-center flex-col items-center">
             <h1 className="font-clashDisplayMedium text-xl">
@@ -28,7 +35,7 @@ export function LoginRoute() {
           </div>
           <LoginForm />
           <p className="font-raleway text-xs text-slate-500 ">
-            Belum punya akun?{" "}
+            Belum punya akun?
             <span className="underline">
               <Link to="/register">Daftar disini</Link>
             </span>
