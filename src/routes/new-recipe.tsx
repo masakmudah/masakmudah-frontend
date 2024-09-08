@@ -15,11 +15,13 @@ import {
 } from "react-router-dom";
 import { CategoryField } from "../components/add-recipe/category-field";
 import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
+import { useState } from "react";
+import ImageUploadButton from "@/components/shared/image-upload-button";
 // import { CategoriesField } from "@/components/add-recipe/categories-field";
 // import { IngredientsField } from "@/components/add-recipe/ingredients-field";
 // import { InstructionsField } from "@/components/add-recipe/instructions-field";
 // import ImageUploadButton from "@/components/shared/image-upload-button";
-// import { uploadFile } from "@uploadcare/upload-client";
+import { uploadFile } from "@uploadcare/upload-client";
 
 export async function loader() {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);
@@ -32,7 +34,7 @@ export function NewRecipeRoute() {
   const { token } = useAuth();
   const { categories } = useLoaderData() as { categories: Category[] };
   const navigate = useNavigate();
-  // const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const form = useForm<CreateRecipeSchema>({
     resolver: zodResolver(createRecipeSchema),
@@ -93,27 +95,28 @@ export function NewRecipeRoute() {
     }
   };
 
-  //   try {
-  //     if (!uploadedFile) throw new Error("File harus ada");
+  const submitImage = async () => {
+    try {
+      if (!uploadedFile) throw new Error("File harus ada");
 
-  //     const { cdnUrl } = await uploadFile(uploadedFile, {
-  //       publicKey: "6c06ff53d4ffc84d8a11",
-  //       store: "auto",
-  //       metadata: {
-  //         pet: "cat",
-  //       },
-  //     });
+      const { cdnUrl } = await uploadFile(uploadedFile, {
+        publicKey: "6c06ff53d4ffc84d8a11",
+        store: "auto",
+        metadata: {
+          pet: "cat",
+        },
+      });
 
-  //     console.log(data);
-  //     console.log(cdnUrl);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      // console.log(data);
+      console.log(cdnUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // const handleFileChange = (selectedFile: File | null) => {
-  //   setUploadedFile(selectedFile);
-  // };
+  const handleFileChange = (selectedFile: File | null) => {
+    setUploadedFile(selectedFile);
+  };
 
   if (!token) {
     return <Navigate to="/" />;
@@ -127,13 +130,15 @@ export function NewRecipeRoute() {
         </h1>
         <Separator />
 
+        <ImageUploadButton onFileChange={handleFileChange} />
+        <button onClick={submitImage}>Submit</button>
+
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             <BasicInfoField control={control} />
             <Separator />
             <CategoryField categories={categories} control={control} />
 
-            {/* <ImageUploadButton onFileChange={handleFileChange} /> */}
             {/* <CategoriesField control={control} /> */}
             {/* <Separator /> */}
             {/* <IngredientsField control={control} /> */}
