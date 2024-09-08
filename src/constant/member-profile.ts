@@ -18,7 +18,7 @@ export const memberProfile = [
     linkedIn: "https://www.linkedin.com/in/shiwilsahid",
   },
   {
-    name: "Rido Sandi Atmanto",
+    name: "Rido Atmanto",
     imageURL: "/images/member/rido.png",
     github: "https://github.com/ridoatmanto",
     linkedIn: "https://www.linkedin.com/in/rido-sandi-atmanto",
