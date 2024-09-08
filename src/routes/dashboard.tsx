@@ -77,6 +77,9 @@ export function DashboardRoute() {
             >
               <Link to="/recipes/new">Tambah resep baru</Link>
             </Button>
+            <Button asChild className="">
+              <Link to={`/${user?.username}/edit-profile`}>Edit Profile</Link>
+            </Button>
           </div>
         </section>
 

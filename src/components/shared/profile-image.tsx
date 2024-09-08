@@ -62,9 +62,19 @@ const ProfileImage = () => {
             Resep saya
           </Link>
         </DropdownMenuItem>
-        {/* <DropdownMenuItem className="focus:bg-transparent">
-          Ubah profil
-        </DropdownMenuItem> */}
+        <DropdownMenuItem className="focus:bg-transparent flex gap-x-1">
+          <img
+            src="/images/icon/paper.svg"
+            alt="book-icon"
+            className="scale-90"
+          />
+          <Link
+            to={`/${user?.username}/edit-profile`}
+            onClick={() => setOpenDropdown(false)}
+          >
+            Ubah profile
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="focus:bg-transparent flex gap-x-1">
           <img src="/images/icon/logout.svg" alt="icon" className="scale-90" />
