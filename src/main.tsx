@@ -27,6 +27,10 @@ import {
   UserRecipesRoute,
   loader as userRecipesLoader,
 } from "./routes/user-recipes";
+import {
+  EditRecipeRoute,
+  loader as editRecipeLoader,
+} from "./routes/edit-recipe";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +91,11 @@ const router = createBrowserRouter([
         element: <UserRecipesRoute />,
         loader: ({ params }) =>
           userRecipesLoader(params.username || "unknownid"),
+      },
+      {
+        path: "/recipes/edit/:slug",
+        element: <EditRecipeRoute />,
+        loader: ({ params }) => editRecipeLoader(params.slug || "unknownid"),
       },
     ],
   },
