@@ -20,7 +20,7 @@ interface CategoriesFieldProps {
   categories: Category[];
 }
 
-export function TestRoute({ control, categories }: CategoriesFieldProps) {
+export function CategoryField({ control, categories }: CategoriesFieldProps) {
   return (
     <FormItem>
       <FormField

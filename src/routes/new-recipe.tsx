@@ -13,7 +13,7 @@ import {
   useLoaderData,
   useNavigate,
 } from "react-router-dom";
-import { TestRoute } from "../components/add-recipe/category-field";
+import { CategoryField } from "../components/add-recipe/category-field";
 import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
 // import { CategoriesField } from "@/components/add-recipe/categories-field";
 // import { IngredientsField } from "@/components/add-recipe/ingredients-field";
@@ -131,7 +131,7 @@ export function NewRecipeRoute() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             <BasicInfoField control={control} />
             <Separator />
-            <TestRoute categories={categories} control={control} />
+            <CategoryField categories={categories} control={control} />
 
             {/* <ImageUploadButton onFileChange={handleFileChange} /> */}
             {/* <CategoriesField control={control} /> */}
