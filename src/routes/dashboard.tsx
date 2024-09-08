@@ -1,7 +1,8 @@
 import { getUser, getUserRecipes } from "@/api/get-user";
+import { DashboardTabs } from "@/components/shared/dashboard-tabs";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import Container from "@/components/ui/container";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
 import { Pencil, Trash } from "lucide-react";
@@ -40,29 +41,46 @@ export function DashboardRoute() {
   }
 
   return (
-    <div className="bg-[#495151] font-clashDisplayRegular min-h-dvh">
-      <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5">
-        <section className="flex justify-start gap-10 text-white">
-          <Avatar className="w-32 h-32">
-            <img
-              src={user.imageURL || "/images/profile-user-alpha.png"}
-              alt={user.fullname || "Profile User"}
-            />
-          </Avatar>
-
-          <div className="justify-center items-start flex flex-col">
-            <p className="hover:text-blue-800">@{user.username}</p>
-            <h1>{user.fullname || "Fullname"}</h1>
+    <div className="bg-[#F7FEE7] font-clashDisplayRegular min-h-dvh">
+      {/* <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5 bg-red-500">
+       */}
+      <Container className="space-y-12">
+        <section className="flex justify-start gap-10 text-black font-raleway">
+          <div className="flex gap-x-8">
+            <Avatar className="w-24 h-24">
+              <img
+                src={user.imageURL || "/images/profile-user-alpha.png"}
+                alt={user.fullname || "Profile User"}
+              />
+            </Avatar>
+            <div className="space-y-4">
+              <div>
+                <p className="mt-2 font-raleway font-semibold text-xl">
+                  {user.fullname}
+                </p>
+                <p className=" text-gray-500 font-raleway font-medium text-sm">
+                  @{user.username}
+                </p>
+              </div>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta,
+                soluta beatae? Ducimus neque aut ratione nostrum tempora odio
+                labore consequatur reprehenderit, ea quisquam.
+              </p>
+            </div>
           </div>
 
           <div>
-            <Button asChild className="mt-4">
+            <Button
+              asChild
+              className="mt-4 bg-[#FE5D47] text-white rounded-3xl font-raleway px-6 hover:bg-[#ee5743]"
+            >
               <Link to="/recipes/new">Tambah resep baru</Link>
             </Button>
           </div>
         </section>
 
-        <Separator className="h-1 bg-gray-400" />
+        <DashboardTabs />
 
         <section className="text-center">
           {recipes.length === 0 ? (
@@ -134,7 +152,7 @@ export function DashboardRoute() {
             </div>
           )}
         </section>
-      </div>
+      </Container>
     </div>
   );
 }
