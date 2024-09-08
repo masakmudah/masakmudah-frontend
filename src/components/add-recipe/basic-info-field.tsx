@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Control, UseFormSetValue } from "react-hook-form";
+import { Control } from "react-hook-form";
 import {
   FormControl,
   FormItem,
@@ -13,7 +13,6 @@ import { CreateRecipeSchema } from "@/schemas/new-recipe";
 
 interface BasicInfoFieldProps {
   control: Control<CreateRecipeSchema>;
-  setValue: UseFormSetValue<CreateRecipeSchema>;
 }
 
 export const BasicInfoField = ({ control }: BasicInfoFieldProps) => {
@@ -32,12 +31,8 @@ export const BasicInfoField = ({ control }: BasicInfoFieldProps) => {
 
   return (
     <>
-      <h2 className="text-2xl sm:text-3xl font-semibold text-white">
-        Informasi Dasar
-      </h2>
-
       <div className="space-y-6 ">
-        <FormField
+        {/* <FormField
           control={control}
           name="imageURL"
           render={({ field }) => (
@@ -61,7 +56,7 @@ export const BasicInfoField = ({ control }: BasicInfoFieldProps) => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <FormField
           control={control}
