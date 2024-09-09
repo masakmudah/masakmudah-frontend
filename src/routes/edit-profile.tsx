@@ -10,40 +10,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/auth-provider";
 import { editUserSchema, EditUserSchema } from "@/schemas/edit-profile";
-import { User } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Navigate, useLoaderData } from "react-router-dom";
-
-interface EditProfileProps {
-  user: User;
-}
-
-export async function loader(username: string) {
-  try {
-    const userResponse = await fetch(
-      `${import.meta.env.VITE_API_URL}/users/${username}`
-    );
-    const users = await userResponse.json();
-    const user = users.data;
-
-    return { user };
-  } catch (error) {
-    console.log(error);
-  }
-}
+import { Navigate } from "react-router-dom";
 
 export function EditProfileRoute() {
-  const { token } = useAuth();
-  const { user } = useLoaderData() as EditProfileProps;
+  const { token, user } = useAuth();
 
   const form = useForm<EditUserSchema>({
     resolver: zodResolver(editUserSchema),
     defaultValues: {
-      username: user.username || "",
-      fullname: user.fullname || "",
-      email: user.email || "",
-      imageURL: user.imageURL || "",
+      username: user?.username || "",
+      fullname: user?.fullname || "",
+      email: user?.email || "",
+      imageURL: user?.imageURL || "",
     },
   });
 
@@ -82,8 +62,11 @@ export function EditProfileRoute() {
                 <label className="flex flex-col justify-center border-gray-400 cursor-pointer">
                   <div className="flex flex-col items-center pt-7">
                     <img
-                      src={user.imageURL}
-                      alt={user.username}
+                      src={
+                        user?.imageURL ||
+                        "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
+                      }
+                      alt={user?.username}
                       className="w-20 h-20"
                     />
                     <p className="text-gray-400">Ganti Foto</p>

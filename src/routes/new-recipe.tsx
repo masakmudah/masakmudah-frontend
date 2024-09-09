@@ -67,6 +67,7 @@ export function NewRecipeRoute() {
       if (!userResponse.ok) throw new Error("Gagal mendapatkan User Id");
 
       const userData = await userResponse.json();
+      const getUsername = userData.user.username;
       const userId = userData.user.id;
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
@@ -79,7 +80,7 @@ export function NewRecipeRoute() {
       });
 
       if (response.ok) {
-        navigate("/dashboard");
+        navigate(`/dashboard/${getUsername}`);
       } else {
         const errorData = await response.json();
         console.error("Lengkapi form:", errorData);

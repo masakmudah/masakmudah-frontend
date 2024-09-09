@@ -37,7 +37,7 @@ export const register = async (values: z.infer<typeof registerSchema>) => {
       username: values.username,
       email: values.email,
       password: values.password,
-      fullname: values.fullName,
+      fullname: values.fullname,
     }),
   });
 

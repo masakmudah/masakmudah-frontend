@@ -34,14 +34,25 @@ const RegisterForm = () => {
       username: "",
       email: "",
       password: "",
-      fullName: "",
+      fullname: "",
     },
   });
 
+  const capitalizeFullname = (value: string) => {
+    return value
+      .split(" ")
+      .map((v) => v.charAt(0).toUpperCase() + v.slice(1).toLowerCase())
+      .join(" ");
+  };
+
   const onSubmit = async (values: z.infer<typeof registerSchema>) => {
     try {
-      const { token } = await register(values);
+      const formatValues = {
+        ...values,
+        fullname: capitalizeFullname(values.fullname),
+      };
 
+      const { token } = await register(formatValues);
       setToken(token);
       navigate("/");
     } catch (error) {
@@ -55,13 +66,29 @@ const RegisterForm = () => {
     }
   };
 
+  // Remove space
+  function handleTrimSpace(field: any) {
+    return (f: React.ChangeEvent<HTMLInputElement>) => {
+      const inputValue = f.target.value.trim();
+      field.onChange(inputValue);
+    };
+  }
+
+  // Replace multiple space
+  function handleReplaceSpace(field: any) {
+    return (f: React.ChangeEvent<HTMLInputElement>) => {
+      const inputValue = f.target.value.replace(/\s+/g, " ");
+      field.onChange(inputValue);
+    };
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-full">
         <div className="space-y-2">
           <FormField
             control={form.control}
-            name="fullName"
+            name="fullname"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="font-clashDisplayMedium">
@@ -71,8 +98,9 @@ const RegisterForm = () => {
                   <Input
                     type="text"
                     placeholder="John Doe"
-                    className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
+                    className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB] capitalize"
                     {...field}
+                    onChange={handleReplaceSpace(field)}
                   />
                 </FormControl>
                 <FormMessage />
@@ -92,8 +120,9 @@ const RegisterForm = () => {
                     type="text"
                     autoComplete="username"
                     placeholder="john_doe"
-                    className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
+                    className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB] lowercase"
                     {...field}
+                    onChange={handleTrimSpace(field)}
                   />
                 </FormControl>
                 <FormMessage />
@@ -108,11 +137,12 @@ const RegisterForm = () => {
                 <FormLabel className="font-clashDisplayMedium">Email</FormLabel>
                 <FormControl>
                   <Input
-                    type="email"
+                    type="text"
                     autoComplete="email"
                     placeholder="john.doe@example.com"
                     className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
                     {...field}
+                    onChange={handleTrimSpace(field)}
                   />
                 </FormControl>
                 <FormMessage />
@@ -139,6 +169,7 @@ const RegisterForm = () => {
                         placeholder="password"
                         className="pr-10 rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
                         {...field}
+                        onChange={handleTrimSpace(field)}
                       />
                       <PasswordToggle
                         showPassword={showPassword}

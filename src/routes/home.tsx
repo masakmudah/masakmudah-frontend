@@ -130,7 +130,7 @@ export function HomeRoute() {
                 >
                   <div className="flex flex-col items-center gap-y-8 ">
                     <img
-                      src={recipe.imageURL}
+                      src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
                       className="w-56 h-56 object-cover rounded-xl"
                       alt={recipe.name}
                     />
