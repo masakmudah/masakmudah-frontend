@@ -72,17 +72,13 @@ export function HomeRoute() {
                 Cari resep
                 <ArrowUp className="rotate-45 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
               </Link>
-              {token ? (
-                <Link
-                  className="px-8 py-3 bg-[#192322] text-white rounded-3xl flex gap-x-2 items-center group"
-                  to="/recipes/new"
-                >
-                  Buat resep
-                  <ArrowUp className="rotate-45 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-                </Link>
-              ) : (
-                ""
-              )}
+              <Link
+                className="px-8 py-3 bg-[#192322] text-white rounded-3xl flex gap-x-2 items-center group"
+                to={token ? "/recipes/new" : "/login"}
+              >
+                Buat resep
+                <ArrowUp className="rotate-45 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+              </Link>
             </div>
 
             <p className="font-raleway">

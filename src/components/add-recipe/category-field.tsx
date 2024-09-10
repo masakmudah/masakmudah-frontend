@@ -2,6 +2,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
@@ -28,16 +29,20 @@ export function CategoryField({ control, categories }: CategoriesFieldProps) {
         name="categoryId"
         render={({ field }) => (
           <FormItem className="flex-1">
+            <FormLabel className="font-clashDisplayMedium text-lg">
+              Kategori
+            </FormLabel>
+
             <FormControl>
               <Select
                 name="categoryId"
                 value={field.value} // Handle single selection or use the first item of the array
                 onValueChange={(value) => field.onChange(value)}
               >
-                <SelectTrigger>
+                <SelectTrigger className="border-[#B9BCBB] bg-[#F7F7F7] rounded-xl focus:ring-0 focus:ring-offset-0 font-raleway pl-4 font-medium">
                   <SelectValue placeholder="Pilih kategori" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="border-[#B9BCBB] bg-[#F7F7F7] rounded-xl font-raleway">
                   {categories.map((category) => (
                     <SelectItem key={category.id} value={category.id}>
                       {category.name}
