@@ -1,5 +1,6 @@
 import { getUserRecipes } from "@/api/get-user";
 import { DashboardTabs } from "@/components/shared/dashboard-tabs";
+import UpdateUserForm from "@/components/shared/update-user";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
@@ -7,6 +8,7 @@ import { useAuth } from "@/context/auth-provider";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
 import { Pencil, Trash } from "lucide-react";
+import { useState } from "react";
 import { Link, Navigate, redirect, useLoaderData } from "react-router-dom";
 
 interface DashboardProps {
@@ -27,8 +29,27 @@ export async function loader(username: string) {
 }
 
 export function DashboardRoute() {
-  const { token, user } = useAuth();
+  const { token, user, setUser } = useAuth();
   const { recipes } = useLoaderData() as DashboardProps;
+  const [edit, setEdit] = useState(false);
+
+  const handleUpdateSuccess = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error("Respon gagal");
+
+      const { user: updatedUser } = await response.json();
+      setUser(updatedUser);
+    } catch (error) {
+      console.error("Gagal refresh data:", error);
+    }
+    setEdit(false);
+  };
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -49,9 +70,13 @@ export function DashboardRoute() {
             </Avatar>
             <div className="space-y-4">
               <div>
-                <p className="mt-2 font-raleway font-semibold text-xl capitalize">
-                  {user?.fullname}
-                </p>
+                {edit ? (
+                  <UpdateUserForm onUpdateSuccess={handleUpdateSuccess} />
+                ) : (
+                  <p className="mt-2 font-raleway font-semibold text-xl capitalize">
+                    {user?.fullname}
+                  </p>
+                )}
                 <p className=" text-gray-500 font-raleway font-medium text-sm">
                   @{user?.username}
                 </p>
@@ -67,8 +92,8 @@ export function DashboardRoute() {
             >
               <Link to="/recipes/new">Tambah resep baru</Link>
             </Button>
-            <Button asChild className="">
-              <Link to={`/${user?.username}/edit-profile`}>Edit Profile</Link>
+            <Button onClick={() => setEdit(!edit)} className="">
+              Edit Profile
             </Button>
           </div>
         </section>
