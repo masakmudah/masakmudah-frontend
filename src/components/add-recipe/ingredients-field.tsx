@@ -89,88 +89,92 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
           onDrop={() => handleDrop(index)}
           onDragEnd={() => setHoverIndex(null)}
         >
-          <div className="flex items-center gap-4">
-            <GripVertical
-              className={`w-8 h-8 cursor-move ${
-                hoverIndex === index ? "text-blue-600" : "text-gray-600"
-              }`}
-            />
-            <FormField
-              control={control}
-              name={`ingredientItems.${index}.sequence`}
-              render={({ field }) => (
-                <FormItem className="flex items-center gap-3">
-                  <div>
+          <div className="flex items-center gap-x-4 w-full">
+            <div className="flex items-center w-full gap-x-4">
+              <GripVertical
+                className={`w-8 h-8 cursor-move ${
+                  hoverIndex === index ? "text-blue-600" : "text-gray-600"
+                }`}
+              />
+              <FormField
+                control={control}
+                name={`ingredientItems.${index}.sequence`}
+                render={({ field }) => (
+                  <FormItem className="flex items-center gap-3">
+                    <div>
+                      <FormControl>
+                        <SequenceInput
+                          id={`ingredients.${index}.sequence`}
+                          type="text"
+                          readOnly
+                          value={index + 1}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                          className="w-10 h-10 p-0 text-center font-clashDisplaySemibold text-base"
+                        />
+                      </FormControl>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name={`ingredientItems.${index}.ingredient.name`}
+                render={({ field }) => (
+                  <FormItem className="grow">
                     <FormControl>
-                      <SequenceInput
-                        id={`ingredients.${index}.sequence`}
+                      <Input
+                        id={`ingredients.${index}.name`}
+                        placeholder="Nama Bahan"
                         type="text"
-                        readOnly
-                        value={index + 1}
-                        onChange={(e) => field.onChange(Number(e.target.value))}
-                        className="w-10 h-10 p-0 text-center font-clashDisplaySemibold text-base"
+                        className="w-full border rounded-md p-2 capitalize"
+                        {...field}
                       />
                     </FormControl>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name={`ingredientItems.${index}.ingredient.name`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      id={`ingredients.${index}.name`}
-                      placeholder="Nama Bahan"
-                      type="text"
-                      className="w-full border rounded-md p-2 capitalize"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name={`ingredientItems.${index}.quantity`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      id={`ingredientItems.${index}.quantity`}
-                      placeholder="Jumlah"
-                      type="number"
-                      className="w-full border rounded-md p-2"
-                      {...field}
-                      onChange={(e) => field.onChange(Number(e.target.value))}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name={`ingredientItems.${index}.measurement`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      id={`ingredientItems.${index}.measurement`}
-                      placeholder="Satuan"
-                      type="text"
-                      className="w-full border rounded-md p-2"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name={`ingredientItems.${index}.quantity`}
+                render={({ field }) => (
+                  <FormItem className="grow">
+                    <FormControl>
+                      <Input
+                        id={`ingredientItems.${index}.quantity`}
+                        placeholder="Jumlah"
+                        type="number"
+                        className="w-full border rounded-md p-2"
+                        {...field}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name={`ingredientItems.${index}.measurement`}
+                render={({ field }) => (
+                  <FormItem className="grow">
+                    <FormControl>
+                      <Input
+                        id={`ingredientItems.${index}.measurement`}
+                        placeholder="Satuan"
+                        type="text"
+                        className="w-full border rounded-md p-2"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <Button
               type="button"
               onClick={() => removeIngredient(index)}
