@@ -24,6 +24,7 @@ import { InstructionsField } from "@/components/add-recipe/instructions-field";
 import { uploadFile } from "@uploadcare/upload-client";
 import Container from "@/components/ui/container";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);
   const data = await response.json();
