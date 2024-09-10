@@ -136,7 +136,7 @@ export function NewRecipeRoute() {
     <div className="bg-gradient-to-b from-[#e2ff8a] from-[-180%] to-[#FEFEFE] min-h-dvh text-black">
       <Container>
         <div className="flex flex-col bg-gradient-to-b from-[#e2ff8a] from-[-180%] to-[#FEFEFE] w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5 text-black relative">
-          <h1 className="text-3xl sm:text-4xl font-bold text-center">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center font-clashDisplaySemibold">
             Tulis Resep Baru
           </h1>
           <Separator className="border-black border" />
@@ -163,7 +163,7 @@ export function NewRecipeRoute() {
 
               <Button
                 type="submit"
-                className="w-full py-3 bg-blue-600 text-white hover:bg-blue-700"
+                className="w-full py-3 bg-blue-600 text-white hover:bg-blue-700 rounded-3xl font-clashDisplayMedium bg-gradient-to-b from-white to-[#1C2625] from-[-150%]"
               >
                 Submit
               </Button>
