@@ -18,7 +18,7 @@ import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
 import { useState } from "react";
 import ImageUploadButton from "@/components/shared/image-upload-button";
 // import { CategoriesField } from "@/components/add-recipe/categories-field";
-// import { IngredientsField } from "@/components/add-recipe/ingredients-field";
+import { IngredientsField } from "@/components/add-recipe/ingredients-field";
 import { InstructionsField } from "@/components/add-recipe/instructions-field";
 // import ImageUploadButton from "@/components/shared/image-upload-button";
 import { uploadFile } from "@uploadcare/upload-client";
@@ -43,9 +43,11 @@ export function NewRecipeRoute() {
       description: "",
       cookingTime: "",
       categoryId: "",
-      // ingredients: [{ sequence: 0, name: "", quantity: 0, measurement: "" }],
-      // imageURL: "",
+      ingredientItems: [
+        { sequence: 0, quantity: 0, measurement: "", ingredient: { name: "" } },
+      ],
       instructions: [{ step: 1, text: "" }],
+      // imageURL: "",
     },
   });
 
@@ -139,12 +141,12 @@ export function NewRecipeRoute() {
             <Separator />
             <CategoryField categories={categories} control={control} />
 
-            {/* <CategoriesField control={control} /> */}
-            {/* <Separator /> */}
-            {/* <IngredientsField control={control} /> */}
-            {/* <Separator /> */}
+            <Separator />
+            <IngredientsField control={control} />
+            <Separator />
             <InstructionsField control={control} />
             {/* <Separator /> */}
+            {/* <CategoriesField control={control} /> */}
 
             <Button
               type="submit"

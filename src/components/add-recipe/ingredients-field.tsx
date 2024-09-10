@@ -24,7 +24,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
     move: moveIngredient,
   } = useFieldArray({
     control,
-    name: "ingredients",
+    name: "ingredientItems",
   });
 
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -49,7 +49,12 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
 
   useEffect(() => {
     if (!ingredientFields.length)
-      appendIngredient({ sequence: 0, name: "", quantity: 0, measurement: "" });
+      appendIngredient({
+        sequence: 1,
+        quantity: 0,
+        measurement: "",
+        ingredient: { name: "" },
+      });
   }, [ingredientFields, appendIngredient]);
 
   return (
@@ -63,9 +68,9 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
           onClick={() =>
             appendIngredient({
               sequence: 0,
-              name: "",
               quantity: 0,
               measurement: "",
+              ingredient: { name: "" },
             })
           }
           className="py-2 bg-green-600 text-white hover:bg-green-700 w-8 h-8 p-[7px] rounded-xl font-raleway"
@@ -92,7 +97,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
             />
             <FormField
               control={control}
-              name={`ingredients.${index}.sequence`}
+              name={`ingredientItems.${index}.sequence`}
               render={({ field }) => (
                 <FormItem className="flex items-center gap-3">
                   <div>
@@ -113,7 +118,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
             />
             <FormField
               control={control}
-              name={`ingredients.${index}.name`}
+              name={`ingredientItems.${index}.ingredient.name`}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -131,12 +136,12 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
             />
             <FormField
               control={control}
-              name={`ingredients.${index}.quantity`}
+              name={`ingredientItems.${index}.quantity`}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <Input
-                      id={`ingredients.${index}.quantity`}
+                      id={`ingredientItems.${index}.quantity`}
                       placeholder="Jumlah"
                       type="number"
                       className="w-full border rounded-md p-2"
@@ -150,12 +155,12 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
             />
             <FormField
               control={control}
-              name={`ingredients.${index}.measurement`}
+              name={`ingredientItems.${index}.measurement`}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <Input
-                      id={`ingredients.${index}.measurement`}
+                      id={`ingredientItems.${index}.measurement`}
                       placeholder="Satuan"
                       type="text"
                       className="w-full border rounded-md p-2"
