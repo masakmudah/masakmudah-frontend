@@ -11,6 +11,7 @@ export type User = {
   fullname: string;
   email: string;
   imageURL?: string;
+  description?: string;
   password: Password;
   createdAt: string;
   updatedAt: string;

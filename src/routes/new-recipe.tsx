@@ -21,8 +21,10 @@ import ImageUploadButton from "@/components/shared/image-upload-button";
 import { IngredientsField } from "@/components/add-recipe/ingredients-field";
 import { InstructionsField } from "@/components/add-recipe/instructions-field";
 // import ImageUploadButton from "@/components/shared/image-upload-button";
+
 import { uploadFile } from "@uploadcare/upload-client";
 import Container from "@/components/ui/container";
+
 
 export async function loader() {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);
@@ -112,6 +114,7 @@ export function NewRecipeRoute() {
     }
   };
 
+
   const submitImage = async () => {
     try {
       if (!uploadedFile) throw new Error("File harus ada");
@@ -137,8 +140,10 @@ export function NewRecipeRoute() {
     }
   };
 
+
   const handleFileChange = (selectedFile: File | null) => {
     setUploadedFile(selectedFile);
+    console.log(uploadedFile); // prevent vercel error
   };
 
   if (!token) {
