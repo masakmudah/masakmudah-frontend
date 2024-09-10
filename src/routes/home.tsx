@@ -7,7 +7,8 @@ import { ArrowUp } from "lucide-react";
 import { Link, useLoaderData } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-// import "swiper/css/pagination";
+// import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { CategoryBar } from "@/components/shared/category-bar";
 import { useEffect, useState } from "react";
@@ -115,15 +116,24 @@ export function HomeRoute() {
             spaceBetween={24}
             slidesPerView={4}
             navigation
-            pagination={{ clickable: true }}
+            pagination={{
+              clickable: true,
+            }}
             scrollbar={{ draggable: true }}
           >
+            <div className="h-full w-40 bg-black"></div>
             {categoryRecipes.map((recipe) => (
               <SwiperSlide key={recipe.id}>
                 <Link
                   to={`/recipes/${recipe.slug}`}
-                  className="bg-[#F7FEE7] rounded-3xl flex min-h-[31.25rem] flex-col justify-between gap-y-8 items-center py-8 hover:scale-[.994] transition-transform duration-300 active:scale-[.98]"
+                  className="bg-[#F7FEE7] rounded-3xl flex min-h-[31.25rem] flex-col justify-between gap-y-8 items-center py-8 hover:scale-[.994] relative transition-transform duration-300 active:scale-[.98]"
                 >
+                  {/* <img
+                    src="/images/icon/bookmark.svg"
+                    alt=""
+                    className="absolute top-[55%] right-8 w-6 h-6"
+                  /> */}
+
                   <div className="flex flex-col items-center gap-y-8 ">
                     <img
                       src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
@@ -131,9 +141,12 @@ export function HomeRoute() {
                       alt={recipe.name}
                     />
                     <div className="flex flex-col items-center px-8 gap-y-4 ">
-                      <h2 className="text-2xl font-clashDisplaySemibold">
-                        {recipe.name}
-                      </h2>
+                      <div className="flex gap-x-2">
+                        <h2 className="text-2xl font-clashDisplaySemibold">
+                          {recipe.name}
+                        </h2>
+                      </div>
+
                       <p className="text-center">{recipe.description}</p>
                     </div>
                   </div>

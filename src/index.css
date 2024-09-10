@@ -102,3 +102,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+.swiper {
+  padding-bottom: 60px !important;
+}
+
+.swiper-pagination {
+  bottom: -5px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #e6fdb0 !important;
+}
+
+.swiper-pagination-bullet {
+  width: 30px !important;
+  height: 8px !important;
+  border-radius: 1rem !important;
+  background-color: #e6fdb0 !important;
+}
