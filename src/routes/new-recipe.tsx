@@ -72,8 +72,7 @@ export function NewRecipeRoute() {
       const imageResponse = await submitImage();
       if (!imageResponse?.cdnUrl) throw new Error("Gagal mengambil url gambar");
 
-      const userData = await userResponse.json();
-      const getUsername = userData.user.username;
+      const getUsername = user?.username;
       const { cdnUrl } = imageResponse;
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
