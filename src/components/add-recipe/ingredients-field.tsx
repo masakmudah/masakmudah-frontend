@@ -60,7 +60,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
   return (
     <FormItem>
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-white">
+        <h2 className="text-2xl sm:text-xl tracking-wider font-semibold font-clashDisplayMedium text-white">
           Bahan-bahan
         </h2>
         <Button

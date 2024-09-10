@@ -22,6 +22,7 @@ import { IngredientsField } from "@/components/add-recipe/ingredients-field";
 import { InstructionsField } from "@/components/add-recipe/instructions-field";
 // import ImageUploadButton from "@/components/shared/image-upload-button";
 import { uploadFile } from "@uploadcare/upload-client";
+import Container from "@/components/ui/container";
 
 export async function loader() {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);
@@ -35,6 +36,7 @@ export function NewRecipeRoute() {
   const { categories } = useLoaderData() as { categories: Category[] };
   const navigate = useNavigate();
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [timeUnit, setTimeUnit] = useState("menit");
 
   const form = useForm<CreateRecipeSchema>({
     resolver: zodResolver(createRecipeSchema),
@@ -77,8 +79,14 @@ export function NewRecipeRoute() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ ...data, userId: user?.id }),
+        body: JSON.stringify({
+          ...data,
+          userId: user?.id,
+          cookingTime: data.cookingTime.split(" ")[0] + " " + timeUnit,
+        }),
       });
+
+      console.log(await response.json());
 
       if (response.ok) {
         navigate("/dashboard");
@@ -125,38 +133,44 @@ export function NewRecipeRoute() {
   }
 
   return (
-    <div className="bg-[#192322] min-h-dvh">
-      <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 bg-[#192322] rounded-lg gap-5 text-black">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center text-white ">
-          Tulis Resep Baru
-        </h1>
-        <Separator />
+    <div className="bg-gradient-to-b from-[#e2ff8a] from-[-180%] to-[#FEFEFE] min-h-dvh text-black">
+      <Container>
+        <div className="flex flex-col bg-gradient-to-b from-[#e2ff8a] from-[-180%] to-[#FEFEFE] w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5 text-black relative">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center">
+            Tulis Resep Baru
+          </h1>
+          <Separator className="border-black border" />
 
-        <ImageUploadButton onFileChange={handleFileChange} />
-        {/* <button onClick={submitImage}>Submit</button> */}
+          <ImageUploadButton onFileChange={handleFileChange} />
+          {/* <button onClick={submitImage}>Submit</button> */}
 
-        <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-            <BasicInfoField control={control} />
-            <Separator />
-            <CategoryField categories={categories} control={control} />
+          <Form {...form}>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+              <BasicInfoField
+                control={control}
+                timeUnit={timeUnit}
+                setTimeUnit={setTimeUnit}
+              />
+              <Separator />
+              <CategoryField categories={categories} control={control} />
 
-            <Separator />
-            <IngredientsField control={control} />
-            <Separator />
-            <InstructionsField control={control} />
-            {/* <Separator /> */}
-            {/* <CategoriesField control={control} /> */}
+              <Separator />
+              <IngredientsField control={control} />
+              <Separator />
+              <InstructionsField control={control} />
+              {/* <Separator /> */}
+              {/* <CategoriesField control={control} /> */}
 
-            <Button
-              type="submit"
-              className="w-full py-3 bg-blue-600 text-white hover:bg-blue-700"
-            >
-              Submit
-            </Button>
-          </form>
-        </Form>
-      </div>
+              <Button
+                type="submit"
+                className="w-full py-3 bg-blue-600 text-white hover:bg-blue-700"
+              >
+                Submit
+              </Button>
+            </form>
+          </Form>
+        </div>
+      </Container>
     </div>
   );
 }

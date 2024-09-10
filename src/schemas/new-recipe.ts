@@ -34,13 +34,7 @@ export const createRecipeSchema = z.object({
     }),
 
   // Done
-  cookingTime: z
-    .string()
-    .trim()
-    .regex(/^\d{1,4}\s*menit$/i, {
-      message:
-        "Awali dengan angka (0-9) maksimal 4 digit dan diakhiri dengan 'menit'.",
-    }),
+  cookingTime: z.string().trim(),
 
   // Done
   categoryId: z.string().trim().min(1, { message: "Kategori harus dipilih" }),
