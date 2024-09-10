@@ -80,7 +80,7 @@ export function RecipesDetails() {
                       {recipe.user.fullname}
                     </h4>
                     <p className="text-slate-400 font-raleway">
-                      Memasak adalah koentji
+                      {recipe.user.description}
                     </p>
                   </div>
                 </div>
