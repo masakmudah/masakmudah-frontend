@@ -1,5 +1,6 @@
 import { getUserRecipes } from "@/api/get-user";
 import { DashboardTabs } from "@/components/shared/dashboard-tabs";
+import { DeleteRecipeButton } from "@/components/shared/delete-recipe";
 import UpdateUserForm from "@/components/shared/update-user";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,7 @@ import Container from "@/components/ui/container";
 import { useAuth } from "@/context/auth-provider";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
-import { Pencil, Trash } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { Link, Navigate, redirect, useLoaderData } from "react-router-dom";
 
@@ -24,13 +25,14 @@ export async function loader(username: string) {
     return { recipes };
   } catch (error) {
     console.error("Data tidak dapat diakses:", error);
-    throw redirect("/login");
+    throw redirect("/");
   }
 }
 
 export function DashboardRoute() {
   const { token, user, setUser } = useAuth();
-  const { recipes } = useLoaderData() as DashboardProps;
+  const { recipes: initialRecipes } = useLoaderData() as DashboardProps;
+  const [recipes, setRecipes] = useState<Recipe[]>(initialRecipes);
   const [edit, setEdit] = useState(false);
 
   const handleUpdateSuccess = async () => {
@@ -49,6 +51,28 @@ export function DashboardRoute() {
       console.error("Gagal refresh data:", error);
     }
     setEdit(false);
+  };
+
+  const handleDeleteRecipe = async (id: string) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/recipes/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (!response.ok) throw new Error("Respon gagal");
+
+      const recipesResponse = await getUserRecipes(user!.username);
+      const recipes = recipesResponse.data;
+      setRecipes(recipes);
+    } catch (error) {
+      console.error("Gagal refresh data:", error);
+    }
   };
 
   if (!token) {
@@ -161,14 +185,18 @@ export function DashboardRoute() {
                       />
                     </Link>
                   </Button>
-                  <Button className="p-2 text-black hover:text-[#e85541] absolute top-5 right-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-transparent bg-gray-200">
-                    {/* Icon */}
-                    <Trash
+                  <DeleteRecipeButton
+                    recipeId={recipe.id}
+                    onDelete={handleDeleteRecipe}
+                  />
+                  {/* <Button className="p-2 text-black hover:text-[#e85541] absolute top-5 right-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-transparent bg-gray-200"> */}
+                  {/* Icon */}
+                  {/* <Trash
                       className="transition-colors duration-400"
                       strokeWidth={3}
                       absoluteStrokeWidth
                     />
-                  </Button>
+                  </Button> */}
                 </li>
               ))}
             </ul>
