@@ -49,7 +49,7 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
 
   useEffect(() => {
     if (instructionFields.length === 0)
-      appendInstruction({ step: 1, text: "" });
+      appendInstruction({ step: 1, description: "" });
   }, [instructionFields, appendInstruction]);
 
   return (
@@ -61,7 +61,10 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
         <Button
           type="button"
           onClick={() =>
-            appendInstruction({ step: instructionFields.length + 1, text: "" })
+            appendInstruction({
+              step: instructionFields.length + 1,
+              description: "",
+            })
           }
           className="py-2 bg-[#EE5743] text-white hover:bg-[#EE5743] w-8 h-8 p-[7px] rounded-xl font-raleway"
         >
@@ -109,12 +112,12 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
             />
             <FormField
               control={control}
-              name={`instructions.${index}.text`}
+              name={`instructions.${index}.description`}
               render={({ field }) => (
                 <FormItem className="flex-1">
                   <FormControl>
                     <Textarea
-                      id={`instructions.${index}.text`}
+                      id={`instructions.${index}.description`}
                       placeholder="Langkah memasak."
                       className="w-full resize-none border rounded-md px-4 text-sm font-raleway"
                       rows={2}

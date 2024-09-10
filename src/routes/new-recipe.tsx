@@ -50,7 +50,7 @@ export function NewRecipeRoute() {
       ingredientItems: [
         { sequence: 0, quantity: 0, measurement: "", ingredient: { name: "" } },
       ],
-      instructions: [{ step: 1, text: "" }],
+      instructions: [{ step: 1, description: "" }],
       // imageURL: "",
     },
   });

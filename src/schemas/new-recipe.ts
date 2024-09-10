@@ -69,7 +69,7 @@ export const createRecipeSchema = z.object({
     .array(
       z.object({
         step: z.number().int(),
-        text: z
+        description: z
           .string()
           .trim()
           .min(5, { message: "Minimal 5 karakter." })
