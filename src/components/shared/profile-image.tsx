@@ -14,11 +14,9 @@ const ProfileImage = () => {
   const navigate = useNavigate();
   const { setToken, user } = useAuth();
   const [openDropdown, setOpenDropdown] = useState(false);
-  // const username = localStorage.getItem("username");
 
   const handleLogout = () => {
     setToken(null);
-    localStorage.removeItem("username");
     navigate("/");
   };
 
@@ -29,7 +27,10 @@ const ProfileImage = () => {
     >
       <DropdownMenuTrigger onClick={() => setOpenDropdown(true)}>
         <img
-          src="https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
+          src={
+            user?.imageURL ||
+            "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
+          }
           alt="avatar"
           className="w-12 h-12 rounded-full border-2 border-black"
         />
@@ -41,12 +42,17 @@ const ProfileImage = () => {
         <DropdownMenuLabel className=" ml-2">
           <div className="flex gap-x-4">
             <img
-              src="https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
-              alt="avatar-profile"
+              src={
+                user?.imageURL ||
+                "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
+              }
+              alt={user?.username + "'s image"}
               className="w-8 h-8 rounded-full "
             />
             <div className="flex flex-col gap-y-1">
-              <p className="font-clashDisplayMedium">{user?.fullname}</p>
+              <p className="font-clashDisplayMedium capitalize">
+                {user?.fullname || user?.username}
+              </p>
               <p className="font-normal">{user?.email}</p>
             </div>
           </div>
@@ -58,7 +64,10 @@ const ProfileImage = () => {
             alt="book-icon"
             className="scale-90"
           />
-          <Link to="/dashboard" onClick={() => setOpenDropdown(false)}>
+          <Link
+            to={`/dashboard/${user?.username}`}
+            onClick={() => setOpenDropdown(false)}
+          >
             Resep saya
           </Link>
         </DropdownMenuItem>

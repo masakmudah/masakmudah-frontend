@@ -22,7 +22,11 @@ export function RecipesDetails() {
     <div className="bg-[#FDFFF7]">
       <Container className="flex w-full gap-x-12">
         <main className="space-y-8 min-w-96">
-          <img src={recipe.imageURL} alt="food-image" className="w-96" />
+          <img
+            src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
+            alt={recipe.name + "'s image"}
+            className="w-96"
+          />
           <section className="space-y-8">
             <h2 className="font-clashDisplaySemibold text-3xl">Bahan-bahan</h2>
             <ul className="space-y-2 font-raleway font-medium">
@@ -71,13 +75,16 @@ export function RecipesDetails() {
                 <h3 className="font-clashDisplayMedium">Author</h3>
                 <div className="flex gap-x-4 items-center">
                   <img
-                    src={recipe.user.imageURL}
-                    alt={recipe.user.fullname + " profile's image"}
+                    src={
+                      recipe.user.imageURL ||
+                      "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
+                    }
+                    alt={recipe.user.username + "'s image"}
                     className="w-12 h-12 rounded-full"
                   />
                   <div className="space-y-1">
-                    <h4 className="font-clashDisplayMedium">
-                      {recipe.user.fullname}
+                    <h4 className="font-clashDisplayMedium capitalize">
+                      {recipe.user.fullname || recipe.user.username}
                     </h4>
                     <p className="text-slate-400 font-raleway">
                       {recipe.user.description}

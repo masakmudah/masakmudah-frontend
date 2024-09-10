@@ -42,7 +42,6 @@ const LoginForm = () => {
       const { token } = await login(values);
 
       setToken(token);
-      localStorage.setItem("username", values.username);
       navigate("/");
     } catch (error) {
       console.error("Error saat melakukan login:", error);

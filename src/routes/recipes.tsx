@@ -44,7 +44,7 @@ export function RecipesRoute() {
                 <div className="gap-4 h-full bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98] ">
                   <Link to={`/recipes/${recipe.slug}`}>
                     <img
-                      src={recipe.imageURL}
+                      src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
                       className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
                       alt={recipe.name}
                     />
@@ -65,12 +65,15 @@ export function RecipesRoute() {
                     className="flex justify-center items-center text-center gap-2 pb-4  hover:font-bold"
                   >
                     <img
-                      src={recipe.user.imageURL}
-                      alt={recipe.user.fullname + " profile's image"}
+                      src={
+                        recipe.user.imageURL ||
+                        "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
+                      }
+                      alt={recipe.user.username + "'s image"}
                       className="w-6 h-6 rounded-full"
                     />
-                    <p className="font-clashDisplayRegular bg-gray-200 p-1">
-                      {recipe.user.fullname}
+                    <p className="font-clashDisplayRegular bg-gray-200 p-1 capitalize">
+                      {recipe.user.fullname || recipe.user.username}
                     </p>
                   </Link>
                 </div>
