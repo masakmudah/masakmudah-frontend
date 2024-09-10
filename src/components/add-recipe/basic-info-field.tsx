@@ -18,7 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CreateRecipeSchema } from "@/schemas/new-recipe";
-import { useEffect } from "react";
 
 interface BasicInfoFieldProps {
   control: Control<CreateRecipeSchema>;
