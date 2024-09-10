@@ -105,7 +105,7 @@ export function DashboardRoute() {
                   @{user?.username}
                 </p>
               </div>
-              <p>{user.description}</p>
+              <p>{user?.description}</p>
             </div>
           </div>
 

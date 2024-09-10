@@ -74,7 +74,6 @@ export function NewRecipeRoute() {
 
       const userData = await userResponse.json();
       const getUsername = userData.user.username;
-      const userId = userData.user.id;
       const { cdnUrl } = imageResponse;
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
