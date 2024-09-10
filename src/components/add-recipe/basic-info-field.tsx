@@ -44,10 +44,6 @@ export const BasicInfoField = ({
       field.onChange(space, multipleSpace);
     };
 
-  useEffect(() => {
-    console.log(timeUnit);
-  }, [timeUnit]);
-
   return (
     <>
       <div className="space-y-6 ">
