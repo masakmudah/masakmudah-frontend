@@ -151,12 +151,12 @@ export function NewRecipeRoute() {
                 timeUnit={timeUnit}
                 setTimeUnit={setTimeUnit}
               />
-              <Separator />
+              {/* <Separator /> */}
               <CategoryField categories={categories} control={control} />
 
-              <Separator />
+              {/* <Separator /> */}
               <IngredientsField control={control} />
-              <Separator />
+              {/* <Separator /> */}
               <InstructionsField control={control} />
               {/* <Separator /> */}
               {/* <CategoriesField control={control} /> */}

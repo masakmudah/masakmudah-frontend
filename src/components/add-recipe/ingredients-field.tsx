@@ -60,7 +60,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
   return (
     <FormItem>
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl sm:text-xl tracking-wider font-semibold font-clashDisplayMedium text-white">
+        <h2 className="text-2xl sm:text-lg tracking-wider font-semibold font-clashDisplayMedium text-black">
           Bahan-bahan
         </h2>
         <Button
@@ -73,7 +73,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
               ingredient: { name: "" },
             })
           }
-          className="py-2 bg-green-600 text-white hover:bg-green-700 w-8 h-8 p-[7px] rounded-xl font-raleway"
+          className="py-2 bg-[#EE5743] text-white hover:bg-[#e45441] w-8 h-8 p-[7px] rounded-xl font-raleway"
         >
           <Plus />
         </Button>
@@ -82,7 +82,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
       {ingredientFields.map((ingredient, index) => (
         <div
           key={ingredient.id}
-          className="flex gap-3 justify-center items-center  p-4 rounded-lg border border-gray-300 bg-gray-50"
+          className="flex gap-3 justify-center items-center  p-4 border  border-[#B9BCBB] bg-[#F7F7F7] rounded-xl focus:ring-0 focus:ring-offset-0 font-raleway pl-4 font-medium"
           draggable
           onDragStart={() => handleDragStart(index)}
           onDragOver={(e) => handleDragOver(e, index)}

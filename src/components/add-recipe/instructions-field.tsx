@@ -55,7 +55,7 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
   return (
     <FormItem>
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl sm:text-4xl font-semibold text-white">
+        <h2 className="text-3xl sm:text-lg font-semibold text-black font-clashDisplayMedium">
           Instruksi
         </h2>
         <Button
@@ -63,7 +63,7 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
           onClick={() =>
             appendInstruction({ step: instructionFields.length + 1, text: "" })
           }
-          className="py-2 bg-green-600 text-white hover:bg-green-700 w-8 h-8 p-[7px] rounded-xl font-raleway"
+          className="py-2 bg-[#EE5743] text-white hover:bg-[#EE5743] w-8 h-8 p-[7px] rounded-xl font-raleway"
         >
           <Plus />
         </Button>
@@ -71,7 +71,7 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
       {instructionFields.map((instruction, index) => (
         <div
           key={instruction.id}
-          className={`space-y-4 p-4 rounded-lg border ${
+          className={`space-y-4 p-4 border-[#B9BCBB] bg-[#F7F7F7] rounded-xl focus:ring-0 focus:ring-offset-0 font-raleway pl-4 font-medium border ${
             hoverIndex === index ? "border-blue-600" : "border-gray-300"
           } bg-gray-50`}
           draggable
@@ -116,7 +116,7 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
                     <Textarea
                       id={`instructions.${index}.text`}
                       placeholder="Langkah memasak."
-                      className="w-full resize-none border rounded-md px-4 text-base font-clashDisplayMedium"
+                      className="w-full resize-none border rounded-md px-4 text-sm font-raleway"
                       rows={2}
                       {...field}
                     />
