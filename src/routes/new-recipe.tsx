@@ -57,21 +57,20 @@ export function NewRecipeRoute() {
 
   const onSubmit = async (data: CreateRecipeSchema) => {
     try {
-      // if (!token) throw new Error("No authentication token");
+      toast({
+        title: "Mengirim formulir",
+        description: "Membuat resep",
+        className: "rounded-2xl border-none",
+        style: {
+          backgroundColor: "#1C2625",
+          color: "#fff",
+        },
+      });
 
-      // const userResponse = await fetch(
-      //   `${import.meta.env.VITE_API_URL}/auth/me`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   }
-      // );
+      const imageResponse = await submitImage();
+      if (!imageResponse?.cdnUrl) throw new Error("Gagal mengambil url gambar");
 
-      // if (!userResponse.ok) throw new Error("Gagal mendapatkan User Id");
-
-      // const userData = await userResponse.json();
-      // const userId = userData.user.id;
+      const { cdnUrl } = imageResponse;
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
         method: "POST",
@@ -83,12 +82,20 @@ export function NewRecipeRoute() {
           ...data,
           userId: user?.id,
           cookingTime: data.cookingTime.split(" ")[0] + " " + timeUnit,
+          imageURL: cdnUrl,
         }),
       });
 
-      console.log(await response.json());
-
       if (response.ok) {
+        toast({
+          title: "Berhasil mengirim formulir",
+          description: "Selamat resep telah terbuat font-raleway",
+          className: "rounded-2xl border-none",
+          style: {
+            color: "#fff",
+            backgroundColor: "#1C2625",
+          },
+        }); // Menghilangkan toast setelah submit berhasil
         navigate("/dashboard");
       } else {
         const errorData = await response.json();
@@ -109,7 +116,7 @@ export function NewRecipeRoute() {
     try {
       if (!uploadedFile) throw new Error("File harus ada");
 
-      const { cdnUrl } = await uploadFile(uploadedFile, {
+      const response = await uploadFile(uploadedFile, {
         publicKey: "6c06ff53d4ffc84d8a11",
         store: "auto",
         metadata: {
@@ -117,10 +124,16 @@ export function NewRecipeRoute() {
         },
       });
 
-      // console.log(data);
-      console.log(cdnUrl);
+      const { cdnUrl } = response;
+
+      if (!cdnUrl) {
+        throw new Error("cdnUrl tidak ditemukan dalam response");
+      }
+
+      return { cdnUrl };
     } catch (error) {
-      console.log(error);
+      console.log("Error saat upload file:", error);
+      throw error;
     }
   };
 
