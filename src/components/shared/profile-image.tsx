@@ -73,7 +73,7 @@ const ProfileImage = () => {
         </DropdownMenuItem>
         <DropdownMenuItem className="focus:bg-transparent flex gap-x-1">
           <img
-            src="/images/icon/paper.svg"
+            src="/images/icon/profile.svg"
             alt="book-icon"
             className="scale-90"
           />
@@ -81,7 +81,7 @@ const ProfileImage = () => {
             to={`/dashboard/${user?.username}`}
             onClick={() => setOpenDropdown(false)}
           >
-            Ubah profile
+            Ubah profil
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
