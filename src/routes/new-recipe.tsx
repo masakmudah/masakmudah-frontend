@@ -116,6 +116,7 @@ export function NewRecipeRoute() {
 
   const handleFileChange = (selectedFile: File | null) => {
     setUploadedFile(selectedFile);
+    console.log(uploadedFile); // prevent vercel error
   };
 
   if (!token) {
