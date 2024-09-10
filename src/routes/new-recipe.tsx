@@ -95,24 +95,24 @@ export function NewRecipeRoute() {
     }
   };
 
-  const submitImage = async () => {
-    try {
-      if (!uploadedFile) throw new Error("File harus ada");
+  // const submitImage = async () => {
+  //   try {
+  //     if (!uploadedFile) throw new Error("File harus ada");
 
-      const { cdnUrl } = await uploadFile(uploadedFile, {
-        publicKey: "6c06ff53d4ffc84d8a11",
-        store: "auto",
-        metadata: {
-          pet: "cat",
-        },
-      });
+  //     const { cdnUrl } = await uploadFile(uploadedFile, {
+  //       publicKey: "6c06ff53d4ffc84d8a11",
+  //       store: "auto",
+  //       metadata: {
+  //         pet: "cat",
+  //       },
+  //     });
 
-      // console.log(data);
-      console.log(cdnUrl);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     // console.log(data);
+  //     console.log(cdnUrl);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleFileChange = (selectedFile: File | null) => {
     setUploadedFile(selectedFile);
