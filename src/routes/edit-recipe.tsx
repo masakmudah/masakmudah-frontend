@@ -14,7 +14,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { CategoryField } from "../components/add-recipe/category-field";
-import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
+// import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
 
 export async function loader(slug: string) {
   try {
@@ -115,7 +115,7 @@ export function EditRecipeRoute() {
 
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-            <BasicInfoField control={control} />
+            {/* <BasicInfoField control={control} /> */}
             <Separator />
             <CategoryField categories={categories} control={control} />
 

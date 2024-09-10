@@ -94,7 +94,7 @@ const ImageUploadButton = ({ onFileChange }: ImageUploadButtonProps) => {
         <>
           <div
             id="select-image-block"
-            className="bg-gray-50 font-raleway justify-between px-2 flex items-center h-20 w-full rounded-lg cursor-default"
+            className="bg-gray-50 border border-[#B9BCBB] font-raleway font-medium justify-between px-2 flex items-center h-20 w-full rounded-lg cursor-default"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex gap-x-2 items-center">
@@ -116,8 +116,8 @@ const ImageUploadButton = ({ onFileChange }: ImageUploadButtonProps) => {
             <></>
           ) : (
             <>
-              <UploadIcon className="w-4 h-4 text-primary text-white" />
-              <p className="text-sm text-center text-primary-foreground">
+              <UploadIcon className="w-4 h-4 text-primary text-black" />
+              <p className="text-sm text-center font-medium text-black">
                 Drag and drop an image here, or click to select
               </p>
             </>
@@ -135,7 +135,7 @@ const ImageUploadButton = ({ onFileChange }: ImageUploadButtonProps) => {
           transform: isDragging ? "scale(1)" : "scale(0.95)",
         }}
       >
-        <div className=" p-4 rounded-lg text-white shadow-md font-raleway text-sm">
+        <div className=" p-4 rounded-lg text-white  font-raleway text-sm">
           <p className="text-sm font-semibold">Lepaskan file di sini</p>
         </div>
       </div>

@@ -18,11 +18,14 @@ import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
 import { useState } from "react";
 import ImageUploadButton from "@/components/shared/image-upload-button";
 // import { CategoriesField } from "@/components/add-recipe/categories-field";
-// import { IngredientsField } from "@/components/add-recipe/ingredients-field";
-// import { InstructionsField } from "@/components/add-recipe/instructions-field";
+import { IngredientsField } from "@/components/add-recipe/ingredients-field";
+import { InstructionsField } from "@/components/add-recipe/instructions-field";
 // import ImageUploadButton from "@/components/shared/image-upload-button";
-// import { uploadFile } from "@uploadcare/upload-client";
 
+import { uploadFile } from "@uploadcare/upload-client";
+import Container from "@/components/ui/container";
+
+// eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);
   const data = await response.json();
@@ -31,10 +34,11 @@ export async function loader() {
 }
 
 export function NewRecipeRoute() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const { categories } = useLoaderData() as { categories: Category[] };
   const navigate = useNavigate();
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [timeUnit, setTimeUnit] = useState("menit");
 
   const form = useForm<CreateRecipeSchema>({
     resolver: zodResolver(createRecipeSchema),
@@ -43,9 +47,11 @@ export function NewRecipeRoute() {
       description: "",
       cookingTime: "",
       categoryId: "",
+      ingredientItems: [
+        { sequence: 0, quantity: 0, measurement: "", ingredient: { name: "" } },
+      ],
+      instructions: [{ step: 1, text: "" }],
       // imageURL: "",
-      // ingredients: [{ sequence: 0, name: "", quantity: 0, measurement: "" }],
-      // instructions: [{ sequence: 0, text: "" }],
     },
   });
 
@@ -53,21 +59,20 @@ export function NewRecipeRoute() {
 
   const onSubmit = async (data: CreateRecipeSchema) => {
     try {
-      if (!token) throw new Error("No authentication token");
+      toast({
+        title: "Mengirim formulir",
+        description: "Membuat resep",
+        className: "rounded-2xl border-none",
+        style: {
+          backgroundColor: "#1C2625",
+          color: "#fff",
+        },
+      });
 
-      const userResponse = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/me`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const imageResponse = await submitImage();
+      if (!imageResponse?.cdnUrl) throw new Error("Gagal mengambil url gambar");
 
-      if (!userResponse.ok) throw new Error("Gagal mendapatkan User Id");
-
-      const userData = await userResponse.json();
-      const userId = userData.user.id;
+      const { cdnUrl } = imageResponse;
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
         method: "POST",
@@ -75,10 +80,24 @@ export function NewRecipeRoute() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ ...data, userId }),
+        body: JSON.stringify({
+          ...data,
+          userId: user?.id,
+          cookingTime: data.cookingTime.split(" ")[0] + " " + timeUnit,
+          imageURL: cdnUrl,
+        }),
       });
 
       if (response.ok) {
+        toast({
+          title: "Berhasil mengirim formulir",
+          description: "Selamat resep telah terbuat font-raleway",
+          className: "rounded-2xl border-none",
+          style: {
+            color: "#fff",
+            backgroundColor: "#1C2625",
+          },
+        }); // Menghilangkan toast setelah submit berhasil
         navigate("/dashboard");
       } else {
         const errorData = await response.json();
@@ -95,24 +114,30 @@ export function NewRecipeRoute() {
     }
   };
 
-  // const submitImage = async () => {
-  //   try {
-  //     if (!uploadedFile) throw new Error("File harus ada");
+  const submitImage = async () => {
+    try {
+      if (!uploadedFile) throw new Error("File harus ada");
 
-  //     const { cdnUrl } = await uploadFile(uploadedFile, {
-  //       publicKey: "6c06ff53d4ffc84d8a11",
-  //       store: "auto",
-  //       metadata: {
-  //         pet: "cat",
-  //       },
-  //     });
+      const response = await uploadFile(uploadedFile, {
+        publicKey: "6c06ff53d4ffc84d8a11",
+        store: "auto",
+        metadata: {
+          pet: "cat",
+        },
+      });
 
-  //     // console.log(data);
-  //     console.log(cdnUrl);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      const { cdnUrl } = response;
+
+      if (!cdnUrl) {
+        throw new Error("cdnUrl tidak ditemukan dalam response");
+      }
+
+      return { cdnUrl };
+    } catch (error) {
+      console.log("Error saat upload file:", error);
+      throw error;
+    }
+  };
 
   const handleFileChange = (selectedFile: File | null) => {
     setUploadedFile(selectedFile);
@@ -124,38 +149,44 @@ export function NewRecipeRoute() {
   }
 
   return (
-    <div className="bg-[#192322] min-h-dvh">
-      <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 bg-[#192322] rounded-lg gap-5 text-black">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center text-white ">
-          Tulis Resep Baru
-        </h1>
-        <Separator />
+    <div className="bg-gradient-to-b from-[#e2ff8a] from-[-180%] to-[#FEFEFE] min-h-dvh text-black">
+      <Container>
+        <div className="flex flex-col bg-gradient-to-b from-[#e2ff8a] from-[-180%] to-[#FEFEFE] w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5 text-black relative">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center font-clashDisplaySemibold">
+            Tulis Resep Baru
+          </h1>
+          <Separator className="border-black border" />
 
-        <ImageUploadButton onFileChange={handleFileChange} />
-        {/* <button onClick={submitImage}>Submit</button> */}
+          <ImageUploadButton onFileChange={handleFileChange} />
+          {/* <button onClick={submitImage}>Submit</button> */}
 
-        <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-            <BasicInfoField control={control} />
-            <Separator />
-            <CategoryField categories={categories} control={control} />
+          <Form {...form}>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+              <BasicInfoField
+                control={control}
+                timeUnit={timeUnit}
+                setTimeUnit={setTimeUnit}
+              />
+              {/* <Separator /> */}
+              <CategoryField categories={categories} control={control} />
 
-            {/* <CategoriesField control={control} /> */}
-            {/* <Separator /> */}
-            {/* <IngredientsField control={control} /> */}
-            {/* <Separator /> */}
-            {/* <InstructionsField control={control} /> */}
-            {/* <Separator /> */}
+              {/* <Separator /> */}
+              <IngredientsField control={control} />
+              {/* <Separator /> */}
+              <InstructionsField control={control} />
+              {/* <Separator /> */}
+              {/* <CategoriesField control={control} /> */}
 
-            <Button
-              type="submit"
-              className="w-full py-3 bg-blue-600 text-white hover:bg-blue-700"
-            >
-              Submit
-            </Button>
-          </form>
-        </Form>
-      </div>
+              <Button
+                type="submit"
+                className="w-full py-3 bg-blue-600 text-white hover:bg-blue-700 rounded-3xl font-clashDisplayMedium bg-gradient-to-b from-white to-[#1C2625] from-[-150%]"
+              >
+                Submit
+              </Button>
+            </form>
+          </Form>
+        </div>
+      </Container>
     </div>
   );
 }
