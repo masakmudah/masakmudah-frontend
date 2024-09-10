@@ -78,7 +78,7 @@ const ProfileImage = () => {
             className="scale-90"
           />
           <Link
-            to={`/${user?.username}/edit-profile`}
+            to={`/dashboard/${user?.username}`}
             onClick={() => setOpenDropdown(false)}
           >
             Ubah profile
