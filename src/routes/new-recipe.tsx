@@ -21,6 +21,7 @@ import ImageUploadButton from "@/components/shared/image-upload-button";
 import { IngredientsField } from "@/components/add-recipe/ingredients-field";
 import { InstructionsField } from "@/components/add-recipe/instructions-field";
 // import ImageUploadButton from "@/components/shared/image-upload-button";
+
 import { uploadFile } from "@uploadcare/upload-client";
 import Container from "@/components/ui/container";
 
@@ -140,6 +141,7 @@ export function NewRecipeRoute() {
 
   const handleFileChange = (selectedFile: File | null) => {
     setUploadedFile(selectedFile);
+    console.log(uploadedFile); // prevent vercel error
   };
 
   if (!token) {

@@ -62,11 +62,7 @@ export function DashboardRoute() {
                   @{user.username}
                 </p>
               </div>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta,
-                soluta beatae? Ducimus neque aut ratione nostrum tempora odio
-                labore consequatur reprehenderit, ea quisquam.
-              </p>
+              <p>{user.description}</p>
             </div>
           </div>
 
