@@ -19,7 +19,7 @@ import { useState } from "react";
 import ImageUploadButton from "@/components/shared/image-upload-button";
 // import { CategoriesField } from "@/components/add-recipe/categories-field";
 // import { IngredientsField } from "@/components/add-recipe/ingredients-field";
-// import { InstructionsField } from "@/components/add-recipe/instructions-field";
+import { InstructionsField } from "@/components/add-recipe/instructions-field";
 // import ImageUploadButton from "@/components/shared/image-upload-button";
 import { uploadFile } from "@uploadcare/upload-client";
 
@@ -31,7 +31,7 @@ export async function loader() {
 }
 
 export function NewRecipeRoute() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const { categories } = useLoaderData() as { categories: Category[] };
   const navigate = useNavigate();
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -43,9 +43,9 @@ export function NewRecipeRoute() {
       description: "",
       cookingTime: "",
       categoryId: "",
-      // imageURL: "",
       // ingredients: [{ sequence: 0, name: "", quantity: 0, measurement: "" }],
-      // instructions: [{ sequence: 0, text: "" }],
+      // imageURL: "",
+      instructions: [{ step: 1, text: "" }],
     },
   });
 
@@ -53,21 +53,21 @@ export function NewRecipeRoute() {
 
   const onSubmit = async (data: CreateRecipeSchema) => {
     try {
-      if (!token) throw new Error("No authentication token");
+      // if (!token) throw new Error("No authentication token");
 
-      const userResponse = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/me`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // const userResponse = await fetch(
+      //   `${import.meta.env.VITE_API_URL}/auth/me`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
 
-      if (!userResponse.ok) throw new Error("Gagal mendapatkan User Id");
+      // if (!userResponse.ok) throw new Error("Gagal mendapatkan User Id");
 
-      const userData = await userResponse.json();
-      const userId = userData.user.id;
+      // const userData = await userResponse.json();
+      // const userId = userData.user.id;
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
         method: "POST",
@@ -75,7 +75,7 @@ export function NewRecipeRoute() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ ...data, userId }),
+        body: JSON.stringify({ ...data, userId: user?.id }),
       });
 
       if (response.ok) {
@@ -143,7 +143,7 @@ export function NewRecipeRoute() {
             {/* <Separator /> */}
             {/* <IngredientsField control={control} /> */}
             {/* <Separator /> */}
-            {/* <InstructionsField control={control} /> */}
+            <InstructionsField control={control} />
             {/* <Separator /> */}
 
             <Button

@@ -45,17 +45,17 @@ export const createRecipeSchema = z.object({
   // Done
   categoryId: z.string().trim().min(1, { message: "Kategori harus dipilih" }),
 
-  // Done
+  // // Done
   // ingredients: z
   //   .array(
   //     z.object({
-  //       sequence: z.number().int(),
+  //       sequence: z.number(),
   //       name: z
   //         .string()
   //         .trim()
   //         .toUpperCase()
   //         .min(2, { message: "Minimal 2 karakter." })
-  //         .max(30, { message: "Maximal 30 karakter." })
+  //         .max(30, { message: "Maksimal 30 karakter." })
   //         .regex(/^[a-zA-Z -]+$/, {
   //           message: "Hanya boleh huruf (a-z).",
   //         }),
@@ -77,21 +77,21 @@ export const createRecipeSchema = z.object({
   //   )
   //   .nonempty({ message: "Bahan-bahan wajib diisi." }),
   // Done
-  // instructions: z
-  //   .array(
-  //     z.object({
-  //       sequence: z.number().int(),
-  //       text: z
-  //         .string()
-  //         .trim()
-  //         .min(10, { message: "Minimal 10 karakter." })
-  //         .max(1500, { message: "Maximal 1500 karakter." }),
-  //       // .regex(/^[a-zA-Z0-9-,.\s]+$/, {
-  //       //   message:
-  //       //     "Hanya boleh huruf (a-z) angka (0-9) beberapa spesial karakter (-,.)",
-  //       // }),
-  //     })
-  //   )
-  //   .nonempty({ message: "Instruksi wajib diisi." }),
+  instructions: z
+    .array(
+      z.object({
+        step: z.number().int(),
+        text: z
+          .string()
+          .trim()
+          .min(5, { message: "Minimal 5 karakter." })
+          .max(1500, { message: "Maximal 1500 karakter." }),
+        // .regex(/^[a-zA-Z0-9-,.\s]+$/, {
+        //   message:
+        //     "Hanya boleh huruf (a-z) angka (0-9) beberapa spesial karakter (-,.)",
+        // }),
+      })
+    )
+    .nonempty({ message: "Instruksi wajib diisi." }),
 });
 export type CreateRecipeSchema = z.infer<typeof createRecipeSchema>;
