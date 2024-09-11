@@ -90,7 +90,10 @@ export function DashboardRoute() {
           <div className=" text-center flex flex-col justify-center items-center gap-2 ">
             <Avatar className="w-24 h-24 ">
               <img
-                src={user?.imageURL || "/images/profile-user-alpha.png"}
+                src={
+                  user?.imageURL ||
+                  "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
+                }
                 alt={user?.username + "'s image"}
               />
             </Avatar>
