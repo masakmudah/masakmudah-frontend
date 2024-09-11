@@ -14,6 +14,7 @@ import { CategoryBar } from "@/components/shared/category-bar";
 import { useEffect, useState } from "react";
 import { getCategoryBySlug } from "@/api/category";
 import { useAuth } from "@/context/auth-provider";
+import { capitalText, upperText } from "@/libs/format-text";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
@@ -134,20 +135,22 @@ export function HomeRoute() {
                     className="absolute top-[55%] right-8 w-6 h-6"
                   /> */}
 
-                  <div className="flex flex-col items-center gap-y-8 ">
+                  <div className="flex flex-col items-center gap-y-8 w-full">
                     <img
                       src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
                       className="w-56 h-56 object-cover rounded-xl"
                       alt={recipe.name}
                     />
-                    <div className="flex flex-col items-center px-8 gap-y-4 ">
+                    <div className="flex flex-col items-center px-8 gap-y-4 w-full">
                       <div className="flex gap-x-2">
-                        <h2 className="text-2xl font-clashDisplaySemibold">
-                          {recipe.name}
+                        <h2 className="text-center text-2xl font-clashDisplaySemibold">
+                          {upperText(recipe.name)}
                         </h2>
                       </div>
 
-                      <p className="text-center">{recipe.description}</p>
+                      <p className="text-left line-clamp-2 break-all max-w-full px-4">
+                        {capitalText(recipe.description)}
+                      </p>
                     </div>
                   </div>
                   <h1 className="text-2xl text-[#FF5D47] font-clashDisplayMedium">

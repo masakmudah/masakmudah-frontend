@@ -1,6 +1,7 @@
 import { getRecipe } from "@/api/recipe";
 import Container from "@/components/ui/container";
 import { socialMediaIcons } from "@/constant/navigation-menu";
+import { capitalText, upperText } from "@/libs/format-text";
 import { Recipe } from "@/types/recipe";
 import { Link, useLoaderData } from "react-router-dom";
 
@@ -35,8 +36,8 @@ export function RecipesDetails() {
                   key={ingredienItem.id}
                   className="flex justify-between items-center"
                 >
-                  <span>{ingredienItem.ingredient.name}</span>
-                  <span>
+                  <span>{upperText(ingredienItem.ingredient.name)}</span>
+                  <span className="lowercase">
                     {ingredienItem.quantity} {ingredienItem.measurement}
                   </span>
                 </li>
@@ -47,7 +48,7 @@ export function RecipesDetails() {
         <aside className="space-y-8 font-clashDisplayRegular w-full">
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-clashDisplaySemibold">
-              {recipe.name}
+              {upperText(recipe.name)}
             </h1>
             <p>{recipe.cookingTime}</p>
           </div>
@@ -69,7 +70,7 @@ export function RecipesDetails() {
                 ))}
               </nav>
             </section>
-            <p className="font-raleway">{recipe.description}</p>
+            <p className="font-raleway">{capitalText(recipe.description)}</p>
             <section className="space-y-2">
               <Link to={`/${recipe.user.username}`}>
                 <h3 className="font-clashDisplayMedium">Author</h3>
@@ -83,11 +84,11 @@ export function RecipesDetails() {
                     className="w-12 h-12 rounded-full"
                   />
                   <div className="space-y-1">
-                    <h4 className="font-clashDisplayMedium capitalize">
-                      {recipe.user.fullname || recipe.user.username}
+                    <h4 className="font-clashDisplayMedium">
+                      {upperText(recipe.user.fullname || recipe.user.username)}
                     </h4>
-                    <p className="text-slate-400 font-raleway">
-                      {recipe.user.description}
+                    <p className="text-slate-400 font-raleway line-clamp-1">
+                      {capitalText(recipe.user.description!)}
                     </p>
                   </div>
                 </div>
@@ -99,7 +100,7 @@ export function RecipesDetails() {
           <ul className="space-y-2 font-raleway">
             {recipe.instructions.map((instruction, index) => (
               <li key={`${instruction.id}-${index}`}>
-                {instruction.step}. {instruction.description}
+                {instruction.step}. {capitalText(instruction.description)}
               </li>
             ))}
           </ul>

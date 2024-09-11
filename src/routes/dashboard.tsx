@@ -6,6 +6,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { useAuth } from "@/context/auth-provider";
+import { capitalText, upperText } from "@/libs/format-text";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
 import { Pencil } from "lucide-react";
@@ -103,10 +104,10 @@ export function DashboardRoute() {
             <UpdateUserForm onUpdateSuccess={handleUpdateSuccess} />
           ) : (
             <div className=" w-full p-4">
-              <p className="font-raleway font-semibold text-xl capitalize">
-                {user?.fullname}
+              <p className="font-raleway font-semibold text-xl">
+                {upperText(user?.fullname!)}
               </p>
-              <p>{user?.description}</p>
+              <p>{capitalText(user?.description!)}</p>
             </div>
           )}
 
@@ -159,10 +160,10 @@ export function DashboardRoute() {
 
                       <div className="flex flex-col items-center text-center text-lg px-4 w-full">
                         <h2 className="font-clashDisplaySemibold">
-                          {recipe.name}
+                          {upperText(recipe.name)}
                         </h2>
-                        <h3 className="font-clashDisplayRegular text-left truncate max-w-full">
-                          {recipe.description}
+                        <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all max-w-full px-4">
+                          {capitalText(recipe.description)}
                         </h3>
                         <h4 className="text-[#FF5D47] font-clashDisplayMedium mt-2">
                           {recipe.cookingTime}
@@ -177,8 +178,10 @@ export function DashboardRoute() {
                           alt={recipe.user.username + "'s image"}
                           className="w-6 h-6 rounded-full"
                         />
-                        <h2 className="font-clashDisplayRegular capitalize">
-                          {recipe.user.fullname || recipe.user.username}
+                        <h2 className="font-clashDisplayRegular">
+                          {upperText(
+                            recipe.user.fullname || recipe.user.username
+                          )}
                         </h2>
                       </div>
                     </div>
