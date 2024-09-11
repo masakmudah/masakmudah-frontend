@@ -7,21 +7,13 @@ import { toast } from "@/components/ui/use-toast";
 import { CreateRecipeSchema, createRecipeSchema } from "@/schemas/new-recipe";
 import { Category } from "@/types/category";
 import { useForm } from "react-hook-form";
-import {
-  // ActionFunctionArgs,
-  Navigate,
-  useLoaderData,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
 import { CategoryField } from "../components/add-recipe/category-field";
 import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
 import { useState } from "react";
 import ImageUploadButton from "@/components/shared/image-upload-button";
-// import { CategoriesField } from "@/components/add-recipe/categories-field";
 import { IngredientsField } from "@/components/add-recipe/ingredients-field";
 import { InstructionsField } from "@/components/add-recipe/instructions-field";
-// import ImageUploadButton from "@/components/shared/image-upload-button";
-
 import { uploadFile } from "@uploadcare/upload-client";
 import Container from "@/components/ui/container";
 
@@ -160,7 +152,6 @@ export function NewRecipeRoute() {
           <Separator className="border-black border" />
 
           <ImageUploadButton onFileChange={handleFileChange} />
-          {/* <button onClick={submitImage}>Submit</button> */}
 
           <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
