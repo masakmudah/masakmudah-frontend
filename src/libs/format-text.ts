@@ -4,14 +4,18 @@ export const capitalText = (text: string) => {
   }
 
   return text
-    .split(/([.!?])/g)
+    .split(/([.!?:])/g)
     .map((t, i) => {
       if (i % 2 === 0) {
         return t.charAt(0).toUpperCase() + t.slice(1).toLowerCase();
+      } else if (i > 0) {
+        return t + " ";
       }
       return t;
     })
-    .join(" ");
+    .join(" ")
+    .replace(/\s+([.!?:])/g, "$1")
+    .replace(/^\s+/, "");
 };
 
 export const upperText = (text: string) => {

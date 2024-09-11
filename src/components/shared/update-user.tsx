@@ -56,7 +56,7 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
   // Remove space
   function handleTrimSpace(field: any) {
     return (f: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const inputValue = f.target.value.trim();
+      const inputValue = f.target.value.replace(/\s+/g, " ");
       field.onChange(inputValue);
     };
   }
@@ -109,7 +109,7 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
                   <Textarea
                     id="description"
                     placeholder="Ceritakan tentang dirimu"
-                    className="resize-none rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB] capitalize"
+                    className="resize-none rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB] "
                     {...field}
                     onChange={handleTrimSpace(field)}
                   />
