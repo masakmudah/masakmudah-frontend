@@ -25,9 +25,6 @@ export const registerSchema = z.object({
     .trim()
     .min(4, { message: "Minimal 4 karakter." })
     .max(25, { message: "Maximal 25 karakter." })
-    .regex(/^[a-zA-Z]/, {
-      message: "Username harus diawali dengan huruf.",
-    })
     .regex(/^[a-zA-Z ]*$/, {
       message: "Hanya boleh huruf (a-z) dan spasi",
     }),

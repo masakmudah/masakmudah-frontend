@@ -5,10 +5,11 @@ export const updateUserSchema = z.object({
     .string()
     .trim()
     .min(4, { message: "Minimal 4 karakter." })
-    .max(100, { message: "Maximal 100 karakter." })
-    .regex(/^[a-zA-Z0-9 ]+$/, {
+    .max(30, { message: "Maximal 30 karakter." })
+    .regex(/^[a-zA-Z ]+$/, {
       message: "Hanya boleh huruf (a-z) dan spasi",
-    }),
+    })
+    .optional(),
 
   description: z
     .string()
