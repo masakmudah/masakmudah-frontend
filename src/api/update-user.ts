@@ -1,8 +1,10 @@
+import { UpdateUserSchema } from "@/schemas/edit-profile";
+
 const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 export const updateUser = async (
   id: string,
-  fullname: string,
+  values: UpdateUserSchema,
   token: string
 ) => {
   const response = await fetch(`${apiBaseUrl}/users/${id}`, {
@@ -11,7 +13,9 @@ export const updateUser = async (
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ fullname }),
+    body: JSON.stringify({
+      ...values,
+    }),
   });
 
   if (!response.ok) {
