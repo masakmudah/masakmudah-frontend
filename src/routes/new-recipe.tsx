@@ -48,14 +48,14 @@ export function NewRecipeRoute() {
       cookingTime: "",
       categoryId: "",
       ingredientItems: [
-        { sequence: 0, quantity: 0, measurement: "", ingredient: { name: "" } },
+        { sequence: 1, quantity: 0, measurement: "", ingredient: { name: "" } },
       ],
       instructions: [{ step: 1, description: "" }],
       // imageURL: "",
     },
   });
 
-  const { handleSubmit, control } = form;
+  const { handleSubmit, control, setValue } = form;
 
   const onSubmit = async (data: CreateRecipeSchema) => {
     try {
@@ -72,7 +72,6 @@ export function NewRecipeRoute() {
       const imageResponse = await submitImage();
       if (!imageResponse?.cdnUrl) throw new Error("Gagal mengambil url gambar");
 
-      const getUsername = user?.username;
       const { cdnUrl } = imageResponse;
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
@@ -92,13 +91,15 @@ export function NewRecipeRoute() {
       if (response.ok) {
         toast({
           title: "Berhasil mengirim formulir",
-          description: "Selamat resep telah terbuat font-raleway",
+          description: "Selamat resep telah terbuat",
           className: "rounded-2xl border-none",
           style: {
             color: "#fff",
             backgroundColor: "#1C2625",
           },
         }); // Menghilangkan toast setelah submit berhasil
+
+        const getUsername = user?.username;
         navigate(`/dashboard/${getUsername}`);
       } else {
         const errorData = await response.json();
@@ -168,15 +169,10 @@ export function NewRecipeRoute() {
                 timeUnit={timeUnit}
                 setTimeUnit={setTimeUnit}
               />
-              {/* <Separator /> */}
               <CategoryField categories={categories} control={control} />
 
-              {/* <Separator /> */}
-              <IngredientsField control={control} />
-              {/* <Separator /> */}
-              <InstructionsField control={control} />
-              {/* <Separator /> */}
-              {/* <CategoriesField control={control} /> */}
+              <IngredientsField control={control} setValue={setValue} />
+              <InstructionsField control={control} setValue={setValue} />
 
               <Button
                 type="submit"
@@ -191,35 +187,3 @@ export function NewRecipeRoute() {
     </div>
   );
 }
-
-// export async function action({ request }: ActionFunctionArgs) {
-//   const formData = await request.formData();
-
-//   const userData = {
-//     name: formData.get("name")?.toString(),
-//     description: formData.get("description")?.toString(),
-//     cookingTime: formData.get("cookingTime")?.toString(),
-//     categoryId: formData.get("categoryId")?.toString(),
-//   };
-
-//   try {
-//     const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(userData),
-//     });
-
-//     if (response.ok) {
-//       return navigate("/dashboard");
-//     } else {
-//       const errorData = await response.json();
-//       console.error("Failed to create recipe:", errorData);
-//       return null;
-//     }
-//   } catch (error) {
-//     console.error("An error occurred:", error);
-//     return null;
-//   }
-// }

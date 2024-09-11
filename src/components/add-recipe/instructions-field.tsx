@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useFieldArray, Control } from "react-hook-form";
+import { useFieldArray, Control, UseFormSetValue } from "react-hook-form";
 import {
   FormControl,
   FormField,
@@ -14,9 +14,13 @@ import { SequenceInput } from "./sequence-input";
 
 interface InstructionsFieldProps {
   control: Control<CreateRecipeSchema>;
+  setValue: UseFormSetValue<CreateRecipeSchema>;
 }
 
-export const InstructionsField = ({ control }: InstructionsFieldProps) => {
+export const InstructionsField = ({
+  control,
+  setValue,
+}: InstructionsFieldProps) => {
   const {
     fields: instructionFields,
     append: appendInstruction,
@@ -43,14 +47,19 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
     if (draggedIndex !== index) {
       moveInstruction(draggedIndex!, index);
     }
-    setDraggedIndex(null);
+    setDraggedIndex(index);
     setHoverIndex(null);
   };
 
   useEffect(() => {
-    if (instructionFields.length === 0)
+    if (!instructionFields.length) {
       appendInstruction({ step: 1, description: "" });
-  }, [instructionFields, appendInstruction]);
+    } else {
+      instructionFields.forEach((_, index) => {
+        setValue(`instructions.${index}.step`, index + 1);
+      });
+    }
+  }, [instructionFields, appendInstruction, setValue]);
 
   return (
     <FormItem>
@@ -98,7 +107,7 @@ export const InstructionsField = ({ control }: InstructionsFieldProps) => {
                     <FormControl>
                       <SequenceInput
                         id={`instructions.${index}.step`}
-                        type="text"
+                        type="number"
                         readOnly
                         value={index + 1}
                         onChange={(e) => field.onChange(Number(e.target.value))}
