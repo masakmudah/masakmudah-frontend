@@ -54,6 +54,13 @@ const LoginForm = () => {
     }
   };
 
+  function handleTrimSpace(field: any) {
+    return (f: React.ChangeEvent<HTMLInputElement>) => {
+      const inputValue = f.target.value.trim();
+      field.onChange(inputValue);
+    };
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-full">
@@ -72,6 +79,7 @@ const LoginForm = () => {
                     placeholder="john.doe"
                     className="rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
                     {...field}
+                    onChange={handleTrimSpace(field)}
                   />
                 </FormControl>
                 <FormMessage />
@@ -98,6 +106,7 @@ const LoginForm = () => {
                         placeholder="password"
                         className="pr-10 rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB]"
                         {...field}
+                        onChange={handleTrimSpace(field)}
                       />
                       <PasswordToggle
                         showPassword={showPassword}

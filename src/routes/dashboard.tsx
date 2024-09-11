@@ -6,6 +6,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { useAuth } from "@/context/auth-provider";
+import { capitalText, upperText } from "@/libs/format-text";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
 import { Pencil } from "lucide-react";
@@ -83,41 +84,59 @@ export function DashboardRoute() {
     <div className="bg-[#F7FEE7] font-clashDisplayRegular min-h-dvh">
       {/* <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5 bg-red-500">
        */}
-      <Container className="space-y-12">
-        <section className="flex justify-start gap-10 text-black font-raleway">
-          <div className="flex gap-x-8">
-            <Avatar className="w-24 h-24">
+      <Container className="space-y-14 ">
+        <section className="flex flex-col md:flex-row justify-center items-center px-4 py-1 text-black font-raleway gap-6 w-full">
+          {/* IMAGE */}
+          <div className=" text-center flex flex-col justify-center items-center gap-2 ">
+            <Avatar className="w-24 h-24 ">
               <img
-                src={user?.imageURL || "/images/profile-user-alpha.png"}
+                src={
+                  user?.imageURL ||
+                  "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
+                }
                 alt={user?.username + "'s image"}
               />
             </Avatar>
-            <div className="space-y-4">
-              <div>
-                {edit ? (
-                  <UpdateUserForm onUpdateSuccess={handleUpdateSuccess} />
-                ) : (
-                  <p className="mt-2 font-raleway font-semibold text-xl capitalize">
-                    {user?.fullname}
-                  </p>
-                )}
-                <p className=" text-gray-500 font-raleway font-medium text-sm">
-                  @{user?.username}
-                </p>
-              </div>
-              <p>{user?.description}</p>
-            </div>
+            <p className="font-raleway font-medium text-sm">
+              @{user?.username}
+            </p>
           </div>
 
-          <div>
+          {/* PROFILE */}
+          {edit ? (
+            <UpdateUserForm onUpdateSuccess={handleUpdateSuccess} />
+          ) : (
+            <div className=" w-full p-4">
+              <p className="font-raleway font-semibold text-xl">
+                {upperText(user?.fullname!)}
+              </p>
+              <p>{capitalText(user?.description!)}</p>
+            </div>
+          )}
+
+          {/* BUTTON */}
+          <div className="flex md:flex-col gap-2 ">
+            {!edit ? (
+              <Button
+                onClick={() => setEdit(!edit)}
+                className="hover:text-[#C1F17A] rounded-3xl font-clashDisplayMedium bg-[#C1F17A] text-black"
+              >
+                Edit Profile
+              </Button>
+            ) : (
+              <Button
+                onClick={() => setEdit(!edit)}
+                className="hover:text-[#C1F17A] rounded-3xl font-clashDisplayMedium bg-[#C1F17A] text-black"
+              >
+                Cancel
+              </Button>
+            )}
+
             <Button
               asChild
-              className="mt-4 bg-[#FE5D47] text-white rounded-3xl font-raleway px-6 hover:bg-[#ee5743]"
+              className="rounded-3xl font-clashDisplayMedium bg-[#FE5D47] hover:bg-[#ee5743]"
             >
-              <Link to="/recipes/new">Tambah resep baru</Link>
-            </Button>
-            <Button onClick={() => setEdit(!edit)} className="">
-              Edit Profile
+              <Link to="/recipes/new">Buat resep</Link>
             </Button>
           </div>
         </section>
@@ -135,19 +154,19 @@ export function DashboardRoute() {
                     to={`/recipes/${recipe.slug}`}
                     className="bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98] h-full"
                   >
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 w-full">
                       <img
                         src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
                         className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
                         alt={recipe.name}
                       />
 
-                      <div className="flex flex-col items-center text-center text-lg px-4 ">
+                      <div className="flex flex-col items-center text-center text-lg px-4 w-full">
                         <h2 className="font-clashDisplaySemibold">
-                          {recipe.name}
+                          {upperText(recipe.name)}
                         </h2>
-                        <h3 className="font-clashDisplayRegular">
-                          {recipe.description}
+                        <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all max-w-full px-4">
+                          {capitalText(recipe.description)}
                         </h3>
                         <h4 className="text-[#FF5D47] font-clashDisplayMedium mt-2">
                           {recipe.cookingTime}
@@ -162,8 +181,10 @@ export function DashboardRoute() {
                           alt={recipe.user.username + "'s image"}
                           className="w-6 h-6 rounded-full"
                         />
-                        <h2 className="font-clashDisplayRegular capitalize">
-                          {recipe.user.fullname || recipe.user.username}
+                        <h2 className="font-clashDisplayRegular">
+                          {upperText(
+                            recipe.user.fullname || recipe.user.username
+                          )}
                         </h2>
                       </div>
                     </div>
@@ -185,14 +206,6 @@ export function DashboardRoute() {
                     recipeId={recipe.id}
                     onDelete={handleDeleteRecipe}
                   />
-                  {/* <Button className="p-2 text-black hover:text-[#e85541] absolute top-5 right-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-transparent bg-gray-200"> */}
-                  {/* Icon */}
-                  {/* <Trash
-                      className="transition-colors duration-400"
-                      strokeWidth={3}
-                      absoluteStrokeWidth
-                    />
-                  </Button> */}
                 </li>
               ))}
             </ul>

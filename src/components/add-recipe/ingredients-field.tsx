@@ -1,4 +1,4 @@
-import { useFieldArray, Control } from "react-hook-form";
+import { useFieldArray, Control, UseFormSetValue } from "react-hook-form";
 import {
   FormControl,
   FormField,
@@ -14,9 +14,13 @@ import { SequenceInput } from "./sequence-input";
 
 interface IngredientsFieldProps {
   control: Control<CreateRecipeSchema>;
+  setValue: UseFormSetValue<CreateRecipeSchema>;
 }
 
-export const IngredientsField = ({ control }: IngredientsFieldProps) => {
+export const IngredientsField = ({
+  control,
+  setValue,
+}: IngredientsFieldProps) => {
   const {
     fields: ingredientFields,
     append: appendIngredient,
@@ -43,19 +47,24 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
     if (draggedIndex !== index) {
       moveIngredient(draggedIndex!, index);
     }
-    setDraggedIndex(null);
+    setDraggedIndex(index);
     setHoverIndex(null);
   };
 
   useEffect(() => {
-    if (!ingredientFields.length)
+    if (!ingredientFields.length) {
       appendIngredient({
         sequence: 1,
         quantity: 0,
         measurement: "",
         ingredient: { name: "" },
       });
-  }, [ingredientFields, appendIngredient]);
+    } else {
+      ingredientFields.forEach((_, index) => {
+        setValue(`ingredientItems.${index}.sequence`, index + 1);
+      });
+    }
+  }, [ingredientFields, appendIngredient, setValue]);
 
   return (
     <FormItem>
@@ -67,7 +76,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
           type="button"
           onClick={() =>
             appendIngredient({
-              sequence: 0,
+              sequence: ingredientFields.length + 1,
               quantity: 0,
               measurement: "",
               ingredient: { name: "" },
@@ -104,8 +113,8 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
                     <div>
                       <FormControl>
                         <SequenceInput
-                          id={`ingredients.${index}.sequence`}
-                          type="text"
+                          id={`ingredientItems.${index}.sequence`}
+                          type="number"
                           readOnly
                           value={index + 1}
                           onChange={(e) =>
@@ -126,7 +135,7 @@ export const IngredientsField = ({ control }: IngredientsFieldProps) => {
                   <FormItem className="grow">
                     <FormControl>
                       <Input
-                        id={`ingredients.${index}.name`}
+                        id={`ingredientItems.${index}.ingredient.name`}
                         placeholder="Nama Bahan"
                         type="text"
                         className="w-full border rounded-md p-2 capitalize"

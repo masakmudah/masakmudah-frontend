@@ -5,7 +5,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
@@ -14,6 +13,7 @@ import { toast } from "../ui/use-toast";
 import { useAuth } from "@/context/auth-provider";
 import { updateUserSchema, UpdateUserSchema } from "@/schemas/edit-profile";
 import { updateUser } from "@/api/update-user";
+import { Textarea } from "../ui/textarea";
 
 interface UpdateUserProps {
   onUpdateSuccess: () => void;
@@ -26,18 +26,15 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
       fullname: user?.fullname || "",
+      description: user?.description || "",
     },
   });
 
-  const onSubmit = async (values: UpdateUserSchema) => {
-    console.log(values);
-    try {
-      const formatValues = {
-        ...values,
-      };
+  const { handleSubmit, control, formState } = form;
 
-      console.log(formatValues);
-      await updateUser(user!.id, formatValues.fullname, token!);
+  const onSubmit = async (values: UpdateUserSchema) => {
+    try {
+      await updateUser(user!.id, values, token!);
       toast({
         className:
           "bg-green-500 text-white rounded-3xl font-clashDisplayRegular border-0",
@@ -56,6 +53,15 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
     }
   };
 
+  // Remove space
+  function handleTrimSpace(field: any) {
+    return (f: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const inputValue = f.target.value.replace(/\s+/g, " ");
+      field.onChange(inputValue);
+    };
+  }
+
+  // Replace multiple space and capitalize
   function handleReplaceSpace(field: any) {
     return (f: React.ChangeEvent<HTMLInputElement>) => {
       const inputValue = f.target.value
@@ -69,16 +75,17 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-full">
-        <div className="space-y-2">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full  flex flex-col md:flex-row justify-between items-center mt-4 p-2"
+      >
+        <div className="space-y-2 w-full">
+          {/* Fullname */}
           <FormField
-            control={form.control}
+            control={control}
             name="fullname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-clashDisplayMedium">
-                  Full Name
-                </FormLabel>
                 <FormControl>
                   <Input
                     type="text"
@@ -92,13 +99,37 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
               </FormItem>
             )}
           />
+          {/* Bio */}
+          <FormField
+            control={control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Textarea
+                    id="description"
+                    placeholder="Ceritakan tentang dirimu"
+                    className="resize-none rounded-xl font-raleway bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 border-[#B9BCBB] "
+                    {...field}
+                    onChange={handleTrimSpace(field)}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="">
+            <Button
+              disabled={formState.isSubmitting}
+              className={`${
+                !formState.isDirty ? "hidden" : ""
+              } rounded-3xl font-clashDisplayMedium bg-gradient-to-b from-white to-[#1C2625] from-[-150%] w-full`}
+            >
+              Update
+            </Button>
+          </div>
         </div>
-        <Button
-          disabled={form.formState.isSubmitting}
-          className="w-full rounded-3xl font-clashDisplayMedium bg-gradient-to-b from-white to-[#1C2625] from-[-150%]"
-        >
-          Update
-        </Button>
       </form>
     </Form>
   );

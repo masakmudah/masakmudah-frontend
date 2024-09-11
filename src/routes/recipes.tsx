@@ -1,6 +1,7 @@
 import { getRecipes } from "@/api/recipe";
 import Container from "@/components/ui/container";
 import { Separator } from "@/components/ui/separator";
+import { capitalText, upperText } from "@/libs/format-text";
 import { resizeUploadcareImage } from "@/libs/text-manipulation";
 import { Recipe } from "@/types/recipe";
 import { ArrowLeft } from "lucide-react";
@@ -52,12 +53,12 @@ export function RecipesRoute() {
                       className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
                       alt={recipe.name}
                     />
-                    <div className="flex flex-col items-center text-center text-lg px-4 ">
-                      <h2 className="font-clashDisplaySemibold">
-                        {recipe.name}
+                    <div className="flex flex-col items-center text-center text-lg px-4 w-full">
+                      <h2 className="font-clashDisplaySemibold mt-2">
+                        {upperText(recipe.name)}
                       </h2>
-                      <h3 className="font-clashDisplayRegular">
-                        {recipe.description}
+                      <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all max-w-full px-4">
+                        {capitalText(recipe.description)}
                       </h3>
                       <h4 className="text-[#FF5D47] font-clashDisplayMedium mt-2">
                         {recipe.cookingTime}
@@ -76,8 +77,8 @@ export function RecipesRoute() {
                       alt={recipe.user.username + "'s image"}
                       className="w-6 h-6 rounded-full"
                     />
-                    <p className="font-clashDisplayRegular bg-gray-200 p-1 capitalize">
-                      {recipe.user.fullname || recipe.user.username}
+                    <p className="font-clashDisplayRegular bg-gray-200 p-1">
+                      {upperText(recipe.user.fullname || recipe.user.username)}
                     </p>
                   </Link>
                 </div>

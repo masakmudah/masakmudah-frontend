@@ -46,8 +46,7 @@ export const createRecipeSchema = z.object({
         sequence: z.number(),
         quantity: z
           .number()
-          .int()
-          .gte(1, { message: "Wajib diisi " })
+          .gt(0, { message: "Wajib diisi > 0" })
           .lt(9999, { message: "Maksimal 4 digit." }),
         measurement: z
           .string()
@@ -64,6 +63,7 @@ export const createRecipeSchema = z.object({
       })
     )
     .nonempty({ message: "Bahan-bahan wajib diisi." }),
+
   // Done
   instructions: z
     .array(

@@ -7,21 +7,13 @@ import { toast } from "@/components/ui/use-toast";
 import { CreateRecipeSchema, createRecipeSchema } from "@/schemas/new-recipe";
 import { Category } from "@/types/category";
 import { useForm } from "react-hook-form";
-import {
-  // ActionFunctionArgs,
-  Navigate,
-  useLoaderData,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
 import { CategoryField } from "../components/add-recipe/category-field";
 import { BasicInfoField } from "@/components/add-recipe/basic-info-field";
 import { useState } from "react";
 import ImageUploadButton from "@/components/shared/image-upload-button";
-// import { CategoriesField } from "@/components/add-recipe/categories-field";
 import { IngredientsField } from "@/components/add-recipe/ingredients-field";
 import { InstructionsField } from "@/components/add-recipe/instructions-field";
-// import ImageUploadButton from "@/components/shared/image-upload-button";
-
 import { uploadFile } from "@uploadcare/upload-client";
 import Container from "@/components/ui/container";
 
@@ -48,14 +40,14 @@ export function NewRecipeRoute() {
       cookingTime: "",
       categoryId: "",
       ingredientItems: [
-        { sequence: 0, quantity: 0, measurement: "", ingredient: { name: "" } },
+        { sequence: 1, quantity: 0, measurement: "", ingredient: { name: "" } },
       ],
       instructions: [{ step: 1, description: "" }],
       // imageURL: "",
     },
   });
 
-  const { handleSubmit, control } = form;
+  const { handleSubmit, control, setValue } = form;
 
   const onSubmit = async (data: CreateRecipeSchema) => {
     try {
@@ -72,7 +64,6 @@ export function NewRecipeRoute() {
       const imageResponse = await submitImage();
       if (!imageResponse?.cdnUrl) throw new Error("Gagal mengambil url gambar");
 
-      const getUsername = user?.username;
       const { cdnUrl } = imageResponse;
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
@@ -92,13 +83,15 @@ export function NewRecipeRoute() {
       if (response.ok) {
         toast({
           title: "Berhasil mengirim formulir",
-          description: "Selamat resep telah terbuat font-raleway",
+          description: "Selamat resep telah terbuat",
           className: "rounded-2xl border-none",
           style: {
             color: "#fff",
             backgroundColor: "#1C2625",
           },
         }); // Menghilangkan toast setelah submit berhasil
+
+        const getUsername = user?.username;
         navigate(`/dashboard/${getUsername}`);
       } else {
         const errorData = await response.json();
@@ -159,7 +152,6 @@ export function NewRecipeRoute() {
           <Separator className="border-black border" />
 
           <ImageUploadButton onFileChange={handleFileChange} />
-          {/* <button onClick={submitImage}>Submit</button> */}
 
           <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
@@ -168,15 +160,10 @@ export function NewRecipeRoute() {
                 timeUnit={timeUnit}
                 setTimeUnit={setTimeUnit}
               />
-              {/* <Separator /> */}
               <CategoryField categories={categories} control={control} />
 
-              {/* <Separator /> */}
-              <IngredientsField control={control} />
-              {/* <Separator /> */}
-              <InstructionsField control={control} />
-              {/* <Separator /> */}
-              {/* <CategoriesField control={control} /> */}
+              <IngredientsField control={control} setValue={setValue} />
+              <InstructionsField control={control} setValue={setValue} />
 
               <Button
                 type="submit"
@@ -191,35 +178,3 @@ export function NewRecipeRoute() {
     </div>
   );
 }
-
-// export async function action({ request }: ActionFunctionArgs) {
-//   const formData = await request.formData();
-
-//   const userData = {
-//     name: formData.get("name")?.toString(),
-//     description: formData.get("description")?.toString(),
-//     cookingTime: formData.get("cookingTime")?.toString(),
-//     categoryId: formData.get("categoryId")?.toString(),
-//   };
-
-//   try {
-//     const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(userData),
-//     });
-
-//     if (response.ok) {
-//       return navigate("/dashboard");
-//     } else {
-//       const errorData = await response.json();
-//       console.error("Failed to create recipe:", errorData);
-//       return null;
-//     }
-//   } catch (error) {
-//     console.error("An error occurred:", error);
-//     return null;
-//   }
-// }
