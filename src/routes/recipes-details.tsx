@@ -2,6 +2,7 @@ import { getRecipe } from "@/api/recipe";
 import Container from "@/components/ui/container";
 import { socialMediaIcons } from "@/constant/navigation-menu";
 import { capitalText, upperText } from "@/libs/format-text";
+import { resizeUploadcareImage } from "@/libs/text-manipulation";
 import { Recipe } from "@/types/recipe";
 import { Link, useLoaderData } from "react-router-dom";
 
@@ -9,7 +10,6 @@ export async function loader(slug: string) {
   try {
     const data = await getRecipe(slug);
     const recipe = data.data;
-
     return { recipe };
   } catch (error) {
     console.log(error);
@@ -24,7 +24,10 @@ export function RecipesDetails() {
       <Container className="flex w-full gap-x-12">
         <main className="space-y-8 min-w-96">
           <img
-            src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
+            src={
+              resizeUploadcareImage(recipe.imageURL) ||
+              "/images/masakmudah-logo-2.png"
+            }
             alt={recipe.name + "'s image"}
             className="w-96"
           />

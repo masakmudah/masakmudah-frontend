@@ -3,6 +3,7 @@ import { Avatar } from "@/components/ui/avatar";
 import Container from "@/components/ui/container";
 import { Separator } from "@/components/ui/separator";
 import { capitalText, upperText } from "@/libs/format-text";
+import { resizeUploadcareImage } from "@/libs/text-manipulation";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
 import { Link, useLoaderData } from "react-router-dom";
@@ -88,7 +89,10 @@ export function UserRecipesRoute() {
                   >
                     <div className="flex flex-col gap-4">
                       <img
-                        src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
+                        src={
+                          resizeUploadcareImage(recipe.imageURL) ||
+                          "/images/masakmudah-logo-2.png"
+                        }
                         className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
                         alt={recipe.name}
                       />

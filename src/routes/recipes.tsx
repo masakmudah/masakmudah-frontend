@@ -32,10 +32,10 @@ export function RecipesRoute() {
           {q === null ? (
             "Semua resep"
           ) : (
-            <h1>
+            <>
               Hasil pencarian untuk:
               <span className="capitalize text-[#FF5D47]"> {q}</span>
-            </h1>
+            </>
           )}
         </h1>
         <Separator />
