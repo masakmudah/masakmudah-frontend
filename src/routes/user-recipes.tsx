@@ -55,24 +55,20 @@ export function UserRecipesRoute() {
           <div className="flex gap-x-8">
             <Avatar className="w-24 h-24">
               <img
-                src={user?.imageURL || "/images/profile-user-alpha.png"}
-                alt={user?.username + "'s image"}
+                src={user.imageURL || "/images/profile-user-alpha.png"}
+                alt={user.username + "'s image"}
               />
             </Avatar>
             <div className="space-y-4">
               <div>
                 <p className="mt-2 font-raleway font-semibold text-xl capitalize">
-                  {user?.fullname}
+                  {user.fullname}
                 </p>
                 <p className=" text-gray-500 font-raleway font-medium text-sm">
-                  @{user?.username}
+                  @{user.username}
                 </p>
               </div>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta,
-                soluta beatae? Ducimus neque aut ratione nostrum tempora odio
-                labore consequatur reprehenderit, ea quisquam.
-              </p>
+              <p>{user.description}</p>
             </div>
           </div>
         </section>
