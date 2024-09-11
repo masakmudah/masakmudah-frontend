@@ -123,7 +123,7 @@ export function NewRecipeRoute() {
         publicKey: "6c06ff53d4ffc84d8a11",
         store: "auto",
         metadata: {
-          pet: "cat",
+          userId: user?.id || "",
         },
       });
 

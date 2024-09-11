@@ -1,6 +1,7 @@
 import { getRecipes } from "@/api/recipe";
 import Container from "@/components/ui/container";
 import { Separator } from "@/components/ui/separator";
+import { resizeUploadcareImage } from "@/libs/text-manipulation";
 import { Recipe } from "@/types/recipe";
 import { ArrowLeft } from "lucide-react";
 import { Link, useLoaderData, useSearchParams } from "react-router-dom";
@@ -44,7 +45,10 @@ export function RecipesRoute() {
                 <div className="gap-4 h-full bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98] ">
                   <Link to={`/recipes/${recipe.slug}`}>
                     <img
-                      src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
+                      src={
+                        resizeUploadcareImage(recipe.imageURL) ||
+                        "/images/masakmudah-logo-2.png"
+                      }
                       className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
                       alt={recipe.name}
                     />

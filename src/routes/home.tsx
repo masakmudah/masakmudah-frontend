@@ -14,6 +14,7 @@ import { CategoryBar } from "@/components/shared/category-bar";
 import { useEffect, useState } from "react";
 import { getCategoryBySlug } from "@/api/category";
 import { useAuth } from "@/context/auth-provider";
+import { resizeUploadcareImage } from "@/libs/text-manipulation";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
@@ -136,7 +137,10 @@ export function HomeRoute() {
 
                   <div className="flex flex-col items-center gap-y-8 ">
                     <img
-                      src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
+                      src={
+                        resizeUploadcareImage(recipe?.imageURL) ||
+                        "/images/masakmudah-logo-2.png"
+                      }
                       className="w-56 h-56 object-cover rounded-xl"
                       alt={recipe.name}
                     />
