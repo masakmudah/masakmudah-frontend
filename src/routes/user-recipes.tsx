@@ -2,6 +2,7 @@ import { getUser } from "@/api/get-user";
 import { Avatar } from "@/components/ui/avatar";
 import Container from "@/components/ui/container";
 import { Separator } from "@/components/ui/separator";
+import { capitalText, upperText } from "@/libs/format-text";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
 import { Link, useLoaderData } from "react-router-dom";
@@ -92,12 +93,12 @@ export function UserRecipesRoute() {
                         alt={recipe.name}
                       />
 
-                      <div className="flex flex-col items-center text-center text-lg px-4 ">
+                      <div className="flex flex-col items-center text-center text-lg px-4 w-full">
                         <h2 className="font-clashDisplaySemibold">
-                          {recipe.name}
+                          {upperText(recipe.name)}
                         </h2>
-                        <h3 className="font-clashDisplayRegular">
-                          {recipe.description}
+                        <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all max-w-full px-4">
+                          {capitalText(recipe.description)}
                         </h3>
                         <h4 className="text-[#FF5D47] font-clashDisplayMedium mt-2">
                           {recipe.cookingTime}
@@ -113,7 +114,9 @@ export function UserRecipesRoute() {
                           className="w-6 h-6 rounded-full"
                         />
                         <h2 className="font-clashDisplayRegular capitalize">
-                          {recipe.user.fullname || recipe.user.username}
+                          {upperText(
+                            recipe.user.fullname || recipe.user.username
+                          )}
                         </h2>
                       </div>
                     </div>
