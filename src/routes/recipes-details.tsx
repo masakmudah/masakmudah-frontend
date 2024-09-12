@@ -1,8 +1,12 @@
 import { getRecipe } from "@/api/recipe";
+import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { socialMediaIcons } from "@/constant/navigation-menu";
+import { useAuth } from "@/context/auth-provider";
 import { capitalText, upperText } from "@/libs/format-text";
 import { Recipe } from "@/types/recipe";
+import { savedRecipe } from "@/types/saved-recipe";
+import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 
 export async function loader(slug: string) {
@@ -18,6 +22,104 @@ export async function loader(slug: string) {
 
 export function RecipesDetails() {
   const { recipe } = useLoaderData() as { recipe: Recipe };
+  const { user, token } = useAuth();
+  const [savedRecipes, setSavedRecipes] = useState<savedRecipe[]>([]);
+
+  const savedRecipeIds = savedRecipes.map((item: savedRecipe) => item.recipeId);
+  const isRecipeSaved = savedRecipeIds.includes(recipe.id);
+
+  const handleBookmark = async () => {
+    const recipeToUnbookmark = savedRecipes.find(
+      (item: savedRecipe) => item.recipeId === recipe.id
+    );
+
+    if (recipeToUnbookmark) {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/saved-recipes/${
+            recipeToUnbookmark.id
+          }`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to delete recipe");
+          // Tambahkan penanganan error yang sesuai, misalnya menampilkan pesan ke pengguna
+        }
+
+        // const data = await response.json();
+
+        const newSavedRecipes = savedRecipes.filter(
+          (item: savedRecipe) => item.recipeId !== recipeToUnbookmark.recipeId
+        );
+
+        setSavedRecipes(newSavedRecipes);
+      } catch (error) {
+        console.error("Error deleting recipe:", error);
+      }
+    } else {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/saved-recipes`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              recipeId: recipe.id,
+              userId: user?.id,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to bookmark recipe");
+        }
+
+        const { data } = await response.json();
+
+        setSavedRecipes([...savedRecipes, data]);
+      } catch (error) {
+        console.error("Error bookmarking recipe:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const fetchBookmark = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/saved-recipes/${user?.username}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Gagal mengambil bookmark");
+        }
+
+        const { data } = await response.json();
+
+        setSavedRecipes(data);
+      } catch (error) {
+        console.error("Error saat mengambil bookmark:", error);
+        // Tambahkan penanganan error yang sesuai, misalnya menampilkan pesan ke pengguna
+      }
+    };
+
+    fetchBookmark();
+  }, [recipe.id, token, user]);
 
   return (
     <div className="bg-[#FDFFF7]">
@@ -47,9 +149,34 @@ export function RecipesDetails() {
         </main>
         <aside className="space-y-8 font-clashDisplayRegular w-full">
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-clashDisplaySemibold">
-              {upperText(recipe.name)}
-            </h1>
+            <div className="flex gap-x-3">
+              <h1 className="text-3xl font-clashDisplaySemibold">
+                {upperText(recipe.name)}
+              </h1>
+              <Button
+                className="rounded-3xl flex bg-transparent text-black border hover:bg-transparent font-raleway font-semibold border-black h-8 px-2
+                "
+                onClick={handleBookmark}
+              >
+                {isRecipeSaved ? (
+                  <img
+                    src="/images/icon/heart.svg"
+                    alt="duo-line"
+                    className="scale-90"
+                  />
+                ) : (
+                  <img
+                    src="/images/icon/unheart.svg"
+                    alt="duo-line"
+                    className="scale-75"
+                  />
+                )}
+                <p className="text-sm">
+                  {isRecipeSaved ? "Tersimpan" : "Simpan"}
+                </p>{" "}
+              </Button>
+            </div>
+
             <p>{recipe.cookingTime}</p>
           </div>
           <div className="space-y-12">
