@@ -5,8 +5,8 @@ import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { useAuth } from "@/context/auth-provider";
-import { capitalText, firstCapital, upperText } from "@/libs/format-text";
-import { resizeUploadcareImage } from "@/libs/text-manipulation";
+import { capitalText, upperText } from "@/libs/format-text";
+
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
 import { useState } from "react";
