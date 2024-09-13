@@ -79,7 +79,9 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
       {tabSelected === "my-recipe" ? (
         <TabsContent value="my-recipe">
           {ownRecipes.length === 0 ? (
-            <div>Maaf kamu belum pernah membuat resep</div>
+            <div className="my-40 flex items-center justify-center">
+              Maaf kamu belum pernah membuat resep
+            </div>
           ) : (
             <ul className="grid mt-20 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
               {ownRecipes.map((recipe) => (

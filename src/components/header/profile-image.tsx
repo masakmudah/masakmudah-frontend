@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/auth-provider";
+import { upperText } from "@/libs/format-text";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -54,7 +55,7 @@ const ProfileImage = () => {
             />
             <div className="flex flex-col gap-y-1">
               <p className="font-clashDisplayMedium capitalize">
-                {user?.fullname || user?.username}
+                {upperText(user?.fullname) || user?.username}
               </p>
               <p className="font-normal">{user?.email}</p>
             </div>

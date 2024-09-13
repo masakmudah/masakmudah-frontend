@@ -215,7 +215,7 @@ export function RecipesDetails() {
                       {upperText(recipe.user.fullname || recipe.user.username)}
                     </h4>
                     <p className="text-slate-400 font-raleway line-clamp-1">
-                      {capitalText(recipe.user.description!)}
+                      {capitalText(recipe.user.description)}
                     </p>
                   </div>
                 </div>

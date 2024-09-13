@@ -2,7 +2,7 @@ import { getUser } from "@/api/get-user";
 import { Avatar } from "@/components/ui/avatar";
 import Container from "@/components/ui/container";
 import { Separator } from "@/components/ui/separator";
-import { capitalText, firstCapital, upperText } from "@/libs/format-text";
+import { capitalText, upperText } from "@/libs/format-text";
 import { resizeUploadcareImage } from "@/libs/text-manipulation";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
@@ -72,9 +72,9 @@ export function UserRecipesRoute() {
           {/* PROFILE */}
           <div className=" w-full space-y-2">
             <p className="font-raleway font-semibold text-xl">
-              {upperText(user?.fullname!)}
+              {upperText(user?.fullname)}
             </p>
-            <p>{firstCapital(user?.description!)}</p>
+            <p className="">{capitalText(user?.description)}</p>
           </div>
         </section>
 
@@ -83,7 +83,7 @@ export function UserRecipesRoute() {
           {recipes && recipes.length > 0 ? (
             <ul className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
               {recipes.map((recipe: Recipe) => (
-                <li key={recipe.id} className="shadow-md rounded-lg">
+                <li key={recipe.id} className="rounded-lg">
                   <div className="justify-between h-full bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98]">
                     <Link to={`/recipes/${recipe.slug}`}>
                       <div className="flex justify-center items-center m-5">
@@ -121,9 +121,8 @@ export function UserRecipesRoute() {
                         className="w-6 h-6 rounded-full"
                       />
                       <p className="font-clashDisplayRegular p-1">
-                        {upperText(
-                          recipe.user.fullname || recipe.user.username
-                        )}
+                        {upperText(recipe.user.fullname) ||
+                          recipe.user.username}
                       </p>
                     </Link>
                   </div>
@@ -131,13 +130,13 @@ export function UserRecipesRoute() {
               ))}
             </ul>
           ) : (
-            <div className="flex items-center justify-start flex-col gap-y-4 h-dvh text-white pt-10">
-              <p className="text-base md:text-xl text-center font-clashDisplaySemibold text-gray-400">
+            <div className="flex items-center justify-start flex-col gap-y-4 h-dvh text-white pt-10 font-clashDisplayRegular">
+              <p className="text-base md:text-xl text-center text-gray-400">
                 Belum punya resep
               </p>
               <Link
                 to="/recipes"
-                className="text-red-300 p-4 rounded-xl font-clashDisplayMedium flex gap-x-2 items-center group text-base md:text-xl -ml-8"
+                className="text-red-300 p-4 rounded-xl flex gap-x-2 items-center group text-base md:text-xl -ml-8"
               >
                 <ArrowLeft className="w-6 h-6 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all ease-out duration-300" />
                 Lihat semua resep
