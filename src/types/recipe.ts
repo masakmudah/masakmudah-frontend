@@ -15,3 +15,14 @@ export type Recipe = {
   instructions: Instruction[];
   user: User;
 };
+
+export type RecipeInAuth = Pick<
+  Recipe,
+  | "name"
+  | "cookingTime"
+  | "imageURL"
+  | "cookingTime"
+  | "description"
+  | "slug"
+  | "id"
+>;

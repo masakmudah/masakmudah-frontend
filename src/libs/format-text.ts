@@ -1,4 +1,4 @@
-export const capitalText = (text: string) => {
+export const capitalText = (text: string | undefined) => {
   if (typeof text !== "string") {
     return "";
   }
@@ -18,7 +18,7 @@ export const capitalText = (text: string) => {
     .replace(/^\s+/, "");
 };
 
-export const upperText = (text: string) => {
+export const upperText = (text: string | undefined) => {
   if (typeof text !== "string") {
     return "";
   }

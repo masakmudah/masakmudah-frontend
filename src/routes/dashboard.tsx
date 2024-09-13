@@ -1,6 +1,5 @@
 import { getUserRecipes } from "@/api/get-user";
 import { DashboardTabs } from "@/components/shared/dashboard-tabs";
-import { DeleteRecipeButton } from "@/components/shared/delete-recipe";
 import UpdateUserForm from "@/components/shared/update-user";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,6 @@ import { useAuth } from "@/context/auth-provider";
 import { capitalText, upperText } from "@/libs/format-text";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
-import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { Link, Navigate, redirect, useLoaderData } from "react-router-dom";
 
@@ -33,7 +31,7 @@ export async function loader(username: string) {
 export function DashboardRoute() {
   const { token, user, setUser } = useAuth();
   const { recipes: initialRecipes } = useLoaderData() as DashboardProps;
-  const [recipes, setRecipes] = useState<Recipe[]>(initialRecipes);
+  // const [recipes, setRecipes] = useState<Recipe[]>(initialRecipes);
   const [edit, setEdit] = useState(false);
 
   const handleUpdateSuccess = async () => {
@@ -54,27 +52,27 @@ export function DashboardRoute() {
     setEdit(false);
   };
 
-  const handleDeleteRecipe = async (id: string) => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/recipes/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (!response.ok) throw new Error("Respon gagal");
+  // const handleDeleteRecipe = async (id: string) => {
+  //   try {
+  //     const response = await fetch(
+  //       `${import.meta.env.VITE_API_URL}/recipes/${id}`,
+  //       {
+  //         method: "DELETE",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     if (!response.ok) throw new Error("Respon gagal");
 
-      const recipesResponse = await getUserRecipes(user!.username);
-      const recipes = recipesResponse.data;
-      setRecipes(recipes);
-    } catch (error) {
-      console.error("Gagal refresh data:", error);
-    }
-  };
+  //     const recipesResponse = await getUserRecipes(user!.username);
+  //     const recipes = recipesResponse.data;
+  //     setRecipes(recipes);
+  //   } catch (error) {
+  //     console.error("Gagal refresh data:", error);
+  //   }
+  // };
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -108,9 +106,9 @@ export function DashboardRoute() {
           ) : (
             <div className=" w-full p-4">
               <p className="font-raleway font-semibold text-xl">
-                {upperText(user?.fullname!)}
+                {upperText(user?.fullname)}
               </p>
-              <p>{capitalText(user?.description!)}</p>
+              <p>{capitalText(user?.description)}</p>
             </div>
           )}
 
@@ -141,76 +139,7 @@ export function DashboardRoute() {
           </div>
         </section>
 
-        <DashboardTabs />
-
-        <section className="text-center">
-          {recipes.length === 0 ? (
-            <p className="text-black">Belum punya resep</p>
-          ) : (
-            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
-              {recipes.map((recipe: Recipe) => (
-                <li key={recipe.id} className="group relative">
-                  <Link
-                    to={`/recipes/${recipe.slug}`}
-                    className="bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98] h-full"
-                  >
-                    <div className="flex flex-col gap-4 w-full">
-                      <img
-                        src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
-                        className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
-                        alt={recipe.name}
-                      />
-
-                      <div className="flex flex-col items-center text-center text-lg px-4 w-full">
-                        <h2 className="font-clashDisplaySemibold">
-                          {upperText(recipe.name)}
-                        </h2>
-                        <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all max-w-full px-4">
-                          {capitalText(recipe.description)}
-                        </h3>
-                        <h4 className="text-[#FF5D47] font-clashDisplayMedium mt-2">
-                          {recipe.cookingTime}
-                        </h4>
-                      </div>
-                      <div className="flex justify-center items-center text-center gap-3 pb-4 bottom-0">
-                        <img
-                          src={
-                            recipe.user.imageURL ||
-                            "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
-                          }
-                          alt={recipe.user.username + "'s image"}
-                          className="w-6 h-6 rounded-full"
-                        />
-                        <h2 className="font-clashDisplayRegular">
-                          {upperText(
-                            recipe.user.fullname || recipe.user.username
-                          )}
-                        </h2>
-                      </div>
-                    </div>
-                  </Link>
-                  <Button
-                    asChild
-                    className="p-2 text-black hover:text-[#e85541] absolute top-5 left-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-gray-200"
-                  >
-                    <Link to={`/recipes/edit/${recipe.slug}`}>
-                      {/* Icon */}
-                      <Pencil
-                        className="transition-colors duration-400"
-                        strokeWidth={3}
-                        absoluteStrokeWidth
-                      />
-                    </Link>
-                  </Button>
-                  <DeleteRecipeButton
-                    recipeId={recipe.id}
-                    onDelete={handleDeleteRecipe}
-                  />
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+        <DashboardTabs myRecipes={initialRecipes} />
       </Container>
     </div>
   );

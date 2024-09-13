@@ -1,4 +1,4 @@
-export type savedRecipe = {
+export type SavedRecipe = {
   id: string;
   recipeId: string;
   userId: string;

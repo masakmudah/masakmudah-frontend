@@ -5,7 +5,7 @@ import { socialMediaIcons } from "@/constant/navigation-menu";
 import { useAuth } from "@/context/auth-provider";
 import { capitalText, upperText } from "@/libs/format-text";
 import { Recipe } from "@/types/recipe";
-import { savedRecipe } from "@/types/saved-recipe";
+import { SavedRecipe } from "@/types/saved-recipe";
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 
@@ -23,14 +23,14 @@ export async function loader(slug: string) {
 export function RecipesDetails() {
   const { recipe } = useLoaderData() as { recipe: Recipe };
   const { user, token } = useAuth();
-  const [savedRecipes, setSavedRecipes] = useState<savedRecipe[]>([]);
+  const [savedRecipes, setSavedRecipes] = useState<SavedRecipe[]>([]);
 
-  const savedRecipeIds = savedRecipes.map((item: savedRecipe) => item.recipeId);
+  const savedRecipeIds = savedRecipes.map((item: SavedRecipe) => item.recipeId);
   const isRecipeSaved = savedRecipeIds.includes(recipe.id);
 
   const handleBookmark = async () => {
     const recipeToUnbookmark = savedRecipes.find(
-      (item: savedRecipe) => item.recipeId === recipe.id
+      (item: SavedRecipe) => item.recipeId === recipe.id
     );
 
     if (recipeToUnbookmark) {
@@ -56,7 +56,7 @@ export function RecipesDetails() {
         // const data = await response.json();
 
         const newSavedRecipes = savedRecipes.filter(
-          (item: savedRecipe) => item.recipeId !== recipeToUnbookmark.recipeId
+          (item: SavedRecipe) => item.recipeId !== recipeToUnbookmark.recipeId
         );
 
         setSavedRecipes(newSavedRecipes);

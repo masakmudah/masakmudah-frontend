@@ -1,3 +1,5 @@
+const baseUrl = import.meta.env.VITE_API_URL;
+
 export const getRecipe = async (slug: string) => {
   try {
     const response = await fetch(
@@ -24,6 +26,30 @@ export const getRecipes = async (search?: string | null) => {
     }
 
     const response = await fetch(url.toString());
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    throw new Response("Error loading user data", { status: 500 });
+  }
+};
+
+export const getSavedRecipeByUsername = async (
+  username: string,
+  token: string
+) => {
+  try {
+    const response = await fetch(`${baseUrl}/saved-recipes/${username}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Response("Error loading user data", { status: 500 });
+    }
+
     const data = await response.json();
 
     return data;

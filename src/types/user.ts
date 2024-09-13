@@ -1,3 +1,5 @@
+import { RecipeInAuth } from "./recipe";
+
 export type Password = {
   id: string;
   hash: string;
@@ -15,4 +17,7 @@ export type User = {
   password: Password;
   createdAt: string;
   updatedAt: string;
+  savedRecipes?: {
+    recipes: RecipeInAuth[];
+  };
 };
