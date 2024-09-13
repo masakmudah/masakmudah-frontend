@@ -25,14 +25,17 @@ const ProfileImage = () => {
       open={openDropdown}
       onOpenChange={() => setOpenDropdown(!openDropdown)}
     >
-      <DropdownMenuTrigger onClick={() => setOpenDropdown(true)}>
+      <DropdownMenuTrigger
+        onClick={() => setOpenDropdown(true)}
+        className="w-auto "
+      >
         <img
           src={
             user?.imageURL ||
             "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
           }
           alt="avatar"
-          className="w-12 h-12 rounded-full border-2 border-black"
+          className="w-12 rounded-full border-2 border-black "
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -65,7 +68,7 @@ const ProfileImage = () => {
             className="scale-90"
           />
           <Link
-            to={`/dashboard/${user?.username}`}
+            to={`/${user?.username}/dashboard`}
             onClick={() => setOpenDropdown(false)}
           >
             Resep saya
@@ -78,7 +81,7 @@ const ProfileImage = () => {
             className="scale-90"
           />
           <Link
-            to={`/dashboard/${user?.username}`}
+            to={`/${user?.username}/dashboard`}
             onClick={() => setOpenDropdown(false)}
           >
             Ubah profil

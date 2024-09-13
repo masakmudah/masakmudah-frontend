@@ -18,6 +18,18 @@ export const capitalText = (text: string | undefined) => {
     .replace(/^\s+/, "");
 };
 
+export const firstCapital = (text: string | undefined) => {
+  if (typeof text !== "string") {
+    return "";
+  }
+
+  return text
+    .split(/([.!?:])/g)
+    .join(" ")
+    .replace(/\s+([.!?:])/g, "$1")
+    .replace(/^\s+/, "");
+};
+
 export const upperText = (text: string | undefined) => {
   if (typeof text !== "string") {
     return "";

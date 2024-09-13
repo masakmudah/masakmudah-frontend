@@ -16,7 +16,8 @@ export function DeleteRecipeButton({ recipeId, onDelete }: DeleteRecipeProps) {
   return (
     <Button
       onClick={handleDelete}
-      className="p-2 text-black hover:text-[#e85541] absolute top-5 right-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-transparent bg-gray-200"
+      className="p-2 text-black hover:text-[#e85541] absolute bottom-1 right-1 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg transition-opacity duration-1000 bg-transparent bg-gray-200"
+      // opacity-0 group-hover:opacity-100
     >
       {/* Icon */}
       <Trash

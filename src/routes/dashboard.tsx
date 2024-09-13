@@ -5,7 +5,8 @@ import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { useAuth } from "@/context/auth-provider";
-import { capitalText, upperText } from "@/libs/format-text";
+import { capitalText, firstCapital, upperText } from "@/libs/format-text";
+import { resizeUploadcareImage } from "@/libs/text-manipulation";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
 import { useState } from "react";
@@ -104,7 +105,7 @@ export function DashboardRoute() {
           {edit ? (
             <UpdateUserForm onUpdateSuccess={handleUpdateSuccess} />
           ) : (
-            <div className=" w-full p-4">
+            <div className="w-full space-y-2">
               <p className="font-raleway font-semibold text-xl">
                 {upperText(user?.fullname)}
               </p>
