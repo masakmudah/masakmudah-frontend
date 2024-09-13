@@ -8,12 +8,12 @@ import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
 import { DashboardRoute, loader as dashboardLoader } from "./routes/dashboard";
 import { RecipesRoute, loader as recipesLoader } from "./routes/recipes";
-import ErrorPage from "./routes/error-page";
+import { ErrorPage } from "./routes/error-route/error-pages";
 import {
   RecipesDetails,
   loader as recipeDetailsLoader,
 } from "./routes/recipes-details";
-import RecipeNotFound from "./routes/recipe-not-found";
+import { RecipeNotFound } from "./routes/error-route/error-recipes";
 import AuthProvider from "./context/auth-provider";
 import { AboutRoute } from "./routes/about";
 import { NewRecipeRoute, loader as newRecipeLoader } from "./routes/new-recipe";
@@ -26,6 +26,7 @@ import {
   EditRecipeRoute,
   loader as editRecipeLoader,
 } from "./routes/edit-recipe";
+import { UserNotFound } from "./routes/error-route/error-users";
 
 const router = createBrowserRouter([
   {
@@ -51,9 +52,10 @@ const router = createBrowserRouter([
         element: <RegisterRoute />,
       },
       {
-        path: "/dashboard/:username",
+        path: "/:username/dashboard",
         element: <DashboardRoute />,
         loader: ({ params }) => dashboardLoader(params.username || "unknownid"),
+        errorElement: <UserNotFound />,
       },
       {
         path: "/recipes",
@@ -77,10 +79,11 @@ const router = createBrowserRouter([
         loader: newRecipeLoader,
       },
       {
-        path: "/:username",
+        path: "/:username/recipes",
         element: <UserRecipesRoute />,
         loader: ({ params }) =>
           userRecipesLoader(params.username || "unknownid"),
+        errorElement: <UserNotFound />,
       },
       {
         path: "/recipes/edit/:slug",

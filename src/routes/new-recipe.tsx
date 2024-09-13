@@ -47,7 +47,7 @@ export function NewRecipeRoute() {
     },
   });
 
-  const { handleSubmit, control, setValue } = form;
+  const { handleSubmit, control, setValue, formState } = form;
 
   const onSubmit = async (data: CreateRecipeSchema) => {
     try {
@@ -92,7 +92,7 @@ export function NewRecipeRoute() {
         }); // Menghilangkan toast setelah submit berhasil
 
         const getUsername = user?.username;
-        navigate(`/dashboard/${getUsername}`);
+        navigate(`/${getUsername}/dashboard`);
       } else {
         const errorData = await response.json();
         console.error("Lengkapi form:", errorData);
@@ -166,6 +166,7 @@ export function NewRecipeRoute() {
               <InstructionsField control={control} setValue={setValue} />
 
               <Button
+                disabled={formState.isSubmitting}
                 type="submit"
                 className="w-full py-3 bg-blue-600 text-white hover:bg-blue-700 rounded-3xl font-clashDisplayMedium bg-gradient-to-b from-white to-[#1C2625] from-[-150%]"
               >

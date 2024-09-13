@@ -6,10 +6,14 @@ import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { useAuth } from "@/context/auth-provider";
-import { capitalText, upperText } from "@/libs/format-text";
+import { capitalText, firstCapital, upperText } from "@/libs/format-text";
+import { resizeUploadcareImage } from "@/libs/text-manipulation";
 import { Recipe } from "@/types/recipe";
 import { User } from "@/types/user";
-import { Pencil } from "lucide-react";
+import {
+  ArrowLeft,
+  // Pencil
+} from "lucide-react";
 import { useState } from "react";
 import { Link, Navigate, redirect, useLoaderData } from "react-router-dom";
 
@@ -106,11 +110,11 @@ export function DashboardRoute() {
           {edit ? (
             <UpdateUserForm onUpdateSuccess={handleUpdateSuccess} />
           ) : (
-            <div className=" w-full p-4">
+            <div className="w-full space-y-2">
               <p className="font-raleway font-semibold text-xl">
                 {upperText(user?.fullname!)}
               </p>
-              <p>{capitalText(user?.description!)}</p>
+              <p>{firstCapital(user?.description!)}</p>
             </div>
           )}
 
@@ -145,67 +149,85 @@ export function DashboardRoute() {
 
         <section className="text-center">
           {recipes.length === 0 ? (
-            <p className="text-black">Belum punya resep</p>
+            <div className="flex items-center justify-start flex-col gap-y-4 h-dvh text-white pt-10">
+              <p className="text-base md:text-xl text-center font-clashDisplaySemibold text-gray-400">
+                Belum punya resep
+              </p>
+              <Link
+                to="/recipes/new"
+                className="text-red-300 p-4 rounded-xl font-clashDisplayMedium flex gap-x-2 items-center group text-base md:text-xl -ml-8"
+              >
+                <ArrowLeft className="w-6 h-6 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all ease-out duration-300" />
+                Buat resep
+              </Link>
+            </div>
           ) : (
-            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+            <ul className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
               {recipes.map((recipe: Recipe) => (
-                <li key={recipe.id} className="group relative">
-                  <Link
-                    to={`/recipes/${recipe.slug}`}
-                    className="bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98] h-full"
-                  >
-                    <div className="flex flex-col gap-4 w-full">
-                      <img
-                        src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
-                        className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
-                        alt={recipe.name}
-                      />
-
-                      <div className="flex flex-col items-center text-center text-lg px-4 w-full">
-                        <h2 className="font-clashDisplaySemibold">
+                <li
+                  key={recipe.id}
+                  className="group relative shadow-md rounded-lg"
+                >
+                  <div className="justify-between h-full bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98]">
+                    <Link to={`/recipes/${recipe.slug}`}>
+                      <div className="flex justify-center items-center m-5">
+                        <img
+                          src={
+                            resizeUploadcareImage(recipe.imageURL) ||
+                            "/images/masakmudah-logo-2.png"
+                          }
+                          className="w-32 h-32 xs:w-60 xs:h-60 md:w-70 md:h-70 sm:w-52 sm:h-52 object-center object-cover rounded-lg"
+                          alt={recipe.name}
+                        />
+                      </div>
+                      <div className="flex flex-col items-center text-center text-base sm:text-lg px-6 w-full">
+                        <h2 className="font-clashDisplaySemibold line-clamp-2 break-word w-full">
                           {upperText(recipe.name)}
                         </h2>
-                        <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all max-w-full px-4">
+                        <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all w-full px-2 lg:px-6">
                           {capitalText(recipe.description)}
                         </h3>
-                        <h4 className="text-[#FF5D47] font-clashDisplayMedium mt-2">
+                        <h4 className="text-[#FF5D47] font-clashDisplayMedium ">
                           {recipe.cookingTime}
                         </h4>
                       </div>
-                      <div className="flex justify-center items-center text-center gap-3 pb-4 bottom-0">
-                        <img
-                          src={
-                            recipe.user.imageURL ||
-                            "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
-                          }
-                          alt={recipe.user.username + "'s image"}
-                          className="w-6 h-6 rounded-full"
-                        />
-                        <h2 className="font-clashDisplayRegular">
-                          {upperText(
-                            recipe.user.fullname || recipe.user.username
-                          )}
-                        </h2>
-                      </div>
-                    </div>
-                  </Link>
-                  <Button
-                    asChild
-                    className="p-2 text-black hover:text-[#e85541] absolute top-5 left-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-gray-200"
-                  >
-                    <Link to={`/recipes/edit/${recipe.slug}`}>
-                      {/* Icon */}
-                      <Pencil
-                        className="transition-colors duration-400"
-                        strokeWidth={3}
-                        absoluteStrokeWidth
-                      />
                     </Link>
-                  </Button>
-                  <DeleteRecipeButton
-                    recipeId={recipe.id}
-                    onDelete={handleDeleteRecipe}
-                  />
+                    <Link
+                      to={`/recipes/${recipe.slug}`}
+                      className="flex justify-center items-center text-center gap-2 p-2"
+                    >
+                      <img
+                        src={
+                          recipe.user.imageURL ||
+                          "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
+                        }
+                        alt={recipe.user.username + "'s image"}
+                        className="w-6 h-6 rounded-full"
+                      />
+                      <p className="font-clashDisplayRegular p-1">
+                        {upperText(
+                          recipe.user.fullname || recipe.user.username
+                        )}
+                      </p>
+                    </Link>
+                    {/* <Button
+                      asChild
+                      className="p-2 text-black hover:text-[#e85541] absolute top-5 left-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-gray-200"
+                    >
+                      <Link to={`/recipes/edit/${recipe.slug}`}> */}
+                    {/* Icon */}
+                    {/* <Pencil
+                          className="transition-colors duration-400"
+                          strokeWidth={3}
+                          absoluteStrokeWidth
+                        />
+                      </Link>
+                    </Button> */}
+                    <DeleteRecipeButton
+                      recipeId={recipe.id}
+                      onDelete={handleDeleteRecipe}
+                    />
+                  </div>
                 </li>
               ))}
             </ul>
