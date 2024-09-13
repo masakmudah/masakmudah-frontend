@@ -34,7 +34,7 @@ export function RegisterRoute() {
           </div>
           <RegisterForm />
           <p className="font-raleway text-xs text-slate-500 ">
-            Sudah memiliki akun?{" "}
+            Sudah memiliki akun?
             <span className="underline">
               <Link to="/login">Login disini</Link>
             </span>

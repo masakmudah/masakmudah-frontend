@@ -32,42 +32,44 @@ export function RecipesRoute() {
           {q === null ? (
             "Semua resep"
           ) : (
-            <h1>
+            <p>
               Hasil pencarian untuk:
               <span className="capitalize text-[#FF5D47]"> {q}</span>
-            </h1>
+            </p>
           )}
         </h1>
         <Separator />
         {recipes && recipes.length > 0 ? (
-          <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+          <ul className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {recipes.map((recipe: Recipe) => (
-              <li key={recipe.id} className="relative">
-                <div className="gap-4 h-full bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98] ">
+              <li key={recipe.id}>
+                <div className="justify-between h-full bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98]">
                   <Link to={`/recipes/${recipe.slug}`}>
-                    <img
-                      src={
-                        resizeUploadcareImage(recipe.imageURL) ||
-                        "/images/masakmudah-logo-2.png"
-                      }
-                      className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
-                      alt={recipe.name}
-                    />
-                    <div className="flex flex-col items-center text-center text-lg px-4 w-full">
-                      <h2 className="font-clashDisplaySemibold mt-2">
+                    <div className="flex justify-center items-center m-5">
+                      <img
+                        src={
+                          resizeUploadcareImage(recipe.imageURL) ||
+                          "/images/masakmudah-logo-2.png"
+                        }
+                        className="w-60 h-60 md:w-70 md:h-70 sm:w-52 sm:h-52 object-center object-cover rounded-lg"
+                        alt={recipe.name}
+                      />
+                    </div>
+                    <div className="flex flex-col items-center text-center text-base sm:text-lg px-6 w-full">
+                      <h2 className="font-clashDisplaySemibold line-clamp-2 break-word w-full">
                         {upperText(recipe.name)}
                       </h2>
-                      <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all max-w-full px-4">
+                      <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all w-full px-2 lg:px-6">
                         {capitalText(recipe.description)}
                       </h3>
-                      <h4 className="text-[#FF5D47] font-clashDisplayMedium mt-2">
+                      <h4 className="text-[#FF5D47] font-clashDisplayMedium ">
                         {recipe.cookingTime}
                       </h4>
                     </div>
                   </Link>
                   <Link
-                    to={`/${recipe.user.username}`}
-                    className="flex justify-center items-center text-center gap-2 pb-4  hover:font-bold"
+                    to={`/${recipe.user.username}/recipes`}
+                    className="flex justify-center items-center text-center gap-2 p-2 hover:font-bold"
                   >
                     <img
                       src={
@@ -77,7 +79,7 @@ export function RecipesRoute() {
                       alt={recipe.user.username + "'s image"}
                       className="w-6 h-6 rounded-full"
                     />
-                    <p className="font-clashDisplayRegular bg-gray-200 p-1">
+                    <p className="font-clashDisplayRegular bg-gray-200 p-1 rounded-lg">
                       {upperText(recipe.user.fullname || recipe.user.username)}
                     </p>
                   </Link>

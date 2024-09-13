@@ -33,7 +33,7 @@ export async function loader(slug: string) {
     return { recipe, categories };
   } catch (error) {
     console.error("Data tidak dapat diakses:", error);
-    throw redirect("/dashboard");
+    throw redirect("/");
   }
 }
 
@@ -85,7 +85,7 @@ export function EditRecipeRoute() {
       });
 
       if (response.ok) {
-        navigate("/dashboard");
+        navigate(`/${userId.username}/dashboard`);
       } else {
         const errorData = await response.json();
         console.error("Lengkapi form:", errorData);

@@ -13,7 +13,7 @@ import { toast } from "../ui/use-toast";
 import { useAuth } from "@/context/auth-provider";
 import { updateUserSchema, UpdateUserSchema } from "@/schemas/edit-profile";
 import { updateUser } from "@/api/update-user";
-import { Textarea } from "../ui/textarea";
+// import { Textarea } from "../ui/textarea";
 
 interface UpdateUserProps {
   onUpdateSuccess: () => void;
@@ -54,12 +54,12 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
   };
 
   // Remove space
-  function handleTrimSpace(field: any) {
-    return (f: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const inputValue = f.target.value.replace(/\s+/g, " ");
-      field.onChange(inputValue);
-    };
-  }
+  // function handleTrimSpace(field: any) {
+  //   return (f: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //     const inputValue = f.target.value.replace(/\s+/g, " ");
+  //     field.onChange(inputValue);
+  //   };
+  // }
 
   // Replace multiple space and capitalize
   function handleReplaceSpace(field: any) {
@@ -77,7 +77,7 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
     <Form {...form}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full  flex flex-col md:flex-row justify-between items-center mt-4 p-2"
+        className="w-full flex flex-col md:flex-row justify-between items-center mt-4 p-2"
       >
         <div className="space-y-2 w-full">
           {/* Fullname */}
@@ -100,7 +100,7 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
             )}
           />
           {/* Bio */}
-          <FormField
+          {/* <FormField
             control={control}
             name="description"
             render={({ field }) => (
@@ -117,7 +117,7 @@ const UpdateUserForm = ({ onUpdateSuccess }: UpdateUserProps) => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           <div className="">
             <Button

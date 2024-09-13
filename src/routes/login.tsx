@@ -35,7 +35,7 @@ export function LoginRoute() {
           </div>
           <LoginForm />
           <p className="font-raleway text-xs text-slate-500 ">
-            Belum punya akun?{" "}
+            Belum punya akun?
             <span className="underline">
               <Link to="/register">Daftar disini</Link>
             </span>

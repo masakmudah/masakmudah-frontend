@@ -199,7 +199,7 @@ export function RecipesDetails() {
             </section>
             <p className="font-raleway">{capitalText(recipe.description)}</p>
             <section className="space-y-2">
-              <Link to={`/${recipe.user.username}`}>
+              <Link to={`/${recipe.user.username}/recipes`}>
                 <h3 className="font-clashDisplayMedium">Author</h3>
                 <div className="flex gap-x-4 items-center">
                   <img
