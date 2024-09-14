@@ -38,40 +38,28 @@ export const BasicInfoField = ({
         return;
       }
 
-      const multipleSpace = space.replace(/\s{2,}/g, " ");
+      const multipleSpace = space.replace(/\s+/g, " ");
 
-      field.onChange(space, multipleSpace);
+      field.onChange(multipleSpace);
+    };
+
+  const trimZero =
+    (field: any) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const text = e.target.value;
+      if (text.startsWith(" " || "0")) {
+        return;
+      }
+      const removeZero = text.replace(/^[ 0]+/, "");
+      const multipleSpace = removeZero.replace(/\s+/g, "");
+
+      field.onChange(multipleSpace);
     };
 
   return (
     <>
       <div className="space-y-6 ">
-        {/* <FormField
-          control={control}
-          name="imageURL"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel
-                htmlFor="imageURL"
-                className="text-lg font-clashDisplayMedium"
-              >
-                ImageURL
-              </FormLabel>
-              <FormControl>
-                <Input
-                  id="imageURL"
-                  placeholder="ImageURL"
-                  type="text"
-                  className="w-full border rounded-md p-2"
-                  {...field}
-                  onChange={trimSpace(field)}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
+        {/* RECIPE NAME */}
         <FormField
           control={control}
           name="name"
@@ -88,7 +76,7 @@ export const BasicInfoField = ({
                   id="name"
                   placeholder="Nama Resep"
                   type="text"
-                  className="w-full border p-2 pl-4 capitalize autocomplete border-[#B9BCBB] bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl font-raleway font-medium"
+                  className="w-full border p-2 pl-4 capitalize border-[#B9BCBB] bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl font-raleway font-medium"
                   {...field}
                   onChange={trimSpace(field)}
                   autoComplete="name"
@@ -99,6 +87,7 @@ export const BasicInfoField = ({
           )}
         />
 
+        {/* DESCRIPTION */}
         <FormField
           control={control}
           name="description"
@@ -106,7 +95,7 @@ export const BasicInfoField = ({
             <FormItem>
               <FormLabel
                 htmlFor="description"
-                className="  text-lg font-clashDisplayMedium"
+                className="text-lg font-clashDisplayMedium"
               >
                 Deskripsi
               </FormLabel>
@@ -116,6 +105,7 @@ export const BasicInfoField = ({
                   placeholder="Cerita di balik masakan ini. Apa atau siapa yang menginspirasimu? Apa yang membuatnya istimewa? Bagaimana caramu menikmatinya? Gunakan @ untuk menandai pengguna lain."
                   className="w-full resize-none border p-2 pt-3 border-[#B9BCBB] bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl font-raleway pl-4 font-medium"
                   {...field}
+                  onChange={trimSpace(field)}
                 />
               </FormControl>
               <FormMessage />
@@ -123,6 +113,7 @@ export const BasicInfoField = ({
           )}
         />
 
+        {/* COOKINGTIME */}
         <FormField
           control={control}
           name="cookingTime"
@@ -142,19 +133,23 @@ export const BasicInfoField = ({
                     type="text"
                     className="w-full border  p-2 border-[#B9BCBB] bg-[#F7F7F7] focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl font-raleway pl-4 font-medium"
                     {...field}
+                    onChange={trimZero(field)}
                   />
                 </FormControl>
-                <FormMessage />
-                <Select defaultValue={timeUnit} onValueChange={setTimeUnit}>
-                  <SelectTrigger className=" border-[#B9BCBB] bg-[#F7F7F7] max-w-[180px] rounded-xl focus:ring-0 focus:ring-offset-0 font-raleway pl-4 font-medium">
+                <Select
+                  name="cookingTime"
+                  defaultValue={timeUnit}
+                  onValueChange={setTimeUnit}
+                >
+                  <SelectTrigger className=" border-[#B9BCBB] bg-[#F7F7F7] max-w-[150px] rounded-xl focus:ring-0 focus:ring-offset-0 font-raleway pl-4 font-medium">
                     <SelectValue placeholder="Pilih waktu" />
                   </SelectTrigger>
                   <SelectContent className="border-[#B9BCBB] bg-[#F7F7F7] rounded-xl font-raleway">
-                    <SelectItem value="detik">Detik</SelectItem>
                     <SelectItem value="menit">Menit</SelectItem>
                     <SelectItem value="jam">Jam</SelectItem>
                   </SelectContent>
                 </Select>
+                <FormMessage />
               </div>
             </FormItem>
           )}

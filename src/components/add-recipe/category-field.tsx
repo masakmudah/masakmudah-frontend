@@ -2,7 +2,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
@@ -29,10 +28,7 @@ export function CategoryField({ control, categories }: CategoriesFieldProps) {
         name="categoryId"
         render={({ field }) => (
           <FormItem className="flex-1">
-            <FormLabel className="font-clashDisplayMedium text-lg">
-              Kategori
-            </FormLabel>
-
+            <h1 className="font-clashDisplayMedium text-lg">Kategori</h1>
             <FormControl>
               <Select
                 name="categoryId"
