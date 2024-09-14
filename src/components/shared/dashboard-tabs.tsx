@@ -49,8 +49,13 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
       if (!user?.username) {
         throw new Error("Username doesn't exist");
       }
-      const { data } = await getSavedRecipeByUsername(user.username, token!);
-      setSavedRecipes(data);
+
+      try {
+        const { data } = await getSavedRecipeByUsername(user.username, token!);
+        setSavedRecipes(data);
+      } catch (error) {
+        console.error("Data tidak tersedia:", error);
+      }
     };
 
     fetchMySavedRecipe();
