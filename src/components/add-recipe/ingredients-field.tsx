@@ -66,6 +66,19 @@ export const IngredientsField = ({
     }
   }, [ingredientFields, appendIngredient, setValue]);
 
+  const trimSpace =
+    (field: any) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const space = e.target.value;
+      if (space.startsWith(" ")) {
+        return;
+      }
+
+      const multipleSpace = space.replace(/\s+/g, " ");
+
+      field.onChange(multipleSpace);
+    };
+
   return (
     <FormItem>
       <div className="flex justify-between items-center">
@@ -105,6 +118,8 @@ export const IngredientsField = ({
                   hoverIndex === index ? "text-blue-600" : "text-gray-600"
                 }`}
               />
+
+              {/* SEQUENCE */}
               <FormField
                 control={control}
                 name={`ingredientItems.${index}.sequence`}
@@ -128,6 +143,8 @@ export const IngredientsField = ({
                   </FormItem>
                 )}
               />
+
+              {/* INGREDIENT NAME */}
               <FormField
                 control={control}
                 name={`ingredientItems.${index}.ingredient.name`}
@@ -140,12 +157,15 @@ export const IngredientsField = ({
                         type="text"
                         className="w-full border rounded-md p-2 capitalize"
                         {...field}
+                        onChange={trimSpace(field)}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
+              {/* QUANTITY */}
               <FormField
                 control={control}
                 name={`ingredientItems.${index}.quantity`}
@@ -165,6 +185,8 @@ export const IngredientsField = ({
                   </FormItem>
                 )}
               />
+
+              {/* MEASUREMENT */}
               <FormField
                 control={control}
                 name={`ingredientItems.${index}.measurement`}
@@ -177,6 +199,7 @@ export const IngredientsField = ({
                         type="text"
                         className="w-full border rounded-md p-2"
                         {...field}
+                        onChange={trimSpace(field)}
                       />
                     </FormControl>
                     <FormMessage />

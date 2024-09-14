@@ -1,13 +1,16 @@
 import { getRecipe } from "@/api/recipe";
+import { FacebookIcon, XIcon } from "@/components/share-button/button-share";
+
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
-import { socialMediaIcons } from "@/constant/navigation-menu";
 import { useAuth } from "@/context/auth-provider";
 import { capitalText, upperText } from "@/libs/format-text";
+import { resizeUploadcareImage } from "@/libs/text-manipulation";
 import { Recipe } from "@/types/recipe";
 import { SavedRecipe } from "@/types/saved-recipe";
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
 
 export async function loader(slug: string) {
   try {
@@ -121,12 +124,18 @@ export function RecipesDetails() {
     fetchBookmark();
   }, [recipe.id, token, user]);
 
+  const shareUrl = window.location.href;
+  const title = `${recipe.name}`;
+
   return (
     <div className="bg-[#FDFFF7]">
       <Container className="flex w-full gap-x-12">
         <main className="space-y-8 min-w-96">
           <img
-            src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
+            src={
+              resizeUploadcareImage(recipe.imageURL) ||
+              "/images/masakmudah-logo-2.png"
+            }
             alt={recipe.name + "'s image"}
             className="w-96"
           />
@@ -183,7 +192,7 @@ export function RecipesDetails() {
             <section className="space-y-4">
               <h3>Bagikan resep :</h3>
               <nav className="flex items-center gap-x-4">
-                {socialMediaIcons.map((item) => (
+                {/* {socialMediaIcons.map((item) => (
                   <Link
                     key={item.href}
                     to={item.href}
@@ -194,7 +203,13 @@ export function RecipesDetails() {
                   >
                     <img src={item.icon} alt={`Share on ${item.href}`} />
                   </Link>
-                ))}
+                ))} */}
+                <FacebookShareButton url={shareUrl}>
+                  <FacebookIcon size={32} round />
+                </FacebookShareButton>
+                <TwitterShareButton url={shareUrl} title={title}>
+                  <XIcon size={32} round />
+                </TwitterShareButton>
               </nav>
             </section>
             <p className="font-raleway">{capitalText(recipe.description)}</p>
@@ -215,7 +230,7 @@ export function RecipesDetails() {
                       {upperText(recipe.user.fullname || recipe.user.username)}
                     </h4>
                     <p className="text-slate-400 font-raleway line-clamp-1">
-                      {capitalText(recipe.user.description!)}
+                      {capitalText(recipe.user.description)}
                     </p>
                   </div>
                 </div>

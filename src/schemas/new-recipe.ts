@@ -1,25 +1,13 @@
 import { z } from "zod";
 export const createRecipeSchema = z.object({
   // Done
-  // imageURL: z
-  //   .string()
-  //   .trim()
-  //   .min(10, { message: "Minimal 10 karakter" })
-  //   .url({
-  //     message: "Gunakan format URL. Contoh: https://www.masakmudah.com",
-  //   })
-  //   .startsWith("http", {
-  //     message: "Gunakan format URL. Contoh: https://www.masakmudah.com",
-  //   }),
-
-  // Done
   name: z
     .string()
     .trim()
     .min(4, { message: "Minimal 4 karakter." })
     .max(100, { message: "Maximal 100 karakter." })
-    .regex(/^[a-zA-Z0-9 ]+$/, {
-      message: "Hanya boleh huruf (a-z) atau angka (0-9) atau spasi.",
+    .regex(/^[a-zA-Z ]+$/, {
+      message: "Hanya boleh huruf (a-z) dan spasi.",
     }),
 
   // Done
@@ -28,13 +16,22 @@ export const createRecipeSchema = z.object({
     .trim()
     .min(10, { message: "Minimal 10 karakter." })
     .max(1500, { message: "Maximal 1500 karakter." })
+    .regex(/^[a-zA-Z0-9]/, {
+      message: "Harus diawali dengan huruf (a-z) dan angka (0-9).",
+    })
     .regex(/^[a-zA-Z0-9-,.\s]+$/, {
       message:
-        "Hanya boleh huruf (a-z) atau angka (0-9) atau beberapa spesial karakter (koma, titik, strip, enter).",
+        "Hanya boleh huruf (a-z), angka (0-9) dan beberapa spesial karakter (-,.).",
     }),
 
   // Done
-  cookingTime: z.string().trim(),
+  cookingTime: z
+    .string()
+    .trim()
+    .min(1, { message: "Wajib diisi" })
+    .regex(/^[0-9]+$/, {
+      message: "Hanya boleh angka (0-9)",
+    }),
 
   // Done
   categoryId: z.string().trim().min(1, { message: "Kategori harus dipilih" }),
@@ -47,7 +44,16 @@ export const createRecipeSchema = z.object({
         quantity: z
           .number()
           .gt(0, { message: "Wajib diisi > 0" })
-          .lt(9999, { message: "Maksimal 4 digit." }),
+          .lt(9999, { message: "Maksimal 4 digit." })
+          .refine(
+            (value) => {
+              const decimalPart = value.toString().split(".")[1];
+              return !decimalPart || decimalPart.length <= 1;
+            },
+            {
+              message: "Maksimal 1 digit di belakang koma.",
+            }
+          ),
         measurement: z
           .string()
           .trim()
@@ -55,10 +61,17 @@ export const createRecipeSchema = z.object({
           .min(1, { message: "Minimal 1 karakter." })
           .max(30, { message: "Maximal 30 karakter." })
           .regex(/^[a-zA-Z -]+$/, {
-            message: "Hanya boleh huruf (a-z)",
+            message: "Hanya boleh huruf (a-z), spasi dan strip (-)",
           }),
         ingredient: z.object({
-          name: z.string().trim().min(1, { message: "Minimal 1 karakter." }),
+          name: z
+            .string()
+            .trim()
+            .min(1, { message: "Minimal 1 karakter." })
+            .max(30, { message: "Maximal 30 karakter." })
+            .regex(/^[a-zA-Z -]+$/, {
+              message: "Hanya boleh huruf (a-z), spasi dan strip (-)",
+            }),
         }),
       })
     )
@@ -73,11 +86,11 @@ export const createRecipeSchema = z.object({
           .string()
           .trim()
           .min(5, { message: "Minimal 5 karakter." })
-          .max(1500, { message: "Maximal 1500 karakter." }),
-        // .regex(/^[a-zA-Z0-9-,.\s]+$/, {
-        //   message:
-        //     "Hanya boleh huruf (a-z) angka (0-9) beberapa spesial karakter (-,.)",
-        // }),
+          .max(1500, { message: "Maximal 1500 karakter." })
+          .regex(/^[a-zA-Z0-9-,.\s]+$/, {
+            message:
+              "Hanya boleh huruf (a-z), angka (0-9) dan beberapa spesial karakter (-,.).",
+          }),
       })
     )
     .nonempty({ message: "Instruksi wajib diisi." }),

@@ -61,6 +61,19 @@ export const InstructionsField = ({
     }
   }, [instructionFields, appendInstruction, setValue]);
 
+  const trimSpace =
+    (field: any) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const space = e.target.value;
+      if (space.startsWith(" ")) {
+        return;
+      }
+
+      const multipleSpace = space.replace(/\s+/g, " ");
+
+      field.onChange(multipleSpace);
+    };
+
   return (
     <FormItem>
       <div className="flex justify-between items-center">
@@ -98,6 +111,8 @@ export const InstructionsField = ({
                 hoverIndex === index ? "text-blue-600" : "text-gray-600"
               }`}
             />
+
+            {/* SEQUENCE */}
             <FormField
               control={control}
               name={`instructions.${index}.step`}
@@ -119,6 +134,8 @@ export const InstructionsField = ({
                 );
               }}
             />
+
+            {/* DESCRIPTION */}
             <FormField
               control={control}
               name={`instructions.${index}.description`}
@@ -131,6 +148,7 @@ export const InstructionsField = ({
                       className="w-full resize-none border rounded-md px-4 text-sm font-raleway"
                       rows={2}
                       {...field}
+                      onChange={trimSpace(field)}
                     />
                   </FormControl>
                   <FormMessage />
