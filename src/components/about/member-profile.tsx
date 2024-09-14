@@ -41,7 +41,7 @@ export function MemberProfile() {
           </div>
         ))}
       </div>
-      <div className="flex justify-center items-center w-[80%] justify-items-center">
+      <div className="flex justify-center items-center">
         {memberProfile2.map((profile) => (
           <div
             key={profile.name}
