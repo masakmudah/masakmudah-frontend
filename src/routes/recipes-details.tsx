@@ -204,7 +204,7 @@ export function RecipesDetails() {
                     <img src={item.icon} alt={`Share on ${item.href}`} />
                   </Link>
                 ))} */}
-                <FacebookShareButton url={shareUrl}>
+                <FacebookShareButton url={shareUrl} title={shareUrl}>
                   <FacebookIcon size={32} round />
                 </FacebookShareButton>
                 <TwitterShareButton url={shareUrl} title={title}>
