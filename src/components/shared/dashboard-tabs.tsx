@@ -1,15 +1,16 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { capitalText, upperText } from "@/libs/format-text";
 import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
+// import { Button } from "../ui/button";
 import { DeleteRecipeButton } from "./delete-recipe";
-import { Pencil } from "lucide-react";
+// import { Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getSavedRecipeByUsername } from "@/api/recipe";
 import { useAuth } from "@/context/auth-provider";
 import { SavedRecipe } from "@/types/saved-recipe";
 import { Recipe } from "@/types/recipe";
 import { getUserRecipes } from "@/api/get-user";
+import { resizeUploadcareImage } from "@/libs/text-manipulation";
 
 interface DashboardTabsProps {
   myRecipes: Recipe[];
@@ -92,7 +93,10 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
                   >
                     <div className="flex flex-col gap-4 w-full">
                       <img
-                        src={recipe.imageURL || "/images/masakmudah-logo-2.png"}
+                        src={
+                          resizeUploadcareImage(recipe.imageURL) ||
+                          "/images/masakmudah-logo-2.png"
+                        }
                         className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
                         alt={recipe.name}
                       />
@@ -123,19 +127,19 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
                       </div>
                     </div>
                   </Link>
-                  <Button
+                  {/* <Button
                     asChild
                     className="p-2 text-black hover:text-[#e85541] absolute top-5 left-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-gray-200"
                   >
                     <Link to={`/recipes/edit/${recipe.slug}`}>
-                      {/* Icon */}
+
                       <Pencil
                         className="transition-colors duration-400"
                         strokeWidth={3}
                         absoluteStrokeWidth
                       />
                     </Link>
-                  </Button>
+                  </Button> */}
                   <DeleteRecipeButton
                     recipeId={recipe.id}
                     onDelete={handleDeleteRecipe}
@@ -162,7 +166,7 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
                     <div className="flex flex-col gap-4 w-full">
                       <img
                         src={
-                          recipe.recipes.imageURL ||
+                          resizeUploadcareImage(recipe.recipes.imageURL) ||
                           "/images/masakmudah-logo-2.png"
                         }
                         className="w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 px-5 pt-5 object-cover"
@@ -195,13 +199,13 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
                       </div>
                     </div>
                   </Link>
-                  <Button
+                  {/* <Button
                     asChild
                     className="p-2 text-black hover:text-[#e85541] absolute top-5 left-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-gray-200"
                   >
-                    <Link to={`/recipes/edit/${recipe.recipes.slug}`}>
-                      {/* Icon */}
-                      <Pencil
+                    <Link to={`/recipes/edit/${recipe.recipes.slug}`}> */}
+
+                  {/* <Pencil
                         className="transition-colors duration-400"
                         strokeWidth={3}
                         absoluteStrokeWidth
@@ -211,7 +215,7 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
                   <DeleteRecipeButton
                     recipeId={recipe.id}
                     onDelete={handleDeleteRecipe}
-                  />
+                  /> */}
                 </li>
               ))}
             </ul>
