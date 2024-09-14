@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export type SavedRecipe = {
   id: string;
   recipeId: string;
@@ -7,5 +9,6 @@ export type SavedRecipe = {
     slug: string;
     imageURL: string;
     cookingTime: string;
+    user: User;
   };
 };

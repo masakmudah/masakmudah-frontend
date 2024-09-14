@@ -50,7 +50,6 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
         throw new Error("Username doesn't exist");
       }
       const { data } = await getSavedRecipeByUsername(user.username, token!);
-
       setSavedRecipes(data);
     };
 
@@ -187,14 +186,15 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
                       <div className="flex justify-center items-center text-center gap-3 pb-4 bottom-0">
                         <img
                           src={
-                            user?.imageURL ||
+                            recipe.recipes.user.imageURL ||
                             "https://api.dicebear.com/9.x/thumbs/svg?seed=Sheba"
                           }
                           alt={"'s image"}
                           className="w-6 h-6 rounded-full"
                         />
                         <h2 className="font-clashDisplayRegular">
-                          {upperText(user?.fullname)}
+                          {upperText(recipe.recipes.user.fullname) ||
+                            recipe.recipes.user.username}
                         </h2>
                       </div>
                     </div>
