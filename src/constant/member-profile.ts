@@ -17,10 +17,19 @@ export const memberProfile = [
     github: "https://github.com/sidiqcahyono83",
     linkedIn: "https://www.linkedin.com/in/sidiq-cahyono-3950742b6",
   },
+];
+
+export const memberProfile2 = [
   {
     name: "M Nur Sahid",
     imageURL: "/images/member/sahid.jpg",
     github: "https://github.com/shiwilsahid",
     linkedIn: "https://www.linkedin.com/in/shiwilsahid",
+  },
+  {
+    name: "M Haidar Hanif",
+    imageURL: "/images/member/haidar.png",
+    github: "https://github.com/mhaidarhanif",
+    linkedIn: "https://www.linkedin.com/in/mhaidarhanif",
   },
 ];
