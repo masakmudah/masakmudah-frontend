@@ -59,7 +59,7 @@ export function RecipesRoute() {
                       <h2 className="font-clashDisplaySemibold line-clamp-2 break-word w-full">
                         {upperText(recipe.name)}
                       </h2>
-                      <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all w-full px-2 lg:px-6">
+                      <h3 className="font-clashDisplayRegular text-justify line-clamp-2 break-all w-full px-2 lg:px-6">
                         {capitalText(recipe.description)}
                       </h3>
                       <h4 className="text-[#FF5D47] font-clashDisplayMedium ">

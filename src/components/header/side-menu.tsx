@@ -17,15 +17,22 @@ export function SideMenu() {
       open={openDropdown}
       onOpenChange={() => setOpenDropdown(!openDropdown)}
     >
-      <DropdownMenuTrigger onClick={() => setOpenDropdown(true)}>
+      <DropdownMenuTrigger
+        onClick={() => setOpenDropdown(true)}
+        className="flex justify-center items-center mr-4"
+      >
         <AlignJustify className="cursor-pointer" /> {/* Icon */}
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="rounded-2xl font-raleway text-lg font-medium min-w-40 pb-4 border-2 border-black/80 "
+        className="rounded-2xl font-raleway text-lg font-medium min-w-32 border-2 border-black/80 mt-4 ml-8"
         align="end"
       >
         <DropdownMenuItem>
-          <Link to="/" className=" flex gap-2">
+          <Link
+            to="/"
+            className=" flex gap-2"
+            onClick={() => setOpenDropdown(false)}
+          >
             <img
               src="/images/masakmudah-logo-2.png"
               alt="Logo Masakmudah.com"

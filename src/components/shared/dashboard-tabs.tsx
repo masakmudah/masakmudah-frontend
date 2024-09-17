@@ -88,14 +88,14 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
               Maaf kamu belum pernah membuat resep
             </div>
           ) : (
-            <ul className="grid mt-20 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+            <ul className="grid mt-20 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
               {ownRecipes.map((recipe) => (
                 <li key={recipe.id} className="group relative">
                   <Link
                     to={`/recipes/${recipe.slug}`}
                     className="bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98] h-full"
                   >
-                    <div className="flex flex-col gap-4 w-full">
+                    <div className="flex flex-col gap-4 w-full justify-center items-center">
                       <img
                         src={
                           resizeUploadcareImage(recipe.imageURL) ||
@@ -131,19 +131,7 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
                       </div>
                     </div>
                   </Link>
-                  {/* <Button
-                    asChild
-                    className="p-2 text-black hover:text-[#e85541] absolute top-5 left-5 backdrop-filter backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-gray-200"
-                  >
-                    <Link to={`/recipes/edit/${recipe.slug}`}>
 
-                      <Pencil
-                        className="transition-colors duration-400"
-                        strokeWidth={3}
-                        absoluteStrokeWidth
-                      />
-                    </Link>
-                  </Button> */}
                   <DeleteRecipeButton
                     recipeId={recipe.id}
                     onDelete={handleDeleteRecipe}
@@ -160,14 +148,14 @@ export function DashboardTabs({ myRecipes }: DashboardTabsProps) {
               Maaf resep tersimpan tidak ada
             </div>
           ) : (
-            <ul className="grid mt-20 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+            <ul className="grid mt-20 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
               {savedRecipes.map((recipe) => (
                 <li key={recipe.recipes.slug} className="group relative">
                   <Link
                     to={`/recipes/${recipe.recipes.slug}`}
                     className="bg-[#F7FEE7] rounded-3xl flex flex-col hover:scale-[.994] transition-transform duration-300 active:scale-[.98] h-full"
                   >
-                    <div className="flex flex-col gap-4 w-full">
+                    <div className="flex flex-col gap-4 w-full justify-center items-center">
                       <img
                         src={
                           resizeUploadcareImage(recipe.recipes.imageURL) ||

@@ -109,7 +109,7 @@ export function DashboardRoute() {
               <p className="font-raleway font-semibold text-xl">
                 {upperText(user?.fullname)}
               </p>
-              <p>{capitalText(user?.description)}</p>
+              <p className="text-justify">{capitalText(user?.description)}</p>
             </div>
           )}
 

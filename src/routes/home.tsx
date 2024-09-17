@@ -58,18 +58,18 @@ export function HomeRoute() {
         <Container className="grid grid-cols-1 xs:grid-cols-2">
           <div className="space-y-10 xs:space-y-16">
             <div className="font-clashDisplaySemibold space-y-2 xs:space-y-0">
-              <h1 className="text-5xl">Buat masakan enak dengan</h1>
+              <h1 className="text-4xl xs:text-5xl">Buat masakan enak dengan</h1>
               <div className="relative max-w-fit">
                 <div className="bg-[#C1F17A] absolute top-0 h-10 w-full z-0 rounded-3xl" />
-                <h1 className="z-10 relative inset-y-0 text-3xl xs:text-5xl pr-4">
+                <h1 className="z-10 relative inset-y-0 text-xl xs:text-5xl pr-4">
                   #masakmudah
                 </h1>
               </div>
             </div>
 
-            <div className="flex gap-x-4 font-raleway">
+            <div className="flex flex-col xs:flex-row gap-2 font-raleway px-10">
               <Link
-                className="px-8 py-3 bg-[#FF5D47] text-white rounded-3xl flex gap-x-2 items-center group"
+                className="px-8 py-3 bg-[#FF5D47] text-white rounded-3xl flex gap-x-2 items-center group "
                 to="/recipes"
               >
                 Cari resep
@@ -102,7 +102,7 @@ export function HomeRoute() {
         </Container>
       </section>
       <section className="bg-[#1C2625]">
-        <Container className="space-y-20">
+        <Container className="space-y-10">
           <h1 className="text-[#E6FDB0] text-5xl text-center font-clashDisplaySemibold">
             Resep populer
           </h1>
@@ -133,12 +133,12 @@ export function HomeRoute() {
               },
             }}
           >
-            <div className="h-full w-10 bg-black"></div>
+            {/* <div className="h-full w-10 bg-black"></div> */}
             {categoryRecipes.map((recipe) => (
-              <SwiperSlide key={recipe.id}>
+              <SwiperSlide key={recipe.id} className="">
                 <Link
                   to={`/recipes/${recipe.slug}`}
-                  className="bg-[#F7FEE7] rounded-3xl flex min-h-[31.25rem] flex-col justify-between gap-y-8 items-center py-8 hover:scale-[.994] relative transition-transform duration-300 active:scale-[.98] xs:mx-0 mx-8"
+                  className="bg-[#F7FEE7] rounded-3xl flex flex-col justify-between items-center hover:scale-[.994] relative transition-transform duration-300 active:scale-[.98] h-96 pt-4 xs:pt-2 sm:pt-8 md:pt-2 xl:pt-8 pb-4 mb-4"
                 >
                   {/* <img
                     src="/images/icon/bookmark.svg"
@@ -146,30 +146,32 @@ export function HomeRoute() {
                     className="absolute top-[55%] right-8 w-6 h-6"
                   /> */}
 
-                  <div className="flex flex-col items-center gap-y-8 w-full">
-                    <img
-                      src={
-                        resizeUploadcareImage(recipe?.imageURL) ||
-                        "/images/masakmudah-logo-2.png"
-                      }
-                      className="w-56 h-56 object-cover rounded-xl"
-                      alt={recipe.name}
-                    />
-                    <div className="flex flex-col items-center px-8 gap-y-4 w-full">
-                      <div className="flex gap-x-2">
-                        <h2 className="text-center text-2xl font-clashDisplaySemibold">
-                          {upperText(recipe.name)}
-                        </h2>
-                      </div>
+                  <div className="flex flex-col items-center justify-center gap-2">
+                    <div className="flex justify-center items-center">
+                      <img
+                        src={
+                          resizeUploadcareImage(recipe?.imageURL) ||
+                          "/images/masakmudah-logo-2.png"
+                        }
+                        className="w-52 h-52 xs:max-sm:w-40 xs:max-sm:h-40 object-cover rounded-xl"
+                        alt={recipe.name}
+                      />
+                    </div>
+                    <div className="flex flex-col items-center justify-center px-8 gap-2">
+                      <h2 className="text-center text-2xl font-clashDisplaySemibold">
+                        {upperText(recipe.name)}
+                      </h2>
 
-                      <p className="text-left line-clamp-2 break-all max-w-full px-4">
+                      <p className="text-justify line-clamp-2 break-all">
                         {capitalText(recipe.description)}
                       </p>
                     </div>
                   </div>
-                  <h1 className="text-2xl text-[#FF5D47] font-clashDisplayMedium">
-                    {recipe.cookingTime}
-                  </h1>
+                  <div>
+                    <h1 className="text-2xl text-[#FF5D47] font-clashDisplayMedium">
+                      {recipe.cookingTime}
+                    </h1>
+                  </div>
                 </Link>
               </SwiperSlide>
             ))}

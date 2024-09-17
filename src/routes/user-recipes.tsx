@@ -74,7 +74,7 @@ export function UserRecipesRoute() {
             <p className="font-raleway font-semibold text-xl">
               {upperText(user?.fullname)}
             </p>
-            <p className="">{capitalText(user?.description)}</p>
+            <p className="text-justify">{capitalText(user?.description)}</p>
           </div>
         </section>
 
@@ -100,7 +100,7 @@ export function UserRecipesRoute() {
                         <h2 className="font-clashDisplaySemibold line-clamp-2 break-word w-full">
                           {upperText(recipe.name)}
                         </h2>
-                        <h3 className="font-clashDisplayRegular text-left line-clamp-2 break-all w-full px-2 lg:px-6">
+                        <h3 className="font-clashDisplayRegular text-justify line-clamp-2 break-all w-full px-2 lg:px-6">
                           {capitalText(recipe.description)}
                         </h3>
                         <h4 className="text-[#FF5D47] font-clashDisplayMedium ">
