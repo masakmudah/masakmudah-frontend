@@ -9,6 +9,7 @@ export type SavedRecipe = {
     slug: string;
     imageURL: string;
     cookingTime: string;
+    description: string;
     user: User;
   };
 };

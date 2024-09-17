@@ -32,7 +32,6 @@ export async function loader(username: string) {
 export function DashboardRoute() {
   const { token, user, setUser } = useAuth();
   const { recipes: initialRecipes } = useLoaderData() as DashboardProps;
-  // const [recipes, setRecipes] = useState<Recipe[]>(initialRecipes);
   const [edit, setEdit] = useState(false);
 
   const handleUpdateSuccess = async () => {
@@ -53,37 +52,13 @@ export function DashboardRoute() {
     setEdit(false);
   };
 
-  // const handleDeleteRecipe = async (id: string) => {
-  //   try {
-  //     const response = await fetch(
-  //       `${import.meta.env.VITE_API_URL}/recipes/${id}`,
-  //       {
-  //         method: "DELETE",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     if (!response.ok) throw new Error("Respon gagal");
-
-  //     const recipesResponse = await getUserRecipes(user!.username);
-  //     const recipes = recipesResponse.data;
-  //     setRecipes(recipes);
-  //   } catch (error) {
-  //     console.error("Gagal refresh data:", error);
-  //   }
-  // };
-
   if (!token) {
     return <Navigate to="/login" />;
   }
 
   return (
     <div className="bg-[#F7FEE7] font-clashDisplayRegular min-h-dvh">
-      {/* <div className="flex flex-col w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg gap-5 bg-red-500">
-       */}
-      <Container className="space-y-14 ">
+      <Container className="space-y-10">
         <section className="flex flex-col md:flex-row justify-center items-center px-4 py-1 text-black font-raleway gap-6 w-full">
           {/* IMAGE */}
           <div className=" text-center flex flex-col justify-center items-center gap-2 ">
@@ -131,12 +106,16 @@ export function DashboardRoute() {
               </Button>
             )}
 
-            <Button
-              asChild
-              className="rounded-3xl font-clashDisplayMedium bg-[#FE5D47] hover:bg-[#ee5743]"
-            >
-              <Link to="/recipes/new">Buat resep</Link>
-            </Button>
+            {initialRecipes.length === 0 ? (
+              ""
+            ) : (
+              <Button
+                asChild
+                className="rounded-3xl font-clashDisplayMedium bg-[#FE5D47] hover:bg-[#ee5743]"
+              >
+                <Link to="/recipes/new">Buat resep</Link>
+              </Button>
+            )}
           </div>
         </section>
 

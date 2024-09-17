@@ -48,10 +48,10 @@ export const createRecipeSchema = z.object({
           .refine(
             (value) => {
               const decimalPart = value.toString().split(".")[1];
-              return !decimalPart || decimalPart.length <= 1;
+              return !decimalPart || decimalPart.length <= 4;
             },
             {
-              message: "Maksimal 1 digit di belakang koma.",
+              message: "Maksimal 4 digit di belakang koma.",
             }
           ),
         measurement: z

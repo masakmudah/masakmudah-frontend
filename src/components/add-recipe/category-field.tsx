@@ -18,9 +18,16 @@ import { Control } from "react-hook-form";
 interface CategoriesFieldProps {
   control: Control<CreateRecipeSchema>;
   categories: Category[];
+  categoryId?: string;
+  categoryName?: string;
 }
 
-export function CategoryField({ control, categories }: CategoriesFieldProps) {
+export function CategoryField({
+  control,
+  categories,
+  categoryId,
+  categoryName,
+}: CategoriesFieldProps) {
   return (
     <FormItem>
       <FormField
@@ -32,11 +39,12 @@ export function CategoryField({ control, categories }: CategoriesFieldProps) {
             <FormControl>
               <Select
                 name="categoryId"
-                value={field.value} // Handle single selection or use the first item of the array
+                value={field.value}
+                defaultValue={categoryId || ""}
                 onValueChange={(value) => field.onChange(value)}
               >
                 <SelectTrigger className="border-[#B9BCBB] bg-[#F7F7F7] rounded-xl focus:ring-0 focus:ring-offset-0 font-raleway pl-4 font-medium">
-                  <SelectValue placeholder="Pilih kategori" />
+                  <SelectValue placeholder={categoryName || "Pilih Kategori"} />
                 </SelectTrigger>
                 <SelectContent className="border-[#B9BCBB] bg-[#F7F7F7] rounded-xl font-raleway">
                   {categories.map((category) => (

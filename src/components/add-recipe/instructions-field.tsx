@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { GripVertical, Plus, Trash2 } from "lucide-react";
 import { CreateRecipeSchema } from "@/schemas/new-recipe";
-import { SequenceInput } from "./sequence-input";
+import { Input } from "../ui/input";
 
 interface InstructionsFieldProps {
   control: Control<CreateRecipeSchema>;
@@ -116,23 +116,21 @@ export const InstructionsField = ({
             <FormField
               control={control}
               name={`instructions.${index}.step`}
-              render={({ field }) => {
-                return (
-                  <FormItem className="flex items-center gap-3">
-                    <FormControl>
-                      <SequenceInput
-                        id={`instructions.${index}.step`}
-                        type="number"
-                        readOnly
-                        value={index + 1}
-                        onChange={(e) => field.onChange(Number(e.target.value))}
-                        className="w-10 h-10 p-0 text-center font-clashDisplaySemibold text-base"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      id={`instructions.${index}.step`}
+                      type="text"
+                      readOnly
+                      value={index + 1}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                      className="w-10 h-10 text-center font-clashDisplaySemibold text-base rounded-lg focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 "
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
             {/* DESCRIPTION */}

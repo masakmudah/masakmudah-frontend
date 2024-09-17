@@ -135,7 +135,6 @@ export function NewRecipeRoute() {
 
   const handleFileChange = (selectedFile: File | null) => {
     setUploadedFile(selectedFile);
-    console.log(uploadedFile); // prevent vercel error
   };
 
   if (!token) {
@@ -151,7 +150,9 @@ export function NewRecipeRoute() {
           </h1>
           <Separator className="border-black border" />
 
-          <ImageUploadButton onFileChange={handleFileChange} />
+          <div className="flex justify-center items-center">
+            <ImageUploadButton onFileChange={handleFileChange} />
+          </div>
 
           <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">

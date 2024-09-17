@@ -11,6 +11,7 @@ export type Recipe = {
   slug: string;
   createdAt: string;
   updatedAt: string;
+  categoryId: string;
   ingredientItems: IngredientItem[];
   instructions: Instruction[];
   user: User;

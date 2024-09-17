@@ -23,12 +23,14 @@ interface BasicInfoFieldProps {
   control: Control<CreateRecipeSchema>;
   timeUnit: string;
   setTimeUnit: (timeUnit: string) => void;
+  time?: string;
 }
 
 export const BasicInfoField = ({
   control,
   timeUnit,
   setTimeUnit,
+  time,
 }: BasicInfoFieldProps) => {
   const trimSpace =
     (field: any) =>
@@ -138,11 +140,11 @@ export const BasicInfoField = ({
                 </FormControl>
                 <Select
                   name="cookingTime"
-                  defaultValue={timeUnit}
+                  defaultValue={time || timeUnit}
                   onValueChange={setTimeUnit}
                 >
                   <SelectTrigger className=" border-[#B9BCBB] bg-[#F7F7F7] max-w-[150px] rounded-xl focus:ring-0 focus:ring-offset-0 font-raleway pl-4 font-medium">
-                    <SelectValue placeholder="Pilih waktu" />
+                    <SelectValue placeholder={time || timeUnit} />
                   </SelectTrigger>
                   <SelectContent className="border-[#B9BCBB] bg-[#F7F7F7] rounded-xl font-raleway">
                     <SelectItem value="menit">Menit</SelectItem>
