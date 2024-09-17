@@ -40,7 +40,7 @@ export const CategoryBar: React.FC<ICategoryBar> = ({ tabs, onTabChange }) => {
   return (
     <div
       className={
-        "w-fit relative dark:border-neutral-800 border-neutral-300 rounded-full flex gap-5 items-center justify-center p-2 backdrop-blur-2xl text-white text-sm"
+        "w-fit relative dark:border-neutral-800 border-neutral-300 rounded-full flex xs:gap-5 items-center justify-center p-2 backdrop-blur-2xl text-white text-sm"
       }
     >
       {tabs.map((link, i) => (
@@ -60,7 +60,7 @@ export const CategoryBar: React.FC<ICategoryBar> = ({ tabs, onTabChange }) => {
             onTabChange(link);
           }}
           className={twMerge(
-            "transition-colors duration-200 flex items-center justify-center rounded-full h-fit px-4 py-2 text-nowrap",
+            "transition-colors duration-200 flex items-center justify-center rounded-full h-fit px-2 xs:px-4 py-2 text-nowrap",
             currentLink.index === i && "dark:text-neutral-900 text-[#1C2625]",
             fired.current
               ? ""

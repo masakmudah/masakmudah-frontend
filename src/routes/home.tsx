@@ -55,13 +55,13 @@ export function HomeRoute() {
   return (
     <div className="font-clashDisplayRegular bg-">
       <section id="hero-section" className="bg-[#E6FDB0]">
-        <Container className="grid grid-cols-2">
-          <div className="space-y-16 ">
-            <div className="font-clashDisplaySemibold">
+        <Container className="grid grid-cols-1 xs:grid-cols-2">
+          <div className="space-y-10 xs:space-y-16">
+            <div className="font-clashDisplaySemibold space-y-2 xs:space-y-0">
               <h1 className="text-5xl">Buat masakan enak dengan</h1>
               <div className="relative max-w-fit">
-                <div className="bg-[#C1F17A] absolute top-3 h-10 w-full z-0 rounded-3xl" />
-                <h1 className="z-10 relative inset-y-0 text-5xl pr-4">
+                <div className="bg-[#C1F17A] absolute top-0 h-10 w-full z-0 rounded-3xl" />
+                <h1 className="z-10 relative inset-y-0 text-3xl xs:text-5xl pr-4">
                   #masakmudah
                 </h1>
               </div>
@@ -94,7 +94,7 @@ export function HomeRoute() {
               Mari kita masak bersama dan ciptakan momen-momen spesial di dapur!
             </p>
           </div>
-          <div className="relative">
+          <div className="relative max-xs:hidden">
             <img src="/images/chicken-roasted.png" />
             <FloatingCard className="top-0" />
             <FloatingCard className="bottom-0 right-0" />
@@ -116,19 +116,29 @@ export function HomeRoute() {
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={24}
-            slidesPerView={4}
             navigation
             pagination={{
               clickable: true,
             }}
             scrollbar={{ draggable: true }}
+            breakpoints={{
+              425: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+            }}
           >
-            <div className="h-full w-40 bg-black"></div>
+            <div className="h-full w-10 bg-black"></div>
             {categoryRecipes.map((recipe) => (
               <SwiperSlide key={recipe.id}>
                 <Link
                   to={`/recipes/${recipe.slug}`}
-                  className="bg-[#F7FEE7] rounded-3xl flex min-h-[31.25rem] flex-col justify-between gap-y-8 items-center py-8 hover:scale-[.994] relative transition-transform duration-300 active:scale-[.98]"
+                  className="bg-[#F7FEE7] rounded-3xl flex min-h-[31.25rem] flex-col justify-between gap-y-8 items-center py-8 hover:scale-[.994] relative transition-transform duration-300 active:scale-[.98] xs:mx-0 mx-8"
                 >
                   {/* <img
                     src="/images/icon/bookmark.svg"
@@ -171,15 +181,15 @@ export function HomeRoute() {
           <h1 className="text-4xl font-clashDisplaySemibold text-center">
             Apa yang banyak disukai
           </h1>
-          <div className="grid grid-cols-3 gap-x-5">
+          <div className="grid grid-cols-1 xs:grid-cols-3 gap-5">
             <div className="bg-[#FF5D47] flex flex-col items-center gap-y-6 rounded-[2.5rem] px-8 pt-8 pb-20 text-white">
               <img
                 src="/images/chicken-roasted.png"
                 alt="card-image"
                 className="object-cover"
               />
-              <h1 className="text-2xl">Ayam Bakar Paprika</h1>
-              <p className="text-center font-raleway">
+              <h1 className="text-2xl text-center ">Ayam Bakar Paprika</h1>
+              <p className="text-justify font-raleway">
                 Ayam bakar yang juicy dengan bumbu paprika yang pedas dan
                 aromatik.
               </p>
@@ -190,10 +200,10 @@ export function HomeRoute() {
                 Lihat caranya
               </Link>
             </div>
-            <div className="flex flex-col justify-center px-4 py-6 bg-[url('/images/kitchen.jpg')] rounded-[2.5rem] bg-center bg-cover h-full items-center text-white relative overflow-hidden ">
-              <div className="absolute h-full w-full bg-black/70 z-10" />
+            <div className="flex flex-col justify-center xs:px-4 px-8 py-6 bg-[url('/images/kitchen.jpg')] rounded-[2.5rem] bg-center bg-cover xs:h-full h-[600px] items-center text-white relative overflow-hidden xs:space-y-0 space-y-10">
+              <div className="absolute h-full w-full bg-black/70 z-10 space-y-2" />
               <h1 className="text-3xl z-20">5000+ resep</h1>
-              <p className="z-20 text-center font-raleway">
+              <p className="z-20 text-justify font-raleway">
                 Temukan berbagai resep lezat yang mudah diikuti, mulai dari
                 masakan sehari-hari hingga hidangan istimewa untuk acara
                 spesial. Dapatkan inspirasi untuk memasak dan nikmati pengalaman
